@@ -11,12 +11,12 @@ from vision_toolkit.aoi.markov_based.transition_matrix import transition_matrix
 from vision_toolkit.scanpath.scanpath_base import Scanpath
 from vision_toolkit.segmentation.processing.binary_segmentation import BinarySegmentation
 from vision_toolkit.utils.identification_utils import compute_aoi_sequence
-from vision_toolkit.visualization.aoi.markov_based.hmm import display_aoi_hmm
 from vision_toolkit.visualization.aoi.transition_based.directed_graph import display_transition_matrix
-
+from vision_toolkit.visualization.aoi.basic_representation import (
+    display_aoi_identification, display_aoi_identification_reference_image)
 
 class MarkovBasedAnalysis:
-    def __init__(self, input, **kwargs):
+    def __init__(self, input, gaze_df=None, **kwargs):
         """
 
 
@@ -39,11 +39,11 @@ class MarkovBasedAnalysis:
             print("Processing Markov Based Analysis...\n")
 
         if isinstance(input, str):
-            self.aoi_sequence = AoISequence.generate(input, **kwargs)
+            self.aoi_sequence = AoISequence.generate(input, gaze_df=gaze_df, **kwargs)
             
 
         elif isinstance(input, BinarySegmentation):
-            self.aoi_sequence = AoISequence.generate(input, **kwargs)
+            self.aoi_sequence = AoISequence.generate(input, gaze_df=gaze_df, **kwargs)
 
         elif isinstance(input, AoISequence):
             self.aoi_sequence = input
@@ -108,7 +108,7 @@ class MarkovBasedAnalysis:
 
         return results
 
-    def AoI_HMM(self, HMM_nb_iters, HMM_AoI_instance, HMM_model, get_results):
+    def AoI_HMM(self, HMM_nb_iters, HMM_AoI_instance, HMM_model, get_results, ref_image=None):
         """
 
 
@@ -128,7 +128,7 @@ class MarkovBasedAnalysis:
 
         """
         print("Processing HMM AoI sequence identification...\n")
-
+     
         centers_ = self.aoi_sequence.centers
         means_ = np.array([centers_[k_] for k_ in centers_.keys()])
         hmm = AoIHMM(
@@ -163,14 +163,13 @@ class MarkovBasedAnalysis:
         )
 
         if self.aoi_sequence.config["display_results"]:
-            display_aoi_hmm(
-                self.aoi_sequence.values[:2],
-                clus_,
-                infered_centers,
-                infered_covars,
-                self.aoi_sequence.config,
-            )
-
+            if ref_image is None:
+                display_aoi_identification(self.aoi_sequence.values[:2], clus_, 
+                                           self.aoi_sequence.config)
+            else:
+                display_aoi_identification_reference_image(self.aoi_sequence.values[:2], clus_, 
+                                                           self.aoi_sequence.config, ref_image)
+            
         self.aoi_sequence.sequence = seq_
         self.aoi_sequence.centers = centers_
         self.aoi_sequence.durations = seq_dur
@@ -178,10 +177,7 @@ class MarkovBasedAnalysis:
 
         self.aoi_sequence.config["AoI_identification_method"] = "I_HMM"
         self.transition_matrix = transition_mat
-
-        if self.aoi_sequence.config["display_results"]:
-            display_transition_matrix(transition_mat)
-
+ 
         for it_ in [
             "AoI_IKM_cluster_number",
             "AoI_IKM_min_clusters",

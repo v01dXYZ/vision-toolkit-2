@@ -154,8 +154,6 @@ src/vision_toolkit/visualization/__init__.py
 src/vision_toolkit/visualization/segmentation.py
 src/vision_toolkit/visualization/aoi/__init__.py
 src/vision_toolkit/visualization/aoi/basic_representation.py
-src/vision_toolkit/visualization/aoi/markov_based/__init__.py
-src/vision_toolkit/visualization/aoi/markov_based/hmm.py
 src/vision_toolkit/visualization/aoi/spatio_temporal_based/__init__.py
 src/vision_toolkit/visualization/aoi/spatio_temporal_based/dwell_time.py
 src/vision_toolkit/visualization/aoi/spatio_temporal_based/sankey_diagram.py

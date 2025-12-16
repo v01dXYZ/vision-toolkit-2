@@ -82,7 +82,7 @@ class AoISequence(Scanpath):
 
             ## If HMM AoI identification, call MarkovBasedAnalysis
             if aoi_method == "I_HMM":
-                self.generate_from_hmm(input, kwargs)
+                self.generate_from_hmm(input, gaze_df, ref_image, kwargs)
 
             ## Else, use dedicated identification algorithms
             else:
@@ -266,7 +266,7 @@ class AoISequence(Scanpath):
         self.config = config
         self.fixation_analysis = input.get("fixation_analysis", None)
 
-    def generate_from_hmm(self, input, kwargs):
+    def generate_from_hmm(self, input, gaze_df, ref_image, kwargs):
         from vision_toolkit.aoi.markov_based.markov_based import MarkovBasedAnalysis
 
         display_identification = kwargs.get("display_AoI_identification", True)
@@ -279,13 +279,13 @@ class AoISequence(Scanpath):
                 }
             )
         kwargs.update({"display_results": display_identification})
-        markov_analysis = MarkovBasedAnalysis(input, **kwargs)
+        markov_analysis = MarkovBasedAnalysis(input, gaze_df, **kwargs)
         HMM_nb_iters = kwargs.get("AoI_HMM_number_iterations", 10)
         HMM_AoI_instance = kwargs.get("AoI_HMM_return_AoISequence_instance", True)
         HMM_AoI_model = kwargs.get("AoI_HMM_return_model_instance", True)
 
         results = markov_analysis.AoI_HMM(
-            HMM_nb_iters, HMM_AoI_instance, HMM_AoI_model, get_results=True
+            HMM_nb_iters, HMM_AoI_instance, HMM_AoI_model, True, ref_image
         )
 
         self.__dict__ = results["AoI_HMM_AoISequence_instance"].__dict__.copy()

@@ -37,6 +37,7 @@ def process_IKM(values, config, ref_image=None):
         ## Search for best number of centers according to the silhouette score
         k_min = config["AoI_IKM_min_clusters"]
         k_max = config["AoI_IKM_max_clusters"]
+        k_max = min(k_max, len(pos_[0])-2)
 
         models = dict({})
         sc_ = []

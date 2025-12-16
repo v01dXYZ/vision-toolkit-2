@@ -41,6 +41,11 @@ class Scanpath:
                 c_ = self.fixation_analysis.fixation_centroids()["centroids"].T
                 d_ = self.fixation_analysis.fixation_durations(get_raw=True)["raw"]
             else:
+                assert len(gaze_df) == self.config['nb_samples'], (
+                            f"Invalid number of gaze samples: "
+                            f"{len(gaze_df)} ≠ {self.config['nb_samples']}"
+                        )
+
                 d_, c_x, c_y = [], [], []
                 self.config.update(
                     {
