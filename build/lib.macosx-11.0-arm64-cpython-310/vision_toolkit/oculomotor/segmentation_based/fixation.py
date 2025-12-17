@@ -104,7 +104,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return result
 
-    def fixation_durations(self, get_raw):
+    def fixation_durations(self, get_raw=True):
         """
 
 
@@ -180,7 +180,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return results
 
-    def fixation_average_velocity_means(self, weighted, get_raw):
+    def fixation_average_velocity_means(self, weighted=False, get_raw=True):
         """
 
 
@@ -219,7 +219,7 @@ class FixationAnalysis(BinarySegmentation):
 
             return results
 
-    def fixation_average_velocity_deviations(self, get_raw):
+    def fixation_average_velocity_deviations(self, get_raw=True):
         """
 
 
@@ -247,7 +247,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return results
 
-    def fixation_drift_displacements(self, get_raw):
+    def fixation_drift_displacements(self, get_raw=True):
         """
 
 
@@ -293,7 +293,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return results
 
-    def fixation_drift_distances(self, get_raw):
+    def fixation_drift_distances(self, get_raw=True):
         """
 
 
@@ -354,7 +354,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return results
 
-    def fixation_drift_velocities(self, get_raw):
+    def fixation_drift_velocities(self, get_raw=True):
         """
 
 
@@ -388,7 +388,7 @@ class FixationAnalysis(BinarySegmentation):
 
         return results
 
-    def fixation_BCEA(self, BCEA_probability, get_raw):
+    def fixation_BCEA(self, BCEA_probability=0.68, get_raw=True):
         """
 
 

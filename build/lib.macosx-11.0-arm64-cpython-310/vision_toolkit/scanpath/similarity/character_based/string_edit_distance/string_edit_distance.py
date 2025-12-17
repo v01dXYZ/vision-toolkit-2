@@ -167,11 +167,11 @@ class ScanpathStringEditDistance:
 
     def scanpath_levenshtein_distance(
         self,
-        levenshtein_deletion_cost,
-        levenshtein_insertion_cost,
-        levenshtein_substitution_cost,
-        levenshtein_normalization,
-        display_results,
+        levenshtein_deletion_cost=1.0,
+        levenshtein_insertion_cost=1.0,
+        levenshtein_substitution_cost=1.0,
+        levenshtein_normalization='max',
+        display_results=True,
     ):
         self.config.update({"display_results": display_results})
         config = copy.deepcopy(self.config)
@@ -201,10 +201,10 @@ class ScanpathStringEditDistance:
 
     def scanpath_generalized_edit_distance(
         self,
-        generalized_edit_deletion_cost,
-        generalized_edit_insertion_cost,
-        generalized_edit_normalization,
-        display_results,
+        generalized_edit_deletion_cost=0.2,
+        generalized_edit_insertion_cost=0.2,
+        generalized_edit_normalization='max',
+        display_results=True,
     ):
         self.config.update({"display_results": display_results})
         config = copy.deepcopy(self.config)
@@ -232,10 +232,10 @@ class ScanpathStringEditDistance:
 
     def scanpath_needleman_wunsch_distance(
         self,
-        needleman_wunsch_concordance_bonus,
-        needleman_wunsch_gap_cost,
-        needleman_wunsch_normalization,
-        display_results,
+        needleman_wunsch_concordance_bonus=0.1,
+        needleman_wunsch_gap_cost=0.25,
+        needleman_wunsch_normalization='max',
+        display_results=True,
     ):
         self.config.update({"display_results": display_results})
         config = copy.deepcopy(self.config)

@@ -157,7 +157,7 @@ class AoISequence(Scanpath):
                     self.config.update(
                         {
                             "AoI_IMS_bandwidth": kwargs.get(
-                                "AoI_IMS_bandwidth", 0.05 * vf_diag
+                                "AoI_IMS_bandwidth", 0.1 * vf_diag
                             ),
                         }
                     )
@@ -267,6 +267,7 @@ class AoISequence(Scanpath):
         self.fixation_analysis = input.get("fixation_analysis", None)
 
     def generate_from_hmm(self, input, gaze_df, ref_image, kwargs):
+        
         from vision_toolkit.aoi.markov_based.markov_based import MarkovBasedAnalysis
 
         display_identification = kwargs.get("display_AoI_identification", True)
@@ -276,16 +277,18 @@ class AoISequence(Scanpath):
                 {
                     "AoI_identification_method": "I_KM",
                     "display_AoI_identification": False,
+                    'AoI_IKM_min_clusters': 2
                 }
             )
-        kwargs.update({"display_results": display_identification})
+        
         markov_analysis = MarkovBasedAnalysis(input, gaze_df, **kwargs)
         HMM_nb_iters = kwargs.get("AoI_HMM_number_iterations", 10)
         HMM_AoI_instance = kwargs.get("AoI_HMM_return_AoISequence_instance", True)
         HMM_AoI_model = kwargs.get("AoI_HMM_return_model_instance", True)
-
+       
         results = markov_analysis.AoI_HMM(
-            HMM_nb_iters, HMM_AoI_instance, HMM_AoI_model, True, ref_image
+            HMM_nb_iters, HMM_AoI_instance, HMM_AoI_model, True, 
+            ref_image= ref_image, display_identification=display_identification
         )
 
         self.__dict__ = results["AoI_HMM_AoISequence_instance"].__dict__.copy()

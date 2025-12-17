@@ -133,7 +133,7 @@ class CRQAAnalysis(RecurrenceBase):
         return results 
     
  
-    def scanpath_CRQA_laminarity(self, display_results, display_path,
+    def scanpath_CRQA_laminarity(self, display_results=True, display_path=None,
                                  direction='vertical'):
         
         assert direction in ['horizontal', 'vertical'], "Laminarity direction must be 'horizontal' or 'vertical'"
@@ -168,7 +168,7 @@ class CRQAAnalysis(RecurrenceBase):
         return results
     
     
-    def scanpath_CRQA_determinism(self, display_results, display_path):
+    def scanpath_CRQA_determinism(self, display_results=True, display_path=None):
          
         self.scanpath_1.config.update({"display_results": display_results})
         self.scanpath_1.config.update({"display_path": display_path})

@@ -127,7 +127,7 @@ class ElasticDistance:
 
         return d_m
 
-    def DTW_distance(self, display_results):
+    def DTW_distance(self, display_results=True):
         """
 
 
@@ -153,7 +153,7 @@ class ElasticDistance:
 
         return results
 
-    def frechet_distance(self, display_results):
+    def frechet_distance(self, display_results=True):
         """
 
 

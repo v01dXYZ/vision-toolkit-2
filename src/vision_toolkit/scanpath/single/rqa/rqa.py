@@ -170,7 +170,7 @@ class RQAAnalysis(RecurrenceBase):
 
         return results
 
-    def scanpath_RQA_laminarity(self, display_results, display_path):
+    def scanpath_RQA_laminarity(self, display_results=True, display_path=None):
         """
 
 
@@ -209,7 +209,7 @@ class RQAAnalysis(RecurrenceBase):
 
         return results
 
-    def scanpath_RQA_determinism(self, display_results, display_path):
+    def scanpath_RQA_determinism(self, display_results=True, display_path=None):
         """
 
 

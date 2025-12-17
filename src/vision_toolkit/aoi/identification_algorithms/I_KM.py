@@ -30,19 +30,19 @@ def process_IKM(values, config, ref_image=None):
     ## Get inputs and parameters
     pos_ = values[0:2]
     dur_ = values[2]
-
+ 
     n_st = config["AoI_IKM_cluster_number"]
 
     if n_st == "search":
         ## Search for best number of centers according to the silhouette score
         k_min = config["AoI_IKM_min_clusters"]
         k_max = config["AoI_IKM_max_clusters"]
-        k_max = min(k_max, len(pos_[0])-2)
+        k_max = min(k_max, len(pos_[0]))
 
         models = dict({})
         sc_ = []
 
-        for n_ in range(k_min, k_max + 1):
+        for n_ in range(k_min, k_max):
             kmeans = KMeans(n_clusters=n_, random_state=0, n_init="auto").fit(pos_.T)
             models[n_] = kmeans
             sc_.append(silhouette_score(pos_.T, kmeans.labels_))
@@ -50,9 +50,7 @@ def process_IKM(values, config, ref_image=None):
         ## Keep model with max slhouette score
         n_st = np.argmax(sc_) + k_min
         kmeans = models[n_st]
-
-        print("{n_st} centers found\n".format(n_st=n_st))
-
+ 
     else:
         ## Compute k-means with predefined number of centers
         kmeans = KMeans(n_clusters=n_st, random_state=0, n_init="auto").fit(pos_.T)

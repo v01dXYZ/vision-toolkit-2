@@ -61,7 +61,7 @@ class MarkovBasedAnalysis:
         if verbose:
             print("...Markov Based Analysis done\n")
 
-    def AoI_transition_matrix(self):
+    def AoI_transition_matrix(self, display_results=True):
         """
 
 
@@ -73,7 +73,7 @@ class MarkovBasedAnalysis:
         """
         if self.transition_matrix is not None:
             results = dict({"AoI_transition_matrix": self.transition_matrix})
-            if self.aoi_sequence.config["display_results"]:
+            if display_results:
                 display_transition_matrix(self.transition_matrix)
             return results
 
@@ -82,11 +82,11 @@ class MarkovBasedAnalysis:
                 self.aoi_sequence.sequence, self.aoi_sequence.nb_aoi
             )
             results = dict({"AoI_transition_matrix": self.transition_matrix})
-            if self.aoi_sequence.config["display_results"]:
+            if display_results:
                 display_transition_matrix(self.transition_matrix)
             return results
 
-    def AoI_transition_entropy(self):
+    def AoI_transition_entropy(self, display_results=True):
         """
 
 
@@ -97,10 +97,10 @@ class MarkovBasedAnalysis:
 
         """
         if self.transition_matrix is None:
-            t_m = self.AoI_transition_matrix()["AoI_transition_matrix"]
+            t_m = self.AoI_transition_matrix(display_results=display_results)["AoI_transition_matrix"]
         else:
             t_m = self.transition_matrix
-            if self.aoi_sequence.config["display_results"]:
+            if display_results:
                 display_transition_matrix(t_m)
 
         e_a = TransitionEntropyAnalysis(t_m)
@@ -108,7 +108,8 @@ class MarkovBasedAnalysis:
 
         return results
 
-    def AoI_HMM(self, HMM_nb_iters, HMM_AoI_instance, HMM_model, get_results, ref_image=None):
+    def AoI_HMM(self, HMM_nb_iters, HMM_AoI_instance, HMM_model, get_results, 
+                ref_image=None, display_identification=True):
         """
 
 
@@ -127,8 +128,7 @@ class MarkovBasedAnalysis:
             DESCRIPTION.
 
         """
-        print("Processing HMM AoI sequence identification...\n")
-     
+         
         centers_ = self.aoi_sequence.centers
         means_ = np.array([centers_[k_] for k_ in centers_.keys()])
         hmm = AoIHMM(
@@ -162,7 +162,7 @@ class MarkovBasedAnalysis:
             aoi_seq, self.aoi_sequence.values[2], self.aoi_sequence.config
         )
 
-        if self.aoi_sequence.config["display_results"]:
+        if display_identification:
             if ref_image is None:
                 display_aoi_identification(self.aoi_sequence.values[:2], clus_, 
                                            self.aoi_sequence.config)
@@ -187,9 +187,7 @@ class MarkovBasedAnalysis:
                 del self.aoi_sequence.config[it_]
 
         self.aoi_sequence.verbose()
-
-        print("...HMM AoI sequence identification done\n")
-
+ 
         if get_results:
             results = dict(
                 {
@@ -212,12 +210,15 @@ class MarkovBasedAnalysis:
 
 
 def AoI_transition_matrix(input, **kwargs):
+    
+    display_results = kwargs.get("display_results", True)
+    
     if isinstance(input, MarkovBasedAnalysis):
-        results = input.AoI_transition_matrix()
+        results = input.AoI_transition_matrix(display_results=display_results)
 
     else:
         markov_analysis = MarkovBasedAnalysis(input, **kwargs)
-        results = markov_analysis.AoI_transition_matrix()
+        results = markov_analysis.AoI_transition_matrix(display_results=display_results)
 
     return results
 
@@ -227,12 +228,15 @@ def AoI_successor_representation(input, **kwargs):
 
 
 def AoI_transition_entropy(input, **kwargs):
+    
+    display_results = kwargs.get("display_results", True)
+    
     if isinstance(input, MarkovBasedAnalysis):
-        results = input.AoI_transition_entropy()
+        results = input.AoI_transition_entropy(display_results=display_results)
 
     else:
         markov_analysis = MarkovBasedAnalysis(input, **kwargs)
-        results = markov_analysis.AoI_transition_entropy()
+        results = markov_analysis.AoI_transition_entropy(display_results=display_results)
 
     return results
 

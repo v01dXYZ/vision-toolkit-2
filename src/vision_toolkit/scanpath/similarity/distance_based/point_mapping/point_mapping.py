@@ -132,7 +132,7 @@ class PointMappingDistance:
 
         return d_m
 
-    def eye_analysis_distance(self, display_results):
+    def eye_analysis_distance(self, display_results=True):
         """
 
 
@@ -158,7 +158,7 @@ class PointMappingDistance:
 
         return results
 
-    def mannan_distance(self, mannan_nb_random_scanpaths, display_results):
+    def mannan_distance(self, mannan_nb_random_scanpaths=1000, display_results=True):
         """
 
 
@@ -193,7 +193,8 @@ class PointMappingDistance:
         return results
 
     def TDE_distance(
-        self, TDED_method, TDED_subsequence_length, TDED_scaling, display_results
+        self, TDED_method='mean_minimal', TDED_subsequence_length=5, 
+        TDED_scaling=True, display_results=True
     ):
         """
 

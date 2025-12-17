@@ -67,7 +67,7 @@ class GeometricalAnalysis:
 
         return results
 
-    def scanpath_BCEA(self, BCEA_probability, display_results, display_path):
+    def scanpath_BCEA(self, BCEA_probability, display_results=True, display_path=None):
         """
 
 
@@ -95,7 +95,7 @@ class GeometricalAnalysis:
 
         return results
 
-    def scanpath_k_coefficient(self, display_results, display_path):
+    def scanpath_k_coefficient(self, display_results=True, display_path=None):
         """
 
 
@@ -118,7 +118,7 @@ class GeometricalAnalysis:
 
         return results
 
-    def scanpath_voronoi_cells(self, display_results, display_path, get_raw):
+    def scanpath_voronoi_cells(self, display_results=True, display_path=None, get_raw=True):
         """
 
 
@@ -151,7 +151,7 @@ class GeometricalAnalysis:
 
         return results
 
-    def scanpath_convex_hull(self, display_results, display_path, get_raw):
+    def scanpath_convex_hull(self, display_results=True, display_path=None, get_raw=True):
         """
 
 
@@ -185,7 +185,8 @@ class GeometricalAnalysis:
         return results
 
     def scanpath_HFD(
-        self, HFD_hilbert_iterations, HFD_k_max, display_results, display_path, get_raw
+        self, HFD_hilbert_iterations, HFD_k_max, display_results=True, display_path=None, 
+        get_raw=True
     ):
         """
 

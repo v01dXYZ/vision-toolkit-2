@@ -103,7 +103,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return result
 
-    def saccade_durations(self, get_raw):
+    def saccade_durations(self, get_raw=True):
         """
 
 
@@ -137,7 +137,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_amplitudes(self, get_raw):
+    def saccade_amplitudes(self, get_raw=True):
         """
 
 
@@ -182,7 +182,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_travel_distances(self, get_raw):
+    def saccade_travel_distances(self, get_raw=True):
         """
 
 
@@ -234,7 +234,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_efficiencies(self, get_raw):
+    def saccade_efficiencies(self, get_raw=True):
         """
 
 
@@ -308,7 +308,7 @@ class SaccadeAnalysis(BinarySegmentation):
         )
         return dir_
 
-    def saccade_directions(self, get_raw):
+    def saccade_directions(self, get_raw=True):
         """
 
 
@@ -350,7 +350,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_horizontal_deviations(self, absolute, get_raw):
+    def saccade_horizontal_deviations(self, absolute=True, get_raw=True):
         """
 
 
@@ -403,7 +403,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_successive_deviations(self, get_raw):
+    def saccade_successive_deviations(self, get_raw=True):
         """
 
 
@@ -465,7 +465,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_initial_directions(self, duration_threshold, get_raw):
+    def saccade_initial_directions(self, duration_threshold=0.020, get_raw=True):
         """
 
 
@@ -521,7 +521,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_initial_deviations(self, duration_threshold, get_raw):
+    def saccade_initial_deviations(self, duration_threshold=0.020, get_raw=True):
         """
 
 
@@ -670,7 +670,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return h_d_d
 
-    def saccade_max_curvatures(self, get_raw):
+    def saccade_max_curvatures(self, get_raw=True):
         """
 
 
@@ -714,7 +714,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_area_curvatures(self, get_raw):
+    def saccade_area_curvatures(self, get_raw=True):
         """
 
 
@@ -787,7 +787,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_average_velocity_means(self, weighted, get_raw):
+    def saccade_average_velocity_means(self, weighted=False, get_raw=True):
         """
 
 
@@ -826,7 +826,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
             return results
 
-    def saccade_average_velocity_deviations(self, get_raw):
+    def saccade_average_velocity_deviations(self, get_raw=True):
         """
 
 
@@ -854,7 +854,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_velocities(self, get_raw):
+    def saccade_peak_velocities(self, get_raw=True):
         """
 
 
@@ -1085,7 +1085,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
             return results
 
-    def saccade_average_acceleration_profiles(self, weighted, get_raw):
+    def saccade_average_acceleration_profiles(self, weighted=False, get_raw=True):
         """
 
 
@@ -1109,7 +1109,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_average_acceleration_means(self, weighted, get_raw):
+    def saccade_average_acceleration_means(self, weighted=False, get_raw=True):
         """
 
 
@@ -1133,7 +1133,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_average_deceleration_means(self, weighted, get_raw):
+    def saccade_average_deceleration_means(self, weighted=False, get_raw=True):
         """
 
 
@@ -1157,7 +1157,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_accelerations(self, get_raw):
+    def saccade_peak_accelerations(self, get_raw=True):
         """
 
 
@@ -1198,7 +1198,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_decelerations(self, get_raw):
+    def saccade_peak_decelerations(self, get_raw=True):
         """
 
 
@@ -1240,7 +1240,7 @@ class SaccadeAnalysis(BinarySegmentation):
         return results
 
 
-    def saccade_skewness_exponents(self, get_raw):
+    def saccade_skewness_exponents(self, get_raw=True):
         '''
         
 
@@ -1280,7 +1280,7 @@ class SaccadeAnalysis(BinarySegmentation):
         return results
     
     
-    def saccade_gamma_skewness_exponents(self, get_raw):
+    def saccade_gamma_skewness_exponents(self, get_raw=True):
         """
 
 
@@ -1321,7 +1321,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
 
 
-    def saccade_amplitude_duration_ratios(self, get_raw):
+    def saccade_amplitude_duration_ratios(self, get_raw=True):
         """
 
 
@@ -1350,7 +1350,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_velocity_amplitude_ratios(self, get_raw):
+    def saccade_peak_velocity_amplitude_ratios(self, get_raw=True):
         """
 
 
@@ -1379,7 +1379,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_velocity_duration_ratios(self, get_raw):
+    def saccade_peak_velocity_duration_ratios(self, get_raw=True):
         """
 
 
@@ -1408,7 +1408,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_peak_velocity_velocity_ratios(self, get_raw):
+    def saccade_peak_velocity_velocity_ratios(self, get_raw=True):
         """
 
 
@@ -1437,7 +1437,7 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_acceleration_deceleration_ratios(self, get_raw):
+    def saccade_acceleration_deceleration_ratios(self, get_raw=True):
         """
 
 
@@ -1472,7 +1472,8 @@ class SaccadeAnalysis(BinarySegmentation):
 
         return results
 
-    def saccade_main_sequence(self, get_raw):
+    def saccade_main_sequence(self, get_raw=True):
+        
         a_s = self.saccade_amplitudes(get_raw=True)["raw"]
         d_s = self.saccade_durations(get_raw=True)["raw"]
 
