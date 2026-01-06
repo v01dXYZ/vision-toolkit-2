@@ -8,27 +8,23 @@ import numpy as np
 def display_scanpath_reference_image(values, config, ref_image):
  
     path = config["display_scanpath_path"]
-
-    # --- Charger l'image si chemin ---
+ 
     if isinstance(ref_image, str):
         ref_image = cv2.imread(ref_image, cv2.IMREAD_COLOR)
         ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
-
-    # --- Redimensionner à la taille du plan ---
+ 
     ref_image = cv2.resize(ref_image, (config["size_plan_x"], config["size_plan_y"]))
 
     vf_diag = np.linalg.norm(np.array([config["size_plan_x"], config["size_plan_y"]]))
     plt.style.use("seaborn-v0_8")
 
-    s_p = values.T  # s_p[:,0]=x, s_p[:,1]=y, s_p[:,2]=dur
+    s_p = values.T   
 
     fig, ax = plt.subplots()
-
-    # --- Fond image ---
+ 
     ax.imshow(ref_image, alpha=0.4)
     ax.grid(None)
-
-    # --- FLÈCHES ENTRE FIXATIONS ---
+ 
     for i in range(len(s_p) - 1):
         x0, y0 = s_p[i, 0], s_p[i, 1]
         x1, y1 = s_p[i + 1, 0], s_p[i + 1, 1]
@@ -47,8 +43,7 @@ def display_scanpath_reference_image(values, config, ref_image):
                 shrinkB=0,
             ),
         )
-
-    # --- CERCLES POUR LES FIXATIONS ---
+ 
     for i in range(len(s_p)):
         dur = s_p[i, 2]
         circle = plt.Circle(

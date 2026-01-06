@@ -11,28 +11,18 @@ np.random.seed(1)
 
 
 def display_aoi_predefined_reference_image(positions, clusters, config, ref_image):
-    """
 
-    Parameters
-    ----------
-    positions : TYPE
-        DESCRIPTION.
-    clusters : TYPE
-        DESCRIPTION.
-    config : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
     path = config["display_AoI_path"]
 
+    if isinstance(ref_image, str):
+        ref_image = cv2.imread(ref_image, cv2.IMREAD_COLOR)
+        ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
+        
+    ref_image = cv2.resize(ref_image, (config["size_plan_x"], config["size_plan_y"]))
     plt.style.use("seaborn-v0_8")
 
     fig, ax = plt.subplots()
-    ax.imshow(ref_image, alpha=0.6)
+    ax.imshow(ref_image, alpha=0.4)
     ax.grid(None)
 
     colors_sns = sns.color_palette("pastel", n_colors=len(clusters.keys()))
@@ -68,35 +58,24 @@ def display_aoi_predefined_reference_image(positions, clusters, config, ref_imag
         y_m = (aoi_coord[1, 1] + aoi_coord[0, 1]) / 2 + 25
         ax.text(x_m, y_m, k_, fontsize=15)
 
-    plt.xlabel("Horizontal position (px)", fontsize=14)
-    plt.ylabel("Vertical position (px)", fontsize=14)
-
+    plt.xlabel("Horizontal position (px)", fontsize=12)
+    plt.ylabel("Vertical position (px)", fontsize=12)
     plt.xticks(fontsize=10)
     plt.yticks(fontsize=10)
+    
+    plt.xlim([0, config["size_plan_x"]])
+    plt.ylim([0, config["size_plan_y"]])
+    plt.gca().invert_yaxis()
 
-    # fig.savefig('example_aoi_dt.png', dpi=200)
+    if path is not None:
+        fig.savefig(path + "_AoI_reference_image", dpi=200, bbox_inches="tight")
 
     plt.show()
     plt.clf()
 
 
 def display_aoi_identification_reference_image(positions, clusters, config, ref_image):
-    """
 
-    Parameters
-    ----------
-    positions : TYPE
-        DESCRIPTION.
-    clusters : TYPE
-        DESCRIPTION.
-    config : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
     path = config["display_AoI_path"]
 
     plt.style.use("seaborn-v0_8")
@@ -104,9 +83,12 @@ def display_aoi_identification_reference_image(positions, clusters, config, ref_
     if isinstance(ref_image, str):
         ref_image = cv2.imread(ref_image, cv2.IMREAD_COLOR)
         ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
-
+        
+    ref_image = cv2.resize(ref_image, (config["size_plan_x"], config["size_plan_y"]))
+    plt.style.use("seaborn-v0_8")
+    
     fig, ax = plt.subplots()
-    ax.imshow(ref_image, alpha=0.6)
+    ax.imshow(ref_image, alpha=0.4)
     ax.grid(None)
 
     colors_sns = sns.color_palette("pastel", n_colors=len(clusters.keys()))
@@ -129,45 +111,26 @@ def display_aoi_identification_reference_image(positions, clusters, config, ref_
                 positions[:, clusters[k_]], name=k_, ax=ax, color="black"
             )
 
-    plt.xlabel("Horizontal position (px)", fontsize=14)
-    plt.ylabel("Vertical position (px)", fontsize=14)
-
+    plt.xlabel("Horizontal position (px)", fontsize=12)
+    plt.ylabel("Vertical position (px)", fontsize=12)
     plt.xticks(fontsize=10)
     plt.yticks(fontsize=10)
-
-    # fig.savefig('example_aoi_dt.png', dpi=200)
+    
+    plt.xlim([0, config["size_plan_x"]])
+    plt.ylim([0, config["size_plan_y"]])
+    plt.gca().invert_yaxis()
+     
+    if path is not None:
+        fig.savefig(path + "_AoI_reference_image", dpi=200, bbox_inches="tight")
 
     plt.show()
     plt.clf()
 
 
-def display_aoi_identification(
-    positions,
-    clusters,
-    config,
-):
-    """
+def display_aoi_identification(positions, clusters, config):
 
-
-    Parameters
-    ----------
-    positions : TYPE
-        DESCRIPTION.
-    clusters : TYPE
-        DESCRIPTION.
-    config : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
     path = config["display_AoI_path"]
-
-    # display_aoi_identification_reference_image(positions,
-    #                                           clusters,
-    #                                           config)
+ 
     plt.style.use("seaborn-v0_8")
     fig, ax = plt.subplots()
 
@@ -194,12 +157,17 @@ def display_aoi_identification(
     plt.xlabel("Horizontal position (px)", fontsize=12)
     plt.ylabel("Vertical position (px)", fontsize=12)
 
+    plt.xlabel("Horizontal position (px)", fontsize=12)
+    plt.ylabel("Vertical position (px)", fontsize=12)
     plt.xticks(fontsize=10)
     plt.yticks(fontsize=10)
-
+    
     plt.xlim([0, config["size_plan_x"]])
     plt.ylim([0, config["size_plan_y"]])
     plt.gca().invert_yaxis()
+    
+    if path is not None:
+        fig.savefig(path + "_AoI_reference_image", dpi=200, bbox_inches="tight")
 
     plt.show()
     plt.clf()
@@ -212,24 +180,7 @@ def plot_confidence_ellipse(
     color,
     p=0.68,
 ):
-    """
-
-
-    Parameters
-    ----------
-    positions : TYPE
-        DESCRIPTION.
-    ax : TYPE
-        DESCRIPTION.
-    p : TYPE, optional
-        DESCRIPTION. The default is .68.
-
-    Returns
-    -------
-    None.
-
-    """
-
+ 
     plt.style.use("seaborn-v0_8")
 
     cov = np.cov(positions[0], positions[1])
