@@ -71,7 +71,7 @@ def process_IKM(values, config, ref_image=None):
     ## Compute final AoI sequence
     seq_, seq_dur = compute_aoi_sequence(seq_, dur_, config)
 
-    if config["display_AoI_identification"]:
+    if config["display_AoI"]:
         ## Plot clusters
         if ref_image is None:
             display_aoi_identification(pos_, clus_, config)

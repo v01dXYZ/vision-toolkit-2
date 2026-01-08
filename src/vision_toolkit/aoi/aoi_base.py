@@ -100,9 +100,7 @@ class AoISequence(Scanpath):
                 self.config.update(
                     {
                         "verbose": verbose,
-                        "display_AoI_identification": kwargs.get(
-                            "display_AoI_identification", True
-                        ),
+                        "display_AoI": kwargs.get("display_AoI", True),
                         "display_AoI_path": kwargs.get("display_AoI_path", None),
                         "AoI_identification_method": aoi_method,
                         "AoI_temporal_binning": aoi_temporal_binning,
@@ -270,13 +268,14 @@ class AoISequence(Scanpath):
         
         from vision_toolkit.aoi.markov_based.markov_based import MarkovBasedAnalysis
 
-        display_identification = kwargs.get("display_AoI_identification", True)
+        display_identification = kwargs.get("display_AoI", True)
+        display_identification_path = kwargs.get("display_AoI_path", None)
 
         if not isinstance(input, AoISequence):
             kwargs.update(
                 {
                     "AoI_identification_method": "I_KM",
-                    "display_AoI_identification": False,
+                    "display_AoI": False,
                     'AoI_IKM_min_clusters': 2
                 }
             )
@@ -288,7 +287,8 @@ class AoISequence(Scanpath):
        
         results = markov_analysis.AoI_HMM(
             HMM_nb_iters, HMM_AoI_instance, HMM_AoI_model, True, 
-            ref_image= ref_image, display_identification=display_identification
+            ref_image= ref_image, display_identification=display_identification,
+            display_identification_path=display_identification_path
         )
 
         self.__dict__ = results["AoI_HMM_AoISequence_instance"].__dict__.copy()
@@ -453,7 +453,7 @@ def AoI_sequences(input, **kwargs):
                 all(isinstance(elem, str) for elem in input)
                 and not input[0][-3:] == "csv"
             ):
-                print("HEEEEREEE")
+                 
                 verbose = kwargs.get("verbose", True)
 
                 if verbose:

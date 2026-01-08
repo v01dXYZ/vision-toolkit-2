@@ -109,7 +109,8 @@ class MarkovBasedAnalysis:
         return results
 
     def AoI_HMM(self, HMM_nb_iters, HMM_AoI_instance, HMM_model, get_results, 
-                ref_image=None, display_identification=True):
+                ref_image=None, display_identification=True, 
+                display_identification_path=None):
         """
 
 
@@ -161,7 +162,13 @@ class MarkovBasedAnalysis:
         seq_, seq_dur = compute_aoi_sequence(
             aoi_seq, self.aoi_sequence.values[2], self.aoi_sequence.config
         )
-
+        
+        self.aoi_sequence.config.update(
+            { 
+                "display_AoI": display_identification,
+                "display_AoI_path": display_identification_path
+            })
+        
         if display_identification:
             if ref_image is None:
                 display_aoi_identification(self.aoi_sequence.values[:2], clus_, 

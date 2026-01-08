@@ -72,7 +72,7 @@ def process_predefined(values, config, ref_image=None):
     config.update({"AoI_coordinates": n_aoi_coords})
     ## Compute final AoI sequence
     seq_, seq_dur = compute_aoi_sequence(seq_.astype(int), dur_, config)
-    if config["display_AoI_identification"]:
+    if config["display_AoI"]:
         ## Plot clusters
         if ref_image is None:
             display_aoi_identification(pos_, clus_, config)

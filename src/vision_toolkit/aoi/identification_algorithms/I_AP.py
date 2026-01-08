@@ -61,7 +61,7 @@ def process_IAP(values, config, ref_image=None):
 
     seq_, seq_dur = compute_aoi_sequence(seq_, dur_, config)
 
-    if config["display_AoI_identification"]:
+    if config["display_AoI"]:
         if ref_image is None:
             display_aoi_identification(pos_, clus_, config)
         else:
