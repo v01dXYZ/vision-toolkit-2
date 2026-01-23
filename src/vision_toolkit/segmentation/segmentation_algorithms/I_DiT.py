@@ -33,8 +33,9 @@ def process_IDiT(data_set, config):
     i_fix = np.array([False] * config["nb_samples"])
 
     i = 0
-    while i + t_du < n_s:
-        j = i + t_du
+    while i < n_s:
+        j = min(i + t_du, n_s)
+        if j - i < 2: break
         d = dispersion_metric(x_a[i:j], y_a[i:j])
 
         if d < t_di:
@@ -47,10 +48,7 @@ def process_IDiT(data_set, config):
 
         else:
             i += 1
-
-    wi_fix = np.where(i_fix == True)[0]
-    i_fix = i_fix == 1.0
-
+ 
     i_sac = i_fix == False
     wi_sac = np.where(i_sac == True)[0]
 
@@ -79,8 +77,9 @@ def process_IDiT(data_set, config):
         s_int = s_ints[i]
         o_s_int = s_ints[i - 1]
 
-        if s_int[0] - o_s_int[-1] < fix_dur_t:
-            i_fix[o_s_int[-1] : s_int[0] + 1] = False
+        gap = s_int[0] - o_s_int[1] - 1
+        if 0 <= gap < fix_dur_t:
+            i_fix[o_s_int[1] + 1 : s_int[0]] = False
 
     if config["verbose"]:
         print(
@@ -95,6 +94,7 @@ def process_IDiT(data_set, config):
     f_ints = interval_merging(
         wi_fix,
         min_int_size=np.ceil(config["min_fix_duration"] * s_f),
+        max_int_size=np.ceil(config["max_fix_duration"] * s_f),
         status=data_set["status"],
         proportion=config["status_threshold"],
     )

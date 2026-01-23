@@ -48,15 +48,17 @@ def process_IDeT(dict data_set, dict config):
                                  data_set['y_array'].reshape(1, n_s),
                                  data_set['z_array'].reshape(1, n_s)), axis = 0)
         
-    else:
-        
+    else:  
         euclidean = False  
         g_npts = data_set['unitary_gaze_vectors']
-        print(g_npts)
+      
         
     cdef double d_t = config['IDeT_density_threshold']   
-    cdef int n_w = int(np.ceil(config['IDeT_duration_threshold'] 
-                               *config['sampling_frequency']))
+    cdef int win_w = int(np.ceil(config['IDeT_duration_threshold'] * config['sampling_frequency']))
+    win_w = max(1, win_w)
+    
+    cdef int min_pts = int(np.ceil(config['IDeT_min_pts'] * config['sampling_frequency']))
+    min_pts = max(2, min_pts)
      
     cdef list C_clus = []
     cdef list neigh = []
@@ -73,29 +75,23 @@ def process_IDeT(dict data_set, dict config):
             
             neigh = vareps_neighborhood(g_npts, euclidean,
                                         n_s, i, 
-                                        d_t, n_w)      
+                                        d_t, win_w)      
             
-            if len(neigh)+1 >= n_w: 
-               
+            if len(neigh)+1 >= min_pts: 
                 avlb[i] = False
                 l_C_clus, avlb = expand_cluster(g_npts, euclidean,
                                                 n_s, i, neigh, 
-                                                d_t, n_w, 
-                                                avlb)
+                                                d_t, win_w, min_pts, avlb)
 
-                if len(l_C_clus) >= n_w: 
+                if len(l_C_clus) >= min_pts: 
                     C_clus.append(l_C_clus)
  
-    i_fix = np.zeros(n_s) 
-    
+    i_fix = np.zeros(n_s, dtype=bint)
     for clus in C_clus:
-        
-        l_fix = list()
-        l_fix.append(min(clus))
-        l_fix.append(max(clus)) 
-        i_fix[l_fix[0]: l_fix[-1]+1] = 1
+        for idx in clus:
+            i_fix[idx] = True
    
-    wi_fix = np.where(i_fix == True)[0]
+    wi_fix = np.where(i_fix)[0]
  
     x_a = data_set['x_array']
     y_a = data_set['y_array']
@@ -118,15 +114,16 @@ def process_IDeT(dict data_set, dict config):
         i_fix[s_int[0]: s_int[1]+1] = False
           
     # second pass to merge saccade separated by short fixations
-    fix_dur_t = int(np.ceil(config['min_fix_duration']*s_f))
+    fix_dur_t = max(1, int(np.ceil(config['min_fix_duration']*s_f)))
     
     for i in range(1, len(s_ints)):
         
         s_int = s_ints[i]
         o_s_int = s_ints[i-1]
         
-        if s_int[0] - o_s_int[-1] < fix_dur_t:
-            i_fix[o_s_int[-1]: s_int[0]+1] = False
+        gap = s_int[0] - o_s_int[1] - 1
+        if 0 <= gap < fix_dur_t:
+            i_fix[o_s_int[1] + 1 : s_int[0]] = False
     
     if config['verbose']:
         print('   Close saccadic intervals merged with duration threshold: {f_du} sec'.format(f_du=config['min_fix_duration']))
@@ -137,6 +134,7 @@ def process_IDeT(dict data_set, dict config):
     f_ints = interval_merging(
         wi_fix,   
         min_int_size = np.ceil(config['min_fix_duration']*s_f), 
+        max_int_size=np.ceil(config["max_fix_duration"] * s_f),
         status = data_set['status'],
         proportion = config['status_threshold']
         )
@@ -178,39 +176,45 @@ def process_IDeT(dict data_set, dict config):
             })
   
     
-cdef expand_cluster (double[:,:] g_npts, bool euclidean, 
-                     int n_s, int idx, 
-                     list neigh, double d_t, 
-                     int n_w, dict avlb):
-     
+cdef expand_cluster(double[:,:] g_npts, bool euclidean,
+                    int n_s, int idx,
+                    list neigh, double d_t,
+                    int win_w, int min_pts, dict avlb):
+
     cdef list l_C_clus = [idx]
-    cdef list n_neigh = []
-    
-    for neigh_idx in neigh:
+    cdef list n_neigh
+    cdef int k = 0
+    cdef int neigh_idx
+    cdef int key
+ 
+    avlb[idx] = False
+
+    while k < len(neigh):
+        neigh_idx = neigh[k]
 
         if avlb[neigh_idx] == True:
-            
-            l_C_clus.append(neigh_idx)
             avlb[neigh_idx] = False
-                
-        n_neigh = vareps_neighborhood (g_npts, euclidean,
-                                       n_s, neigh_idx, 
-                                       d_t, n_w)    
-        
-        if len(n_neigh) > n_w:
-             
-            for key in n_neigh :
-                
-                if key not in neigh:
-                    neigh.append(key)
-     
+            l_C_clus.append(neigh_idx)
+
+            n_neigh = vareps_neighborhood(g_npts, euclidean,
+                                          n_s, neigh_idx,
+                                          d_t, win_w)
+
+            if len(n_neigh) + 1 >= min_pts:
+                for key in n_neigh: 
+                    if key not in neigh:
+                        neigh.append(key)
+
+        k += 1
+
     return l_C_clus, avlb
+
 
 
 cdef list vareps_neighborhood (double[:,:] g_npts, 
                                bool euclidean, 
                                int n_s, int idx, 
-                               double d_t, int n_w):
+                               double d_t, int win_w):
  
     cdef list neigh = []
     cdef double[:] ref_g_npts = g_npts[:,idx]
@@ -229,12 +233,23 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
     
     cdef double ad_r = 0.0
     cdef double ad_d = 0.0
+    cdef double dot, den, c
+    
+    
+    cdef int r_stop = idx + win_w + 1
+    if r_stop > n_s:
+        r_stop = n_s
+    
+    cdef int l_stop = idx - win_w - 1
+    if l_stop < 0:
+        l_stop = 0
+    
  
     if euclidean == True:
         
         with nogil:
             
-            while r+1 < min(n_s, idx+n_w+1):  
+            while r+1 < r_stop:
                 if d_r < d_t: 
                     
                     r = r+1  
@@ -248,7 +263,7 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
         
         with nogil:
              
-            while r+1 < min(n_s, idx+n_w+1):   
+            while r+1 < min(n_s, idx+win_w+1):   
                 if d_r < d_t: 
             
                     r = r+1   
@@ -256,11 +271,18 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
                                     + g_npts[1,r]**2 
                                     + g_npts[2,r]**2)
                     
-                    ad_r = math.acos((ref_g_npts[0]*g_npts[0,r]
-                                      + ref_g_npts[1]*g_npts[1,r]
-                                      + ref_g_npts[2]*g_npts[2,r]) 
-                                     / (n_1*n_2))
-                    d_r = math.fabs(ad_r/(2*math.pi)*360)
+                    den = n_1 * n_2
+                    if den <= 0.0:
+                        d_r = 1e9    
+                    else:
+                        dot = ref_g_npts[0]*g_npts[0,r] + ref_g_npts[1]*g_npts[1,r] + ref_g_npts[2]*g_npts[2,r]
+                        c = dot / den
+                        if c > 1.0:
+                            c = 1.0
+                        elif c < -1.0:
+                            c = -1.0
+                        ad_r = math.acos(c)
+                        d_r = math.fabs(ad_r) * 180.0 / math.pi
                     
                 else:
                     break
@@ -270,7 +292,7 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
         
         with nogil:
             
-            while l > max(0, idx-n_w-1):
+            while l > l_stop:
                 
                 if d_l < d_t: 
          
@@ -285,7 +307,7 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
         
         with nogil:
             
-            while l > max(0, idx-n_w-1):
+            while l > max(0, idx-win_w-1):
                 
                 if d_l < d_t: 
          
@@ -294,11 +316,22 @@ cdef list vareps_neighborhood (double[:,:] g_npts,
                                     + g_npts[1,l]**2 
                                     + g_npts[2,l]**2)
                     
-                    ad_r = math.acos((ref_g_npts[0]*g_npts[0,l]
-                                      + ref_g_npts[1]*g_npts[1,l]
-                                      + ref_g_npts[2]*g_npts[2,l]) 
-                                     / (n_1*n_2))
-                    d_l = math.fabs(ad_r/(2*math.pi)*360)
+                    den = n_1 * n_2
+                    if den <= 0.0:
+                        d_l = 1e9   
+                    else:
+                        dot = (ref_g_npts[0]*g_npts[0,l]
+                               + ref_g_npts[1]*g_npts[1,l]
+                               + ref_g_npts[2]*g_npts[2,l])
+
+                        c = dot / den
+                        if c > 1.0:
+                            c = 1.0
+                        elif c < -1.0:
+                            c = -1.0
+
+                        ad_r = math.acos(c)
+                        d_l = math.fabs(ad_r) * 180.0 / math.pi
                     
                 else:
                     break

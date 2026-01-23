@@ -139,6 +139,7 @@ class BinarySegmentation:
         elif segmentation_method == "I_DeT":
             ## To accelerate computation, duration threshold should be equal to 5 time stamps
             du_t = 5 / sampling_frequency
+            nb_t = 3 / sampling_frequency
             if config["distance_type"] == "euclidean":
                 ## The default density threshold is thus defined from the sampling frequency
                 de_t = vf_diag / sampling_frequency
@@ -150,6 +151,9 @@ class BinarySegmentation:
                         "IDeT_density_threshold": kwargs.get(
                             "IDeT_density_threshold", de_t
                         ),
+                        'IDeT_min_pts': kwargs.get(
+                            "IDeT_min_pts", de_t
+                        )
                     }
                 )
             elif config["distance_type"] == "angular":
@@ -163,6 +167,9 @@ class BinarySegmentation:
                         "IDeT_density_threshold": kwargs.get(
                             "IDeT_density_threshold", de_t
                         ),
+                        'IDeT_min_pts': kwargs.get(
+                            "IDeT_min_pts", de_t
+                        )
                     }
                 )
 

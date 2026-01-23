@@ -57,8 +57,9 @@ def process_IVT(data_set, config):
         s_int = s_ints[i]
         o_s_int = s_ints[i - 1]
 
-        if s_int[0] - o_s_int[-1] < fix_dur_t:
-            i_fix[o_s_int[-1] : s_int[0] + 1] = False
+        gap = s_int[0] - o_s_int[1] - 1
+        if 0 <= gap < fix_dur_t:
+            i_fix[o_s_int[1] + 1 : s_int[0]] = False
 
     if config["verbose"]:
         print(
