@@ -86,7 +86,7 @@ def process_IDeT(dict data_set, dict config):
                 if len(l_C_clus) >= min_pts: 
                     C_clus.append(l_C_clus)
  
-    i_fix = np.zeros(n_s, dtype=bint)
+    i_fix = np.zeros(n_s, dtype=np.bool_)
     for clus in C_clus:
         for idx in clus:
             i_fix[idx] = True

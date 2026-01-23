@@ -152,7 +152,7 @@ class BinarySegmentation:
                             "IDeT_density_threshold", de_t
                         ),
                         'IDeT_min_pts': kwargs.get(
-                            "IDeT_min_pts", de_t
+                            "IDeT_min_pts", nb_t
                         )
                     }
                 )
@@ -168,7 +168,7 @@ class BinarySegmentation:
                             "IDeT_density_threshold", de_t
                         ),
                         'IDeT_min_pts': kwargs.get(
-                            "IDeT_min_pts", de_t
+                            "IDeT_min_pts", nb_t
                         )
                     }
                 )

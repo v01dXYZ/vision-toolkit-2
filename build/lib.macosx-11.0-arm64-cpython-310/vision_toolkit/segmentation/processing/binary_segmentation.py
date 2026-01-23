@@ -152,7 +152,7 @@ class BinarySegmentation:
                             "IDeT_density_threshold", de_t
                         ),
                         'IDeT_min_pts': kwargs.get(
-                            "IDeT_min_pts", de_t
+                            "IDeT_min_pts", nb_t
                         )
                     }
                 )
@@ -168,7 +168,7 @@ class BinarySegmentation:
                             "IDeT_density_threshold", de_t
                         ),
                         'IDeT_min_pts': kwargs.get(
-                            "IDeT_min_pts", de_t
+                            "IDeT_min_pts", nb_t
                         )
                     }
                 )
@@ -197,6 +197,7 @@ class BinarySegmentation:
                     "IKF_sigma_2": kwargs.get("IKF_sigma_2", si_2),
                     "IKF_chi2_window": kwargs.get("IKF_chi2_window", 10),
                     "IKF_chi2_threshold": kwargs.get("IKF_chi2_threshold", c_t),
+                    "IKF_chi2_sigma": kwargs.get("IKF_chi2_sigma", 1.0),
                 }
             )
 

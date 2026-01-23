@@ -10,6 +10,22 @@ from vision_toolkit.utils.segmentation_utils import (
 
 
 def process_IVT(data_set, config):
+    """
+    
+
+    Parameters
+    ----------
+    data_set : TYPE
+        DESCRIPTION.
+    config : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    TYPE
+        DESCRIPTION.
+
+    """
     if config["verbose"]:
         print("Processing VT Identification...")
         start_time = time.time()
@@ -23,7 +39,8 @@ def process_IVT(data_set, config):
     wi_fix = np.where(a_sp <= config["IVT_velocity_threshold"])[0]
 
     # Add index + 1 to fixation since velocities are computed from two data points
-    wi_fix = np.array(sorted(set(list(wi_fix) + list(wi_fix + 1))))
+    wi_fix = np.unique(np.concatenate([wi_fix, wi_fix + 1]))
+    wi_fix = wi_fix[(wi_fix >= 0) & (wi_fix < config["nb_samples"])]
 
     i_fix = np.array([False] * config["nb_samples"])
     i_fix[wi_fix] = True
