@@ -4,21 +4,10 @@ import vision_toolkit as v
 import numpy as np
  
 root = 'dataset/'
-np.random.seed(1)
-
-
-bs = v.BinarySegmentation(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_VT',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800)
+ 
 
 ## For Saccades
-sa = v.SaccadeAnalysis(bs)
-
-
+ 
 sa = v.SaccadeAnalysis(root + 'data_1.csv', 
                         sampling_frequency = 256,  
                         segmentation_method = 'I_HMM',
@@ -27,57 +16,7 @@ sa = v.SaccadeAnalysis(root + 'data_1.csv',
                         size_plan_x = 1200,
                         size_plan_y = 800)
 
-
-
-print(sa.saccade_count())
-print(sa.saccade_frequency())
-print(sa.saccade_frequency_wrt_labels())
-print(sa.saccade_durations(get_raw=False))
-print(sa.saccade_amplitudes(get_raw=False))
-print(sa.saccade_travel_distances(get_raw=False))
-
-
-
-print(v.saccade_amplitude_duration_ratios(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_HMM',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800))
-
-print(v.saccade_amplitudes(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_HMM',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800))
-
-print(v.saccade_area_curvatures(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_HMM',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800))
-
-print(v.saccade_average_acceleration_means(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_HMM',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800))
-
-print(v.saccade_average_acceleration_profiles(root + 'data_1.csv', 
-                        sampling_frequency = 256,  
-                        segmentation_method = 'I_HMM',
-                        distance_type = 'angular',                        
-                        display_segmentation = True,
-                        size_plan_x = 1200,
-                        size_plan_y = 800))
-
+ 
 
 print(v.saccade_amplitude_duration_ratios(sa))
 print(v.saccade_amplitudes(sa))
@@ -113,8 +52,7 @@ print(v.saccade_gamma_skewness_exponents(sa))
 print(v.saccade_successive_deviations(sa))
 print(v.saccade_travel_distances(sa))
 print(v.saccade_main_sequence(sa))
-print(v.saccade_average_acceleration_profiles(bs,
-                                      get_raw = True, 
+print(v.saccade_average_acceleration_profiles(sa,
                                       saccade_weighted_average_acceleration_profiles = True))
 
  

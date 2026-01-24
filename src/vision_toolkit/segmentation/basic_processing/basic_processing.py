@@ -4,7 +4,7 @@
 from vision_toolkit.utils import smoothing as smg
 from vision_toolkit.utils.velocity_distance_factory import (
     process_angular_absolute_speeds, process_angular_coord,
-    process_euclidian_absolute_speeds, process_unitary_gaze_vectors)
+    process_euclidean_absolute_speeds, process_unitary_gaze_vectors)
 
 
 class Basic_Processing:
@@ -35,7 +35,7 @@ class Basic_Processing:
  
         if config["distance_type"] == "euclidean":
             data_set.update(
-                {"absolute_speed": process_euclidian_absolute_speeds(data_set, config)}
+                {"absolute_speed": process_euclidean_absolute_speeds(data_set, config)}
             )
 
         elif config["distance_type"] == "angular":

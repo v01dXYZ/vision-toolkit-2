@@ -15,7 +15,7 @@ from vision_toolkit.segmentation.segmentation_algorithms.I_MST import process_IM
 from vision_toolkit.segmentation.segmentation_algorithms.I_VT import process_IVT
 from vision_toolkit.segmentation.segmentation_algorithms.I_RF import process_IRF
 from vision_toolkit.utils.velocity_distance_factory import (
-    absolute_angular_distance, absolute_euclidian_distance)
+    absolute_angular_distance, absolute_euclidean_distance)
 from vision_toolkit.visualization.segmentation import display_binary_segmentation
 
 
@@ -255,7 +255,7 @@ class BinarySegmentation:
         self.config = config
         self.distances = dict(
             {
-                "euclidean": absolute_euclidian_distance,
+                "euclidean": absolute_euclidean_distance,
                 "angular": absolute_angular_distance,
             }
         )

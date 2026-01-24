@@ -5,7 +5,7 @@ import pandas as pd
 import copy
 
 from vision_toolkit.segmentation.basic_processing import oculomotor_series as ocs  
-from vision_toolkit.utils.velocity_distance_factory import absolute_euclidian_distance, absolute_angular_distance 
+from vision_toolkit.utils.velocity_distance_factory import absolute_euclidean_distance, absolute_angular_distance 
 from vision_toolkit.utils.segmentation_utils import filter_ternary_intervals_by_duration
 from vision_toolkit.visualization.segmentation import display_ternary_segmentation 
  
@@ -13,7 +13,7 @@ from vision_toolkit.segmentation.segmentation_algorithms.I_VVT import process_IV
 from vision_toolkit.segmentation.segmentation_algorithms.I_VMP import process_IVMP
 from vision_toolkit.segmentation.segmentation_algorithms.I_VDT import process_IVDT
 from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IBDT 
-
+from vision_toolkit.segmentation.segmentation_algorithms.I_HOV import process_IHOV
   
 class TernarySegmentation():
  
@@ -38,7 +38,10 @@ class TernarySegmentation():
         None.
 
         """
-        df = pd.read_csv(input_df)
+        if isinstance(input_df, pd.DataFrame):
+            df = input_df
+        else:
+            df = pd.read_csv(input_df)
         
         config = dict({
             'sampling_frequency': sampling_frequency,
@@ -52,8 +55,8 @@ class TernarySegmentation():
             'distance_type': kwargs.get('distance_type', 'angular'),
             "min_fix_duration": kwargs.get("min_fix_duration", 7e-2),
             "max_fix_duration": kwargs.get("max_fix_duration", 2.0),
-            "min_pursuit_duration": kwargs.get("min_fix_duration", 1e-1),
-            "max_ursuit_duration": kwargs.get("max_fix_duration", 2.0),
+            "min_pursuit_duration": kwargs.get("min_pursuit_duration", 1e-1),
+            "max_pursuit_duration": kwargs.get("max_pursuit_duration", 2.0),
             'display_results': kwargs.get('display_results', True),
             'display_segmentation': kwargs.get('display_segmentation', False),
             'display_true_segmentation': kwargs.get('display_true_segmentation', False),
@@ -120,7 +123,7 @@ class TernarySegmentation():
                                                             0.040),
                         }) 
                 
-            if config['distance_type'] == 'angular':
+            elif config['distance_type'] == 'angular':
                  
                 config.update({ 
                     'IVDT_saccade_threshold': kwargs.get('IVDT_saccade_threshold', 
@@ -210,20 +213,23 @@ class TernarySegmentation():
              
         self.config = config
     
-        self.distances = dict({'euclidian': absolute_euclidian_distance,
-                               'angular': absolute_angular_distance})
-        
+        self.distances = {
+                    "euclidean": absolute_euclidean_distance,  # si ta fonction porte ce nom
+                    "angular": absolute_angular_distance,
+                }
         self.dict_methods = dict({ 
             'I_VVT': process_IVVT,
             'I_VMP': process_IVMP,
             'I_VDT': process_IVDT, 
-            'I_BDT': process_IBDT 
+            'I_BDT': process_IBDT,
+            'I_HOV': process_IHOV,
                 })
    
         self.verbose = config['verbose']
         
         self.segmentation_results = None
         self.events = None
+        self.process()
  
     
     def process(self,
@@ -245,9 +251,10 @@ class TernarySegmentation():
                                                                          self.config['max_pursuit_duration']
                                                                          )
         
-        display_ternary_segmentation(self.data_set, self.config,
-                                     self.segmentation_results['pursuit_intervals'],
-                                     _color = 'seagreen')
+        if self.config['display_segmentation']: 
+            display_ternary_segmentation(self.data_set, self.config,
+                                         self.segmentation_results['pursuit_intervals'],
+                                         _color = 'seagreen')
         
         self.events = self.get_events(labels)
         
