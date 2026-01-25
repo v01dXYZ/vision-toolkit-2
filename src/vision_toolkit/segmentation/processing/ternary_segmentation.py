@@ -12,8 +12,7 @@ from vision_toolkit.visualization.segmentation import display_ternary_segmentati
 from vision_toolkit.segmentation.segmentation_algorithms.I_VVT import process_IVVT
 from vision_toolkit.segmentation.segmentation_algorithms.I_VMP import process_IVMP
 from vision_toolkit.segmentation.segmentation_algorithms.I_VDT import process_IVDT
-from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IBDT 
-from vision_toolkit.segmentation.segmentation_algorithms.I_HOV import process_IHOV
+from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IBDT  
   
 class TernarySegmentation():
  
@@ -199,15 +198,7 @@ class TernarySegmentation():
                     'IBDT_saccade_sd': kwargs.get('IBDT_saccade_sd', 
                                                           0.01), 
                         }) 
-        elif segmentation_method == 'I_HOV':
-            
-            config.update({
-                'IHOV_duration_threshold': kwargs.get('IHOV_duration_threshold', 
-                                                      0.05),
-                'IHOV_averaging_threshold': kwargs.get('IHOV_averaging_threshold', 
-                                                      0.005),
-                'IHOV_angular_bin_nbr': kwargs.get('IHOV_angular_bin_nbr', 
-                                                      25)})
+   
             
                  
              
@@ -221,8 +212,7 @@ class TernarySegmentation():
             'I_VVT': process_IVVT,
             'I_VMP': process_IVMP,
             'I_VDT': process_IVDT, 
-            'I_BDT': process_IBDT,
-            'I_HOV': process_IHOV,
+            'I_BDT': process_IBDT, 
                 })
    
         self.verbose = config['verbose']
