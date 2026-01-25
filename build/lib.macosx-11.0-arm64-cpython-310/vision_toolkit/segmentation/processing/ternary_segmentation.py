@@ -5,19 +5,18 @@ import pandas as pd
 import copy
 
 from vision_toolkit.segmentation.basic_processing import oculomotor_series as ocs  
-from vision_toolkit.utils.velocity_distance_factory import absolute_euclidian_distance, absolute_angular_distance 
+from vision_toolkit.utils.velocity_distance_factory import absolute_euclidean_distance, absolute_angular_distance 
+from vision_toolkit.utils.segmentation_utils import filter_ternary_intervals_by_duration
 from vision_toolkit.visualization.segmentation import display_ternary_segmentation 
  
 from vision_toolkit.segmentation.segmentation_algorithms.I_VVT import process_IVVT
 from vision_toolkit.segmentation.segmentation_algorithms.I_VMP import process_IVMP
 from vision_toolkit.segmentation.segmentation_algorithms.I_VDT import process_IVDT
-from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IBDT 
-
+from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IBDT  
   
 class TernarySegmentation():
  
-    def __init__(self, input_df, 
-                 sampling_frequency, segmentation_method,
+    def __init__(self, input_df,  
                  **kwargs):
         """
          
@@ -37,7 +36,14 @@ class TernarySegmentation():
         None.
 
         """
-        df = pd.read_csv(input_df)
+        if isinstance(input_df, pd.DataFrame):
+            df = input_df
+        else:
+            df = pd.read_csv(input_df)
+        
+        sampling_frequency = kwargs.get("sampling_frequency", None)
+        segmentation_method = kwargs.get("segmentation_method", "I_VMP")
+        assert sampling_frequency is not None, "Sampling frequency must be specified"
         
         config = dict({
             'sampling_frequency': sampling_frequency,
@@ -49,7 +55,10 @@ class TernarySegmentation():
             'size_plan_y': kwargs.get('size_plan_y'),
             'smoothing': kwargs.get('smoothing', 'savgol'),
             'distance_type': kwargs.get('distance_type', 'angular'),
-            'min_int_size': kwargs.get('min_int_size', 2), 
+            "min_fix_duration": kwargs.get("min_fix_duration", 7e-2),
+            "max_fix_duration": kwargs.get("max_fix_duration", 2.0),
+            "min_pursuit_duration": kwargs.get("min_pursuit_duration", 1e-1),
+            "max_pursuit_duration": kwargs.get("max_pursuit_duration", 2.0),
             'display_results': kwargs.get('display_results', True),
             'display_segmentation': kwargs.get('display_segmentation', False),
             'display_true_segmentation': kwargs.get('display_true_segmentation', False),
@@ -95,9 +104,9 @@ class TernarySegmentation():
             elif config['distance_type'] == 'angular':
                 config.update({
                     'IVVT_saccade_threshold': kwargs.get('IVVT_saccade_threshold', 
-                                                         40), 
+                                                         10), 
                     'IVVT_pursuit_threshold': kwargs.get('IVVT_pursuit_threshold', 
-                                                         7), 
+                                                         1), 
                         }) 
              
         elif segmentation_method == 'I_VDT':
@@ -116,7 +125,7 @@ class TernarySegmentation():
                                                             0.040),
                         }) 
                 
-            if config['distance_type'] == 'angular':
+            elif config['distance_type'] == 'angular':
                  
                 config.update({ 
                     'IVDT_saccade_threshold': kwargs.get('IVDT_saccade_threshold', 
@@ -192,34 +201,26 @@ class TernarySegmentation():
                     'IBDT_saccade_sd': kwargs.get('IBDT_saccade_sd', 
                                                           0.01), 
                         }) 
-        elif segmentation_method == 'I_HOV':
-            
-            config.update({
-                'IHOV_duration_threshold': kwargs.get('IHOV_duration_threshold', 
-                                                      0.05),
-                'IHOV_averaging_threshold': kwargs.get('IHOV_averaging_threshold', 
-                                                      0.005),
-                'IHOV_angular_bin_nbr': kwargs.get('IHOV_angular_bin_nbr', 
-                                                      25)})
+   
             
                  
              
         self.config = config
     
-        self.distances = dict({'euclidian': absolute_euclidian_distance,
-                               'angular': absolute_angular_distance})
-        
+        self.distances = {
+                    "euclidean": absolute_euclidean_distance,  # si ta fonction porte ce nom
+                    "angular": absolute_angular_distance,
+                }
         self.dict_methods = dict({ 
             'I_VVT': process_IVVT,
             'I_VMP': process_IVMP,
             'I_VDT': process_IVDT, 
-            'I_BDT': process_IBDT 
+            'I_BDT': process_IBDT, 
                 })
-   
-        self.verbose = config['verbose']
-        
+    
         self.segmentation_results = None
         self.events = None
+        self.process()
  
     
     def process(self,
@@ -231,42 +232,67 @@ class TernarySegmentation():
         None.
 
         """
-        self.segmentation_results = self.dict_methods[self.config['segmentation_method']](self.data_set,
-                                                                                          self.config)
+        segmentation_results = self.dict_methods[self.config['segmentation_method']](self.data_set,
+                                                                                     self.config)
+        self.segmentation_results = filter_ternary_intervals_by_duration(segmentation_results,
+                                                                         self.config['sampling_frequency'],
+                                                                         self.config['min_fix_duration'],
+                                                                         self.config['max_fix_duration'],
+                                                                         self.config['min_pursuit_duration'],
+                                                                         self.config['max_pursuit_duration']
+                                                                         )
         
-        path = 'output/figs/ternary_segmentation_{sm}_2D'.format(sm=self.config['segmentation_method'])
-        
-       
-        display_ternary_segmentation(self.data_set, self.config,
-                                     self.segmentation_results['pursuit_intervals'],
-                                     _color = 'seagreen')
+        if self.config['display_segmentation']: 
+            display_ternary_segmentation(self.data_set, self.config,
+                                         self.segmentation_results['pursuit_intervals'],
+                                         _color = 'seagreen')
         
         self.events = self.get_events(labels)
         
-        if self.config['verbose']:
-            
-            print('\n --- Config used: ---\n')
-            
-            for it in self.config.keys():
-                print('# {it}:{esp}{val}'.format(it=it,
-                                                 esp = ' '*(30-len(it)),
-                                                 val = self.config[it]))
-            print('\n')
+        self.verbose()
         
         
-    @classmethod
-    def generate(cls, input_df, 
-                 sampling_frequency, segmentation_method, 
-                 **kwargs):
+    def verbose(self, add_=None):
         """
-         
+
+
+        Parameters
+        ----------
+        add_ : TYPE, optional
+            DESCRIPTION. The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+
+        if self.config["verbose"]:
+            print("\n --- Config used: ---\n")
+            for it in self.config.keys():
+                print(
+                    "# {it}:{esp}{val}".format(
+                        it=it, esp=" " * (50 - len(it)), val=self.config[it]
+                    )
+                )
+            if add_ is not None:
+                for it in add_.keys():
+                    print(
+                        "# {it}:{esp}{val}".format(
+                            it=it, esp=" " * (50 - len(it)), val=add_[it]
+                        )
+                    )
+            print("\n") 
+            
+            
+    @classmethod
+    def generate(cls, input_df, **kwargs):
+        """
+        
+
         Parameters
         ----------
         input_df : TYPE
-            DESCRIPTION.
-        sampling_frequency : TYPE
-            DESCRIPTION.
-        segmentation_method : TYPE
             DESCRIPTION.
         **kwargs : TYPE
             DESCRIPTION.
@@ -277,30 +303,10 @@ class TernarySegmentation():
             DESCRIPTION.
 
         """
-        segmentation_analysis = cls(input_df, 
-                                    sampling_frequency, segmentation_method, 
-                                    **kwargs)
-       
+        segmentation_analysis = cls(input_df, **kwargs)
         return segmentation_analysis
         
-      
-    def generate_features(self,
-                          input_df, 
-                          sampling_frequency, segmentation_method, 
-                          **kwargs):
-        
-        if segmentation_method == 'I_HOV':
-            
-            print('OK')
-        
-        
-        
-        return 0
-        
-        
-        
-        
-        
+     
     def get_events(self,
                    labels):
         """

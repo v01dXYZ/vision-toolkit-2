@@ -38,6 +38,7 @@ class SaccadeAnalysis(BinarySegmentation):
         if verbose:
             print("...Saccade Analysis done\n")
 
+ 
 
     def _intervals(self):
         return self.segmentation_results["saccade_intervals"]

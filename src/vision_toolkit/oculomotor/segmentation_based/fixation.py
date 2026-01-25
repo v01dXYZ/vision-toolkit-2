@@ -36,6 +36,7 @@ class FixationAnalysis(BinarySegmentation):
         if verbose:
             print("...Fixation Analysis done\n")
 
+ 
 
     def _intervals(self):
         return self.segmentation_results["fixation_intervals"]

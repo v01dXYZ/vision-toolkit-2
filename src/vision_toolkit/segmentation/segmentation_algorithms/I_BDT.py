@@ -87,9 +87,9 @@ def process_IBDT(data_set, config):
 
     return {
         "is_saccade": a_m == 1,
-        "saccade_intervals": interval_merging(np.where(a_m == 1)[0], min_int_size=config["min_int_size"]),
+        "saccade_intervals": interval_merging(np.where(a_m == 1)[0]),
         "is_pursuit": a_m == 2,
-        "pursuit_intervals": interval_merging(np.where(a_m == 2)[0], min_int_size=config["min_int_size"]),
+        "pursuit_intervals": interval_merging(np.where(a_m == 2)[0]),
         "is_fixation": a_m == 0,
-        "fixation_intervals": interval_merging(np.where(a_m == 0)[0], min_int_size=config["min_int_size"]),
+        "fixation_intervals": interval_merging(np.where(a_m == 0)[0]),
     }

@@ -126,7 +126,6 @@ src/vision_toolkit/segmentation/processing/ternary_segmentation.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_2MC.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_BDT.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_CNN.py
-src/vision_toolkit/segmentation/segmentation_algorithms/I_CNN_test.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_DeT.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_DiT.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_FC.py
@@ -134,7 +133,6 @@ src/vision_toolkit/segmentation/segmentation_algorithms/I_HMM.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_HOV.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_KF.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_MST.py
-src/vision_toolkit/segmentation/segmentation_algorithms/I_RF.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_VDT.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_VMP.py
 src/vision_toolkit/segmentation/segmentation_algorithms/I_VT.py

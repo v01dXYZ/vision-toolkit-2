@@ -107,7 +107,7 @@ def process_angular_absolute_speeds(data_set, config):
     return absolute_speeds
 
 
-def process_euclidian_absolute_speeds(data_set, config):
+def process_euclidean_absolute_speeds(data_set, config):
     
     nb_samples = config["nb_samples"]
 
@@ -194,7 +194,7 @@ def absolute_angular_distance(gaze_vect_1, gaze_vect_2):
     return absolute_angular_distance_deg
 
 
-def absolute_euclidian_distance(gaze_point_1, gaze_point_2):
+def absolute_euclidean_distance(gaze_point_1, gaze_point_2):
     """
 
     Parameters

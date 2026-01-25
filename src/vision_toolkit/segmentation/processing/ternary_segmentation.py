@@ -16,8 +16,7 @@ from vision_toolkit.segmentation.segmentation_algorithms.I_BDT import process_IB
   
 class TernarySegmentation():
  
-    def __init__(self, input_df, 
-                 sampling_frequency, segmentation_method,
+    def __init__(self, input_df,  
                  **kwargs):
         """
          
@@ -41,6 +40,10 @@ class TernarySegmentation():
             df = input_df
         else:
             df = pd.read_csv(input_df)
+        
+        sampling_frequency = kwargs.get("sampling_frequency", None)
+        segmentation_method = kwargs.get("segmentation_method", "I_VMP")
+        assert sampling_frequency is not None, "Sampling frequency must be specified"
         
         config = dict({
             'sampling_frequency': sampling_frequency,
@@ -101,9 +104,9 @@ class TernarySegmentation():
             elif config['distance_type'] == 'angular':
                 config.update({
                     'IVVT_saccade_threshold': kwargs.get('IVVT_saccade_threshold', 
-                                                         40), 
+                                                         10), 
                     'IVVT_pursuit_threshold': kwargs.get('IVVT_pursuit_threshold', 
-                                                         7), 
+                                                         1), 
                         }) 
              
         elif segmentation_method == 'I_VDT':
@@ -214,9 +217,7 @@ class TernarySegmentation():
             'I_VDT': process_IVDT, 
             'I_BDT': process_IBDT, 
                 })
-   
-        self.verbose = config['verbose']
-        
+    
         self.segmentation_results = None
         self.events = None
         self.process()
@@ -248,30 +249,50 @@ class TernarySegmentation():
         
         self.events = self.get_events(labels)
         
-        if self.config['verbose']:
-            
-            print('\n --- Config used: ---\n')
-            
-            for it in self.config.keys():
-                print('# {it}:{esp}{val}'.format(it=it,
-                                                 esp = ' '*(30-len(it)),
-                                                 val = self.config[it]))
-            print('\n')
+        self.verbose()
         
         
-    @classmethod
-    def generate(cls, input_df, 
-                 sampling_frequency, segmentation_method, 
-                 **kwargs):
+    def verbose(self, add_=None):
         """
-         
+
+
+        Parameters
+        ----------
+        add_ : TYPE, optional
+            DESCRIPTION. The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+
+        if self.config["verbose"]:
+            print("\n --- Config used: ---\n")
+            for it in self.config.keys():
+                print(
+                    "# {it}:{esp}{val}".format(
+                        it=it, esp=" " * (50 - len(it)), val=self.config[it]
+                    )
+                )
+            if add_ is not None:
+                for it in add_.keys():
+                    print(
+                        "# {it}:{esp}{val}".format(
+                            it=it, esp=" " * (50 - len(it)), val=add_[it]
+                        )
+                    )
+            print("\n") 
+            
+            
+    @classmethod
+    def generate(cls, input_df, **kwargs):
+        """
+        
+
         Parameters
         ----------
         input_df : TYPE
-            DESCRIPTION.
-        sampling_frequency : TYPE
-            DESCRIPTION.
-        segmentation_method : TYPE
             DESCRIPTION.
         **kwargs : TYPE
             DESCRIPTION.
@@ -282,30 +303,10 @@ class TernarySegmentation():
             DESCRIPTION.
 
         """
-        segmentation_analysis = cls(input_df, 
-                                    sampling_frequency, segmentation_method, 
-                                    **kwargs)
-       
+        segmentation_analysis = cls(input_df, **kwargs)
         return segmentation_analysis
         
-      
-    def generate_features(self,
-                          input_df, 
-                          sampling_frequency, segmentation_method, 
-                          **kwargs):
-        
-        if segmentation_method == 'I_HOV':
-            
-            print('OK')
-        
-        
-        
-        return 0
-        
-        
-        
-        
-        
+     
     def get_events(self,
                    labels):
         """

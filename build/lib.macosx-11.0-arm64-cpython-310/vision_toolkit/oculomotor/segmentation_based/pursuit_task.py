@@ -93,7 +93,7 @@ class PursuitTask(TernarySegmentation):
         return result
     
     
-    def pursuit_task_duration(self):
+    def pursuit_task_durations(self):
         
         a_i = np.array(self.pursuit_intervals) + np.array([[0, 1]])
         a_d = a_i[:,1] - a_i[:,0]
@@ -876,7 +876,7 @@ def pursuit_task_frequency(input_df, theoretical_df,
 
 
 
-def pursuit_task_duration(input_df, theoretical_df, 
+def pursuit_task_durations(input_df, theoretical_df, 
                        **kwargs): 
     
     kwargs_copy = kwargs.copy()
@@ -886,7 +886,7 @@ def pursuit_task_duration(input_df, theoretical_df,
     pursuit_analysis = PursuitTask(input_df, theoretical_df, 
                                    sampling_frequency, segmentation_method,
                                    **kwargs_copy)
-    results = pursuit_analysis.pursuit_task_duration()
+    results = pursuit_analysis.pursuit_task_durations()
    
     return results
 

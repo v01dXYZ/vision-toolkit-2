@@ -36,6 +36,13 @@ class FixationAnalysis(BinarySegmentation):
         if verbose:
             print("...Fixation Analysis done\n")
 
+    # @classmethod
+    # def generate(cls, input, **kwargs):
+        
+    #     if isinstance(input, FixationAnalysis):
+    #         return input
+    #     return cls(input, **kwargs)
+
 
     def _intervals(self):
         return self.segmentation_results["fixation_intervals"]

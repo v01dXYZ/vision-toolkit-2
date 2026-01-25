@@ -10,19 +10,26 @@ from vision_toolkit.utils.segmentation_utils import interval_merging
 
 def process_IVMP(data_set, config):
     """
-    Identifies saccades like the I-VT algorithm.
-    Distinguishes pursuits from fixations using the movement
-    pattern of the eye trace.
-        - T_s = saccade velocity threshold.
-        - n_w = temporal window size.
-        – T_m = movement threshold.
+    
+
+    Parameters
+    ----------
+    data_set : TYPE
+        DESCRIPTION.
+    config : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    dict
+        DESCRIPTION.
+
     """
 
     if config["verbose"]:
         print("Processing VMP Identification...")
         start_time = time.time()
 
-    # Eye movement parameters
     a_sp = data_set["absolute_speed"]
     n_s = config["nb_samples"]
     s_f = config["sampling_frequency"]
@@ -30,86 +37,62 @@ def process_IVMP(data_set, config):
     x_array = data_set["x_array"]
     y_array = data_set["y_array"]
 
-    # Algorithm parameters
     t_s = config["IVMP_saccade_threshold"]
     t_du = int(np.ceil(config["IVMP_window_duration"] * s_f))
+    t_du = max(2, t_du)
     t_r = config["IVMP_rayleigh_threshold"]
 
-    i_sac = np.ones(len(x_array))
-    i_purs = np.zeros_like(i_sac)
-    i_fix = np.zeros_like(i_sac)
+    # Base labeling from velocity threshold
+    is_sac = a_sp > t_s
+    is_fix = ~is_sac          # intersaccades = fixation by default
+    is_purs = np.zeros(n_s, dtype=bool)
 
-    not_sac = a_sp <= t_s
-    wn_saccade = np.where(not_sac == True)[0]
-    w_sacc = np.where(not_sac == False)[0]
-    i_sac[w_sacc] = 1
+    # Intersaccadic intervals
+    wi_intersac = np.where(~is_sac)[0]
+    inter_ints = interval_merging(wi_intersac)
 
-    _ints = interval_merging(wn_saccade)
+    # Compute successive direction angles
+    dx = np.empty(n_s)
+    dy = np.empty(n_s)
+    dx[:-1] = x_array[1:] - x_array[:-1]
+    dy[:-1] = y_array[1:] - y_array[:-1]
+    dx[-1] = dx[-2]
+    dy[-1] = dy[-2]
 
-    # Compute position difference vectors
-    diff_ = np.zeros((2, n_s))
+    # angle in [0, 2pi)
+    suc_dir = np.mod(np.arctan2(dy, dx), 2 * np.pi)
 
-    diff_[0, :-1] = x_array[1:] - x_array[:-1]
-    diff_[1, :-1] = y_array[1:] - y_array[:-1]
-    diff_[:, -1] = diff_[:, -2]
+    for a, b in inter_ints:
+        # work in blocks inside [a, b] inclusive
+        i = a
+        while i <= b:
+            j = min(i + t_du, b + 1)  # j is exclusive
+            if (j - i) < 2:
+                break
 
-    # Compute successive vector directions relative to the horizontal axis
-    # for the Rayleigh z-score
-    suc_dir = np.zeros_like(a_sp)
+            pos_unitary_circle = np.array([np.cos(suc_dir[i:j]), np.sin(suc_dir[i:j])])
+            rm_vec = np.sum(pos_unitary_circle, axis=1) / (j - i)
+            z_score = np.linalg.norm(rm_vec) ** 2
 
-    # to avoid numerical instability
-    diff_ += 1e-10
+            if z_score > t_r:
+                is_purs[i:j] = True
+                is_fix[i:j] = False
 
-    _m = diff_[1, :] < 0
-    _p = diff_[1, :] >= 0
+            i = j
 
-    n_p = np.linalg.norm(diff_[:, _p], axis=0)
-    suc_dir[_p] = np.arccos(np.divide(diff_[0, :][_p], n_p, where=n_p > 0))
-
-    n_m = np.linalg.norm(diff_[:, _m], axis=0)
-    suc_dir[_m] = 2 * np.pi - np.arccos(np.divide(diff_[0, :][_m], n_m, where=n_m > 0))
-
-    # We now work with intersaccadic intervals
-    for _int in _ints:
-        # create vector of current indices
-        cur_idx = np.arange(_int[0], _int[1] + 1)
-        i_fix[_int[0] : _int[1] + 1] = 1
-        i_sac[_int[0] : _int[1] + 1] = 0
-
-        if len(cur_idx) > t_du:
-            i = cur_idx[0]
-            while (i + t_du) < _int[1]:
-                j = i + t_du
-
-                pos_unitary_circle = np.array(
-                    [np.cos(suc_dir[i:j]), np.sin(suc_dir[i:j])]
-                )
-
-                rm_mat = np.sum(pos_unitary_circle, axis=1) / t_du
-
-                # Use movement threshold to detect pursuits
-                z_score = np.linalg.norm(rm_mat) ** 2
-
-                if z_score > t_r:
-                    i_purs[i:j] = 1
-                    i_fix[i:j] = 0
-
-                i += t_du
-
-        else:
-            print(cur_idx)
+    # enforce exclusivity: pursuit overrides fixation only inside intersaccades
+    is_purs = is_purs & (~is_sac)
+    is_fix = (~is_sac) & (~is_purs)
 
     if config["verbose"]:
         print("\n...VMP Identification done\n")
         print("--- Execution time: %s seconds ---" % (time.time() - start_time))
 
-    return dict(
-        {
-            "is_saccade": i_sac == 1,
-            "saccade_intervals": interval_merging(np.where((i_sac == 1) == True)[0]),
-            "is_pursuit": i_purs == 1,
-            "pursuit_intervals": interval_merging(np.where((i_purs == 1) == True)[0]),
-            "is_fixation": i_fix == 1,
-            "fixation_intervals": interval_merging(np.where((i_fix == 1) == True)[0]),
-        }
-    )
+    return {
+        "is_saccade": is_sac,
+        "saccade_intervals": interval_merging(np.where(is_sac)[0]),
+        "is_pursuit": is_purs,
+        "pursuit_intervals": interval_merging(np.where(is_purs)[0]),
+        "is_fixation": is_fix,
+        "fixation_intervals": interval_merging(np.where(is_fix)[0]),
+    }
