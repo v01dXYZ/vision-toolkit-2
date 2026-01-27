@@ -36,111 +36,145 @@ class FrequencyAnalysis(SignalBased):
             print("...Frequency Analysis done")
 
 
+    def _clean_signal(self, x, status=None, interpolate=True):
+        
+        x = np.asarray(x, dtype=float)
+    
+        if status is not None:
+            status = np.asarray(status)
+            # adapte la règle selon ton codage (0/1, 1=valid, etc.)
+            valid = status.astype(bool)
+            x = x.copy()
+            x[~valid] = np.nan
+    
+        if interpolate and np.isnan(x).any():
+            idx = np.arange(len(x))
+            good = ~np.isnan(x)
+            if good.sum() >= 2:
+                x[~good] = np.interp(idx[~good], idx[good], x[good])
+            else:
+                # pas assez de points valides
+                return None
+    
+        return x
 
-    def periodogram(self, periodogram_data_type, silent=False):
+    
+    def periodogram(self, periodogram_data_type='velocity', silent=False):
         """
-
-
+        
+    
         Parameters
         ----------
-        type_ : TYPE
+        periodogram_data_type : TYPE
             DESCRIPTION.
         silent : TYPE, optional
             DESCRIPTION. The default is False.
-
+    
+        Raises
+        ------
+        ValueError
+            DESCRIPTION.
+    
         Returns
         -------
-        results : TYPE
+        TYPE
             DESCRIPTION.
-
+    
         """
-
         s_f = self.config["sampling_frequency"]
-
+        status = self.data_set.get("status", None)
+    
+        densities = dict()
+    
+        # prépare les signaux source
         if periodogram_data_type == "velocity":
             sp = process_speed_components(self.data_set, self.config)[0:2, :]
-
-            data = dict({"x_array": sp[0], "y_array": sp[1]})
-
-        densities = dict()
-
+            data = {"x_array": sp[0], "y_array": sp[1]}
+        elif periodogram_data_type == "position":
+            data = {"x_array": self.data_set["x_array"], "y_array": self.data_set["y_array"]}
+        else:
+            raise ValueError('periodogram_data_type must be "position" or "velocity"')
+    
         for _dir in ["x_array", "y_array"]:
-            if periodogram_data_type == "velocity":
-                x = data[_dir]
-
-            elif periodogram_data_type == 'position':
-                x = self.data_set[_dir]
-            
-            else:
-                raise ValueError('periodogram_data_type must be "position" or "velocity')
+            x = data[_dir]
+    
+            x = self._clean_signal(x, status=status, interpolate=True)
+            if x is None:
+                raise ValueError("Not enough valid samples for spectral analysis")
+    
             nperseg = x.shape[-1]
             freqs, p_xx = periodogram_(x, fs=s_f, nperseg=nperseg)
             densities.update({_dir[0]: p_xx})
+    
+        if self.config["display_results"] and not silent:
+            plot_periodogram(freqs, densities)
+    
+        return {"frequencies": freqs, "spectral_densities": densities}
 
-        if self.config["display_results"]:
-            if not silent:
-                plot_periodogram(freqs, densities)
 
-        results = dict({"frequencies": freqs, "spectral_densities": densities})
-
-        return results
-
-    def welch_periodogram(self, periodogram_data_type, 
-                          Welch_samples_per_segment, silent=False):
+    def welch_periodogram(self,
+                          periodogram_data_type="velocity", 
+                          Welch_samples_per_segment=256,
+                          silent=False,):
         """
-
+        
 
         Parameters
         ----------
-        type_ : TYPE
+        periodogram_data_type : TYPE
             DESCRIPTION.
-        samples_per_segment : TYPE
+        Welch_samples_per_segment : TYPE
             DESCRIPTION.
         silent : TYPE, optional
             DESCRIPTION. The default is False.
 
+        Raises
+        ------
+        ValueError
+            DESCRIPTION.
+
         Returns
         -------
-        results : TYPE
+        dict
             DESCRIPTION.
 
         """
-
         s_f = self.config["sampling_frequency"]
-
+        status = self.data_set.get("status", None)
+    
+        densities = dict()
+    
+        # prépare les signaux source
         if periodogram_data_type == "velocity":
             sp = process_speed_components(self.data_set, self.config)[0:2, :]
-            data = dict({"x_array": sp[0], "y_array": sp[1]})
-
-        densities = dict()
-
+            data = {"x_array": sp[0], "y_array": sp[1]}
+    
+        elif periodogram_data_type == "position":
+            data = {
+                "x_array": self.data_set["x_array"],
+                "y_array": self.data_set["y_array"],
+            }
+    
+        else:
+            raise ValueError('periodogram_data_type must be "position" or "velocity"')
+    
         for _dir in ["x_array", "y_array"]:
-            if periodogram_data_type == "velocity":
-                x = data[_dir]
-
-            elif periodogram_data_type == 'position':
-                x = self.data_set[_dir]
-            
-            else:
-                raise ValueError('periodogram_data_type must be "position" or "velocity')
-                
+            x = data[_dir]
+    
+            x = self._clean_signal(x, status=status, interpolate=True)
+            if x is None:
+                raise ValueError("Not enough valid samples for spectral analysis")
+    
             freqs, p_xx = welch_(x, fs=s_f, nperseg=Welch_samples_per_segment)
             densities.update({_dir[0]: p_xx})
+    
+        if self.config["display_results"] and not silent:
+            plot_periodogram(freqs, densities)
+    
+        return {"frequencies": freqs, "spectral_densities": densities}
 
-        if self.config["display_results"]:
-            if not silent:
-                plot_periodogram(freqs, densities)
-
-        results = dict({"frequencies": freqs, "spectral_densities": densities})
-
-        return results
-
-    def horizontal_vertical_csd(self):
-        return 0
-
-    def horizontal_vertical_welch_csd(self):
-        return 0
-
+ 
+ 
 
 class CrossFrequencyAnalysis:
     def __init__(self, input, **kwargs):
@@ -200,7 +234,7 @@ class CrossFrequencyAnalysis:
                     )
             print("\n")
 
-    def cross_spectral_density(self, cross_data_type):
+    def cross_spectral_density(self, cross_data_type='velocity'):
         """
 
 
@@ -229,20 +263,35 @@ class CrossFrequencyAnalysis:
 
             data_1 = dict({"x_array": sp_1[0], "y_array": sp_1[1]})
             data_2 = dict({"x_array": sp_2[0], "y_array": sp_2[1]})
-
+        
+        elif cross_data_type == "position":
+            pass
+        
+        else:
+            raise ValueError('cross_data_type must be "position" or "velocity"')
+            
         c_densities = dict()
-
+        
+        status1 = self.fa_1.data_set.get("status", None)
+        status2 = self.fa_2.data_set.get("status", None)
+        
         for _dir in ["x_array", "y_array"]:
             if cross_data_type == "velocity":
                 x_1 = data_1[_dir]
                 x_2 = data_2[_dir]
 
-            else:
+            elif cross_data_type == "position":
                 x_1 = self.fa_1.data_set[_dir]
                 x_2 = self.fa_2.data_set[_dir]
+            
+            x_1 = self.fa_1._clean_signal(x_1, status=status1, interpolate=True)
+            x_2 = self.fa_2._clean_signal(x_2, status=status2, interpolate=True)
+            
+            if x_1 is None or x_2 is None:
+                raise ValueError("Not enough valid samples for cross spectral analysis")
 
             freqs, p_xy = csd_(
-                x_1, x_2, fs=s_f, window="boxcar", nperseg=max(len(x_1), len(x_2))
+                x_1, x_2, fs=s_f, window="hann", nperseg=max(len(x_1), len(x_2))
             )
 
             c_densities.update({_dir[0]: p_xy})
@@ -254,7 +303,8 @@ class CrossFrequencyAnalysis:
 
         return results
 
-    def welch_cross_spectral_density(self, type_, samples_per_segment, silent=False):
+
+    def welch_cross_spectral_density(self, cross_data_type='velocity', samples_per_segment=256, silent=False):
         """
 
 
@@ -277,7 +327,7 @@ class CrossFrequencyAnalysis:
         
         s_f = self.s_f
 
-        if type_ == "velocity":
+        if cross_data_type == "velocity":
             sp_1 = process_speed_components(self.fa_1.data_set, self.fa_1.config)[
                 0:2, :
             ]
@@ -288,16 +338,31 @@ class CrossFrequencyAnalysis:
             data_1 = dict({"x_array": sp_1[0], "y_array": sp_1[1]})
             data_2 = dict({"x_array": sp_2[0], "y_array": sp_2[1]})
 
+        elif cross_data_type == "position":
+            pass
+        
+        else:
+            raise ValueError('cross_data_type must be "position" or "velocity"')
+            
         c_densities = dict()
 
+        status1 = self.fa_1.data_set.get("status", None)
+        status2 = self.fa_2.data_set.get("status", None)
+        
         for _dir in ["x_array", "y_array"]:
-            if type_ == "velocity":
+            if cross_data_type == "velocity":
                 x_1 = data_1[_dir]
                 x_2 = data_2[_dir]
 
-            else:
+            elif cross_data_type == "position":
                 x_1 = self.fa_1.data_set[_dir]
                 x_2 = self.fa_2.data_set[_dir]
+
+            x_1 = self.fa_1._clean_signal(x_1, status=status1, interpolate=True)
+            x_2 = self.fa_2._clean_signal(x_2, status=status2, interpolate=True)
+            
+            if x_1 is None or x_2 is None:
+                raise ValueError("Not enough valid samples for cross spectral analysis")
 
             freqs, p_xy = csd_(x_1, x_2, fs=s_f, nperseg=samples_per_segment)
             c_densities.update({_dir[0]: p_xy})
@@ -310,7 +375,8 @@ class CrossFrequencyAnalysis:
 
         return results
 
-    def signal_coherency(self, cross_data_type, samples_per_segment):
+
+    def signal_coherency(self, cross_data_type='velocity', samples_per_segment=256):
         """
         Returns
         -------
@@ -333,7 +399,8 @@ class CrossFrequencyAnalysis:
             p_xx = pxx_s["spectral_densities"][_dir]
             p_yy = pyy_s["spectral_densities"][_dir]
     
-            c_xy = np.abs(p_xy) ** 2 / (p_xx * p_yy)
+            den = p_xx * p_yy
+            c_xy = (np.abs(p_xy) ** 2) / (den + 1e-30)
             coherencies.update({_dir: c_xy})
     
         if self.config["display_results"]:

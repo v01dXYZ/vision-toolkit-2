@@ -14,6 +14,10 @@ class SignalBased:
             print("Processing Signal-Based Analysis...")
 
         df = pd.read_csv(input_df)
+        if isinstance(input_df, pd.DataFrame):
+            df = input_df
+        else:
+            df = pd.read_csv(input_df)
 
         sampling_frequency = kwargs.get("sampling_frequency", None)
         assert sampling_frequency is not None, "Sampling frequency must be specified"

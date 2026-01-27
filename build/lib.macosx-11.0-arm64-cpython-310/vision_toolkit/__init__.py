@@ -65,6 +65,8 @@ from .oculomotor.segmentation_based.pursuit_task import (
     pursuit_task_slope_ratios,
     pursuit_task_crossing_time, 
     pursuit_task_overall_gain,
+    pursuit_task_overall_gain_x,
+    pursuit_task_overall_gain_y,
     pursuit_task_sinusoidal_phase,
     pursuit_task_accuracy,
     pursuit_task_entropy,
