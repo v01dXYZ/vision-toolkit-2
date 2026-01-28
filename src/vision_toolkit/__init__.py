@@ -92,6 +92,28 @@ from .oculomotor.signal_based.stochastic import (DACF, DFA, MSD,
 
 # For Scanpath Processing
 from .scanpath.scanpath_base import (Scanpath)
+
+from .scanpath.single.geometrical.geometrical import (
+    GeometricalAnalysis,
+    scanpath_BCEA,
+    scanpath_convex_hull,
+    scanpath_HFD,
+    scanpath_k_coefficient,
+    scanpath_length,
+    scanpath_voronoi_cells)
+from .scanpath.single.rqa.rqa import (
+    RQAAnalysis, 
+    scanpath_RQA_CORM,
+    scanpath_RQA_determinism,
+    scanpath_RQA_entropy,
+    scanpath_RQA_laminarity,
+    scanpath_RQA_recurrence_rate)
+from .scanpath.single.saliency.saliency_map_base import (
+    SaliencyMap, 
+    scanpath_saliency_map,
+    scanpath_absolute_duration_saliency_map,
+    scanpath_relative_duration_saliency_map)
+
 from .scanpath.similarity.saliency.saliency_comparison import ( 
     SaliencyReference, 
     scanpath_saliency_percentile,
@@ -119,26 +141,7 @@ from .scanpath.similarity.distance_based.point_mapping.point_mapping import (
 from .scanpath.similarity.specific_similarity_metrics.multimatch_alignment import scanpath_multimatch_alignment
 from .scanpath.similarity.specific_similarity_metrics.scanmatch_score import scanpath_scanmatch_score
 from .scanpath.similarity.specific_similarity_metrics.subsmatch_similarity import scanpath_subsmatch_similarity
-from .scanpath.single.geometrical.geometrical import (
-    GeometricalAnalysis,
-    scanpath_BCEA,
-    scanpath_convex_hull,
-    scanpath_HFD,
-    scanpath_k_coefficient,
-    scanpath_length,
-    scanpath_voronoi_cells)
-from .scanpath.single.rqa.rqa import (
-    RQAAnalysis, 
-    scanpath_RQA_CORM,
-    scanpath_RQA_determinism,
-    scanpath_RQA_entropy,
-    scanpath_RQA_laminarity,
-    scanpath_RQA_recurrence_rate)
-from .scanpath.single.saliency.saliency_map_base import (
-    SaliencyMap, 
-    scanpath_saliency_map,
-    scanpath_absolute_duration_saliency_map,
-    scanpath_relative_duration_saliency_map)
+
 
 
 

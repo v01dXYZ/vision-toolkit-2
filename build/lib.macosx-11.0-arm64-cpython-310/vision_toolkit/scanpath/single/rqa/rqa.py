@@ -56,7 +56,7 @@ class RQAAnalysis(RecurrenceBase):
                     "scanpath_RQA_distance_threshold", d_thrs
                 ),
                 "scanpath_RQA_minimum_length": kwargs.get(
-                    "scanpath_RQA_minimum_length", 3
+                    "scanpath_RQA_minimum_length", 2
                 ),
                 "verbose": verbose,
                 "display_results": display_results,
@@ -75,17 +75,14 @@ class RQAAnalysis(RecurrenceBase):
         r_c = np.triu_indices(self.n, 1)
         self.r_u[r_c] = self.r_m[r_c]
 
-        ## Compute the set of horizontal lines
-        self.h_set = self.find_lines(
-            self.r_u.T,
-            self.scanpath.config["scanpath_RQA_minimum_length"],
-            "horizontal",
-        )
+        L = self.scanpath.config["scanpath_RQA_minimum_length"]
 
-        ## Compute the set of vertical lines
-        self.v_set = self.find_lines(
-            self.r_u, self.scanpath.config["scanpath_RQA_minimum_length"], "vertical"
-        )
+        # verticales dans r_u (OK)
+        self.v_set = self.find_lines(self.r_u, L, "vertical")
+        
+        # horizontales = verticales dans r_u.T, puis remap coords (i,j) -> (j,i)
+        h_set_T = self.find_lines(self.r_u.T, L, "vertical")
+        self.h_set = [line[:, [1, 0]] for line in h_set_T]
 
         ## Compute the set of diagonal lines
         self.d_set = self.find_diags(

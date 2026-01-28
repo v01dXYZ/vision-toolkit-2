@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import vision_toolkit as v
-import numpy as np
+ 
  
 root = 'dataset/'
-np.random.seed(1)
+ 
  
 
 ## For Frequency 

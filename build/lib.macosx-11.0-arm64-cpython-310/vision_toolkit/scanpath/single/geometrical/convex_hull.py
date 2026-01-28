@@ -6,64 +6,56 @@ import numpy as np
 
 from vision_toolkit.visualization.scanpath.single.geometrical import plot_convex_hull
 
-np.random.seed(1)
-
+ 
 
 class ConvexHull:
+
     def __init__(self, scanpath):
-        
-        self.s_ = scanpath.values[0:2]
-        self.n_ = len(scanpath.values[0])
- 
+        pts = np.asarray(scanpath.values[0:2]).T
+        pts = np.unique(pts, axis=0)
+
+        self.s_ = pts.T
+        self.n_ = pts.shape[0]
+
         self.h_ = set()
         self.h_a = None
         self.area = None
- 
+
         if self.n_ < 3:
-            raise ValueError("Convex hull not possible: need at least 3 points.")
+            raise ValueError("Convex hull not possible: need at least 3 unique points.")
 
         self.comp_hull()
-        self.results = dict({"hull_area": self.area, "hull_apex": self.h_a})
+        self.results = {"hull_area": self.area, "hull_apex": self.h_a}
 
-        if scanpath.config["display_results"]:
-            plot_convex_hull(
-                scanpath.values, self.h_a,
-                scanpath.config["display_path"],
-                scanpath.config
-            )
+        if scanpath.config.get("display_results", False):
+            plot_convex_hull(scanpath.values, self.h_a,
+                             scanpath.config.get("display_path"),
+                             scanpath.config)
+            
 
     def comp_hull(self):
+        
         s_ = self.s_.T
-        n_ = self.n_
- 
-        assert n_ > 2, "Convex hull not possible"
- 
         s_x = np.argmax(s_[:, 0])
         i_x = np.argmin(s_[:, 0])
 
         self.quick_hull(s_[i_x], s_[s_x], 1)
         self.quick_hull(s_[i_x], s_[s_x], -1)
 
-        h_a = []
-        for p_ in self.h_:
-            x = p_.split("$")
-            l_p = [float(x[0]), float(x[1])]
-            h_a.append(l_p)
+        h_a = np.array(list(self.h_), dtype=float)
 
-        h_a = np.array(h_a)
- 
-        if h_a.shape[0] < 3: 
+        if h_a.shape[0] < 3:
             self.h_a = h_a
             self.area = 0.0
             return
 
         self.h_a = self.sort_coordinates(h_a)
         self.area = self.poly_area()
+        
 
     def quick_hull(self, p1, p2, side):
         s_ = self.s_.T
         n_ = self.n_
-
         ind = -1
         m_d = 0
 
@@ -74,12 +66,13 @@ class ConvexHull:
                 m_d = l_d
 
         if ind == -1:
-            self.h_.add("$".join(map(str, p1)))
-            self.h_.add("$".join(map(str, p2)))
+            self.h_.add((round(p1[0], 6), round(p1[1], 6)))
+            self.h_.add((round(p2[0], 6), round(p2[1], 6)))
             return
 
         self.quick_hull(s_[ind], p1, -self.find_side(s_[ind], p1, p2))
         self.quick_hull(s_[ind], p2, -self.find_side(s_[ind], p2, p1))
+
 
     def find_side(self, p1, p2, p):
         val = (p[1] - p1[1]) * (p2[0] - p1[0]) - (p2[1] - p1[1]) * (p[0] - p1[0])
@@ -90,12 +83,10 @@ class ConvexHull:
             return -1
         return 0
 
+
     def line_dist(self, p1, p2, p):
-        l_d = abs(
-            (p[1] - p1[1]) * (p2[0] - p1[0])
-            - (p[2 - 1] - p1[1]) * (p[0] - p1[0])
-        ) 
-        return l_d
+        return abs((p2[0] - p1[0]) * (p[1] - p1[1]) - (p2[1] - p1[1]) * (p[0] - p1[0]))
+
 
     def poly_area(self):
         
@@ -103,6 +94,7 @@ class ConvexHull:
         
         y_ = self.h_a[:, 1]
         return 0.5 * np.abs(np.dot(x_, np.roll(y_, 1)) - np.dot(y_, np.roll(x_, 1)))
+
 
     def sort_coordinates(self, s_):
         

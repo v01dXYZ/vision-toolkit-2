@@ -41,10 +41,9 @@ class GeometricalAnalysis:
         v = self.scanpath.values
         return int(v.shape[1])
 
-    def _require_min_points(self, n_min, name):
-        n = self._n_points()
-        if n < n_min:
-            raise ValueError(f"{name} requires at least {n_min} points, got {n}")
+
+    def _has_min_points(self, n_min):
+        return self._n_points() >= n_min
 
     
     def scanpath_length(self):
@@ -64,7 +63,9 @@ class GeometricalAnalysis:
         
         if not (0.0 < BCEA_probability < 1.0):
             raise ValueError("BCEA_probability must be in (0, 1).")
-        self._require_min_points(2, "BCEA")
+        
+        if not self._has_min_points(2):
+            return {"BCEA": float("nan")}
 
         self.scanpath.config.update(
             {"display_results": display_results, "display_path": display_path}
@@ -81,35 +82,41 @@ class GeometricalAnalysis:
         
         return results
 
-    def scanpath_k_coefficient(self, display_results=True, display_path=None):
-        
-        self._require_min_points(2, "k_coefficient")
 
+    def scanpath_k_coefficient(self, display_results=True, display_path=None):
+    
+        if not self._has_min_points(2):
+            return {"k_coefficient": float("nan")}
+    
         self.scanpath.config.update(
             {"display_results": display_results, "display_path": display_path}
         )
-
+    
         v = self.scanpath.values
-        if v.shape[0] < 3:
+        if v.ndim != 2 or v.shape[0] < 3:
             raise ValueError(
-                "scanpath.values must have at least 3 rows (x, y, duration) for k_coefficient."
+                "scanpath.values must be a 2D array with at least 3 rows (x, y, duration)."
             )
-
-        # Avoid division by zero inside modified_k_coefficient
-        dur = v[2]
-        std_d = np.std(dur)
+    
+        # Departure durations (i) aligned with saccades i->i+1
+        dur = v[2, :-1]
         a_s = np.linalg.norm(v[0:2, 1:] - v[0:2, :-1], axis=0)
-        std_a = np.std(a_s)
-
-        if std_d == 0 or std_a == 0:
+    
+        if dur.size < 2 or a_s.size < 2:
             k_c = float("nan")
         else:
-            try:
-                k_c = float(modified_k_coefficient(self.scanpath))
-            except Exception:
+            std_d = np.std(dur, ddof=1)
+            std_a = np.std(a_s, ddof=1)
+    
+            if std_d == 0 or std_a == 0 or (not np.isfinite(std_d)) or (not np.isfinite(std_a)):
                 k_c = float("nan")
-
-        results = dict({"k_coefficient": k_c})
+            else:
+                try:
+                    k_c = float(modified_k_coefficient(self.scanpath))
+                except Exception:
+                    k_c = float("nan")
+    
+        results = {"k_coefficient": k_c}
         self.scanpath.verbose()
         
         return results
@@ -117,7 +124,9 @@ class GeometricalAnalysis:
 
     def scanpath_voronoi_cells(self, display_results=True, display_path=None, get_raw=True):
         
-        self._require_min_points(3, "Voronoi cells")
+        if not self._has_min_points(3):
+            return dict(
+                {"skewness": float("nan"), "gamma_parameter": float("nan"), "voronoi_areas": []})
 
         self.scanpath.config.update(
             {"display_results": display_results, "display_path": display_path}
@@ -142,7 +151,8 @@ class GeometricalAnalysis:
 
     def scanpath_convex_hull(self, display_results=True, display_path=None, get_raw=True):
         
-        self._require_min_points(3, "Convex hull")
+        if not self._has_min_points(3):
+            return dict({"hull_area": float("nan"), "hull_apex": None})
 
         self.scanpath.config.update(
             {"display_results": display_results, "display_path": display_path}
@@ -167,7 +177,14 @@ class GeometricalAnalysis:
         display_results=True, display_path=None, get_raw=True
     ):
         
-        self._require_min_points(2, "HFD")
+        if not self._has_min_points(3):
+            return dict(
+                {
+                    "fractal_dimension": float("nan"),
+                    "log_lengths": np.array([]),
+                    "log_inverse_time_intervals": np.array([]),
+                }
+            )
 
         if HFD_hilbert_iterations is None or HFD_hilbert_iterations < 1:
             raise ValueError("HFD_hilbert_iterations must be >= 1.")
