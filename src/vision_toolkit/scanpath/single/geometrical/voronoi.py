@@ -9,6 +9,8 @@ Created on Wed Dec 20 14:34:35 2023
 import numpy as np
 from scipy.spatial import Voronoi
 from scipy.stats import gamma as gamma_dist
+from scipy.optimize import minimize_scalar
+from scipy.special import gammaln
 from shapely.geometry import Polygon
 
 from vision_toolkit.visualization.scanpath.single.geometrical import plot_voronoi_cells
@@ -46,45 +48,54 @@ class VoronoiCells:
 
 
     def comp_skewness(self):
-        areas = np.array(self.areas, dtype=float)
- 
+        
+        areas = np.asarray(self.areas, dtype=float)
+        areas = areas[areas > 0]
         if areas.size < 2:
             return np.nan
-
+    
         mu = np.mean(areas)
-        sigma = np.std(areas, ddof=1)   
+        sigma = np.std(areas, ddof=0)  # ddof=0 pour coller à la formule "1/N"
         if sigma == 0 or not np.isfinite(sigma):
             return np.nan
-
-        skw = np.sum((areas - mu) ** 3)
-        skw /= (len(areas) - 1) * sigma**3
-
-        return float(skw)
+    
+        z3 = ((areas - mu) / sigma) ** 3
+        
+        return float(np.mean(z3)) 
 
 
     def comp_gamma(self):
-        areas = np.array(self.areas, dtype=float)
- 
-        areas = areas[areas > 0]
-
-        if areas.size == 0:
+        
+        x = np.asarray(self.areas, dtype=float)
+        x = x[x > 0]
+        if x.size == 0:
             return np.nan
-
-        m = np.mean(areas)
-        if m == 0 or not np.isfinite(m):
+    
+        # Normalisation (papier): mean = 1
+        m = np.mean(x)
+        if m <= 0 or not np.isfinite(m):
             return np.nan
- 
-        areas /= m
-
+        x = x / m
+    
+        # Log-vraisemblance pour Gamma(shape=1/b, scale=b), loc=0
+        def neg_ll(b):
+            if b <= 0 or not np.isfinite(b):
+                return np.inf
+            k = 1.0 / b          # shape
+            theta = b            # scale
+            # logpdf sum: (k-1)log x - x/theta - k log theta - log Gamma(k)
+            return -np.sum((k - 1) * np.log(x) - (x / theta) - k * np.log(theta) - gammaln(k))
+    
         try:
-            fit_shape, fit_loc, fit_scale = gamma_dist.fit(areas, floc=0)
-            return float(fit_scale)
+            res = minimize_scalar(neg_ll, bounds=(1e-6, 1e3), method="bounded")
+            return float(res.x) if res.success else np.nan
+        
         except Exception:
-     
             return np.nan
  
     
     def comp_voronoi_areas(self):
+        
         pts = self.fixations.T  # (N, 2)
         x_size, y_size = self.x_size, self.y_size
  
@@ -140,6 +151,7 @@ class VoronoiCells:
 
         return cell_areas, new_vertices
 
+
     def voronoi_finite_polygons_2d(self, vor, radius):
        
         if vor.points.shape[1] != 2:
@@ -174,7 +186,10 @@ class VoronoiCells:
                     continue
  
                 t = vor.points[p2] - vor.points[p1]  # tangent
-                t /= np.linalg.norm(t)
+                norm = np.linalg.norm(t)
+                if norm == 0 or not np.isfinite(norm):
+                    continue
+                t /= norm
                 n = np.array([-t[1], t[0]])  # normale
 
                 midpoint = vor.points[[p1, p2]].mean(axis=0)

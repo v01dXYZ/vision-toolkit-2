@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-import matplotlib.pyplot as plt
+ 
 import numpy as np
 from hilbertcurve.hilbertcurve import HilbertCurve
 
@@ -63,48 +62,42 @@ class HiguchiFractalDimension:
             )
 
     def compute_hfd(self, dist_):
-     
-        l_, x_ = [], []
+        
+        dist_ = np.asarray(dist_, dtype=float)
         n = len(dist_)
- 
+    
         if n < 2:
             return np.array([np.nan, np.nan]), np.array([]), np.array([])
-
-        for k in range(1, self.k_m + 1):
-            l_k = 0.0
-            for m in range(0, k):
-            
-                idxs = np.arange(
-                    1, int(np.floor((n - (m + 1)) / k) + 1), dtype=np.int32
-                )
-
+    
+        l_, x_ = [], []
+        k_max = min(self.k_m, n // 2)
+    
+        for k in range(1, k_max + 1):
+            Lk = []
+            for m in range(k):
+                idxs = np.arange(1, int(np.floor((n - m - 1) / k)) + 1)
                 if idxs.size == 0:
                     continue
- 
-                l_mk = np.sum(
-                    np.abs(dist_[m + idxs * k] - dist_[m + (idxs - 1) * k])
-                )
-
-                denom = (n - (m + 1)) / float(k)
-                if denom > 0:
-                    lmk = l_mk * (n - 1) / (denom * (k**2))
-                    l_k += lmk
-
-            if l_k == 0:
+    
+                diffs = np.abs(dist_[m + idxs * k] - dist_[m + (idxs - 1) * k])
+                lm = np.sum(diffs)
+                norm = (n - 1) / (idxs.size * k)
+                Lk.append(lm * norm)
+    
+            if len(Lk) == 0:
                 l_.append(np.nan)
             else:
-                l_.append(np.log(l_k / k))
-
+                l_.append(np.log(np.mean(Lk)))
+    
             x_.append(np.log(1.0 / k))
-
+    
         x_ = np.array(x_)
         l_ = np.array(l_)
-
+    
         idx = np.isfinite(x_) & np.isfinite(l_)
-
-        if np.sum(idx) < 2: 
+        if np.sum(idx) < 2:
             s_ = np.array([np.nan, np.nan])
         else:
             s_ = np.polyfit(x_[idx], l_[idx], 1)
-
+    
         return s_, x_, l_

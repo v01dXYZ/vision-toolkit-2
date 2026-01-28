@@ -27,6 +27,10 @@ class Scanpath:
 
         if isinstance(input, dict):
             self.generate_from_dict(input)
+            
+            self.config.setdefault("verbose", kwargs.get("verbose", True))
+            self.config.setdefault("display_scanpath", kwargs.get("display_scanpath", False))
+            self.config.setdefault("display_scanpath_path", kwargs.get("display_scanpath_path", None))
 
         else:
             verbose = kwargs.get("verbose", True)
@@ -83,7 +87,11 @@ class Scanpath:
                         c_x.append(np.nanmean(coord_x[status > 0]))
                         c_y.append(np.nanmean(coord_y[status > 0]))
                         d_.append((fix[1] - fix[0] + 1) / s_f)
-                c_ = np.stack((c_x, c_y), axis=0)
+                
+                if len(d_) == 0:
+                    c_ = np.zeros((2, 0), dtype=float)
+                else:
+                    c_ = np.stack((c_x, c_y), axis=0)
 
             self.values = np.stack((c_[0], c_[1], d_), axis=0)
             self.config.update(
