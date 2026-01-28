@@ -136,7 +136,9 @@ from .scanpath.single.rqa.rqa import (
     scanpath_RQA_recurrence_rate)
 from .scanpath.single.saliency.saliency_map_base import (
     SaliencyMap, 
-    scanpath_saliency_map)
+    scanpath_saliency_map,
+    scanpath_absolute_duration_saliency_map,
+    scanpath_relative_duration_saliency_map)
 
 
 
