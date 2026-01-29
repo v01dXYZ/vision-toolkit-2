@@ -117,7 +117,10 @@ from .scanpath.single.saliency.saliency_map_base import (
 from .scanpath.similarity.saliency.saliency_comparison import ( 
     SaliencyReference, 
     scanpath_saliency_percentile,
-    scanpath_saliency_nss)
+    scanpath_saliency_nss,
+    scanpath_saliency_information_gain,
+    scanpath_saliency_auc_judd,
+    scanpath_saliency_auc_borji)
 from .scanpath.similarity.crqa.crqa import (
     CRQAAnalysis, 
     scanpath_CRQA_recurrence_rate, 

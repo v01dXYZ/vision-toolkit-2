@@ -2549,6 +2549,9 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key);
 #define __Pyx_PyObject_Dict_GetItem(obj, name)  PyObject_GetItem(obj, name)
 #endif
 
+/* py_dict_keys.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyDict_Keys(PyObject* d);
+
 /* PyLongCompare.proto */
 static CYTHON_INLINE int __Pyx_PyLong_BoolNeObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
@@ -2559,9 +2562,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyLong_SubtractObjC(PyObject *op1, PyObject
 #define __Pyx_PyLong_SubtractObjC(op1, op2, intval, inplace, zerodivision_check)\
     (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
 #endif
-
-/* PyLongCompare.proto */
-static CYTHON_INLINE int __Pyx_PyLong_BoolEqObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
 /* AllocateExtensionType.proto */
 static PyObject *__Pyx_AllocateExtensionType(PyTypeObject *t, int is_final);
@@ -3176,6 +3176,7 @@ typedef struct {
   PyTypeObject *__pyx_memoryview_type;
   PyTypeObject *__pyx_memoryviewslice_type;
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_items;
+  __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_keys;
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_pop;
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_values;
   __Pyx_CachedCFunction __pyx_umethod_PyDict_Type__update;
@@ -3285,66 +3286,66 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_n_u_base __pyx_string_tab[58]
 #define __pyx_n_u_c __pyx_string_tab[59]
 #define __pyx_n_u_c_dict __pyx_string_tab[60]
-#define __pyx_n_u_character_generic_backtracking __pyx_string_tab[61]
-#define __pyx_n_u_class __pyx_string_tab[62]
-#define __pyx_n_u_class_getitem __pyx_string_tab[63]
-#define __pyx_n_u_cline_in_traceback __pyx_string_tab[64]
-#define __pyx_n_u_conc_b __pyx_string_tab[65]
-#define __pyx_n_u_count __pyx_string_tab[66]
-#define __pyx_n_u_d_mat __pyx_string_tab[67]
-#define __pyx_n_u_del_c __pyx_string_tab[68]
-#define __pyx_n_u_dict __pyx_string_tab[69]
-#define __pyx_n_u_dict_chr_idx __pyx_string_tab[70]
-#define __pyx_n_u_dict_str_int __pyx_string_tab[71]
-#define __pyx_n_u_discrete_frechet __pyx_string_tab[72]
-#define __pyx_n_u_dist_mat __pyx_string_tab[73]
-#define __pyx_n_u_double __pyx_string_tab[74]
-#define __pyx_n_u_dtw_links_backtracking __pyx_string_tab[75]
-#define __pyx_n_u_dtype __pyx_string_tab[76]
-#define __pyx_n_u_dtype_is_object __pyx_string_tab[77]
-#define __pyx_n_u_encode __pyx_string_tab[78]
-#define __pyx_n_u_enumerate __pyx_string_tab[79]
-#define __pyx_n_u_error __pyx_string_tab[80]
-#define __pyx_n_u_flags __pyx_string_tab[81]
-#define __pyx_n_u_format __pyx_string_tab[82]
-#define __pyx_n_u_fortran __pyx_string_tab[83]
-#define __pyx_n_u_frechet_links_backtracking __pyx_string_tab[84]
-#define __pyx_n_u_func __pyx_string_tab[85]
-#define __pyx_n_u_gap_c __pyx_string_tab[86]
-#define __pyx_n_u_generalized_edit __pyx_string_tab[87]
-#define __pyx_n_u_getstate __pyx_string_tab[88]
-#define __pyx_n_u_i __pyx_string_tab[89]
-#define __pyx_n_u_i_2 __pyx_string_tab[90]
-#define __pyx_n_u_i_3 __pyx_string_tab[91]
-#define __pyx_n_u_i_n __pyx_string_tab[92]
-#define __pyx_n_u_id __pyx_string_tab[93]
-#define __pyx_n_u_import __pyx_string_tab[94]
-#define __pyx_n_u_index __pyx_string_tab[95]
-#define __pyx_n_u_inf __pyx_string_tab[96]
-#define __pyx_n_u_ins_c __pyx_string_tab[97]
-#define __pyx_n_u_int32 __pyx_string_tab[98]
-#define __pyx_n_u_int_convert __pyx_string_tab[99]
-#define __pyx_n_u_int_convert_from_dict __pyx_string_tab[100]
-#define __pyx_n_u_intc __pyx_string_tab[101]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[102]
-#define __pyx_n_u_items __pyx_string_tab[103]
-#define __pyx_n_u_itemsize __pyx_string_tab[104]
-#define __pyx_n_u_j __pyx_string_tab[105]
-#define __pyx_n_u_j_2 __pyx_string_tab[106]
-#define __pyx_n_u_j_3 __pyx_string_tab[107]
-#define __pyx_n_u_j_n __pyx_string_tab[108]
-#define __pyx_n_u_key __pyx_string_tab[109]
-#define __pyx_n_u_keys __pyx_string_tab[110]
-#define __pyx_n_u_l_s __pyx_string_tab[111]
-#define __pyx_n_u_levenshtein __pyx_string_tab[112]
-#define __pyx_n_u_main __pyx_string_tab[113]
-#define __pyx_n_u_memview __pyx_string_tab[114]
-#define __pyx_n_u_mode __pyx_string_tab[115]
-#define __pyx_n_u_module __pyx_string_tab[116]
-#define __pyx_n_u_n_1 __pyx_string_tab[117]
-#define __pyx_n_u_n_2 __pyx_string_tab[118]
-#define __pyx_n_u_n_dict __pyx_string_tab[119]
-#define __pyx_n_u_n_key __pyx_string_tab[120]
+#define __pyx_n_u_ch __pyx_string_tab[61]
+#define __pyx_n_u_character_generic_backtracking __pyx_string_tab[62]
+#define __pyx_n_u_class __pyx_string_tab[63]
+#define __pyx_n_u_class_getitem __pyx_string_tab[64]
+#define __pyx_n_u_cline_in_traceback __pyx_string_tab[65]
+#define __pyx_n_u_conc_b __pyx_string_tab[66]
+#define __pyx_n_u_count __pyx_string_tab[67]
+#define __pyx_n_u_d_mat __pyx_string_tab[68]
+#define __pyx_n_u_del_c __pyx_string_tab[69]
+#define __pyx_n_u_dict __pyx_string_tab[70]
+#define __pyx_n_u_dict_chr_idx __pyx_string_tab[71]
+#define __pyx_n_u_dict_str_int __pyx_string_tab[72]
+#define __pyx_n_u_discrete_frechet __pyx_string_tab[73]
+#define __pyx_n_u_dist_mat __pyx_string_tab[74]
+#define __pyx_n_u_double __pyx_string_tab[75]
+#define __pyx_n_u_dtw_links_backtracking __pyx_string_tab[76]
+#define __pyx_n_u_dtype __pyx_string_tab[77]
+#define __pyx_n_u_dtype_is_object __pyx_string_tab[78]
+#define __pyx_n_u_encode __pyx_string_tab[79]
+#define __pyx_n_u_enumerate __pyx_string_tab[80]
+#define __pyx_n_u_error __pyx_string_tab[81]
+#define __pyx_n_u_flags __pyx_string_tab[82]
+#define __pyx_n_u_format __pyx_string_tab[83]
+#define __pyx_n_u_fortran __pyx_string_tab[84]
+#define __pyx_n_u_frechet_links_backtracking __pyx_string_tab[85]
+#define __pyx_n_u_func __pyx_string_tab[86]
+#define __pyx_n_u_gap_c __pyx_string_tab[87]
+#define __pyx_n_u_generalized_edit __pyx_string_tab[88]
+#define __pyx_n_u_getstate __pyx_string_tab[89]
+#define __pyx_n_u_i __pyx_string_tab[90]
+#define __pyx_n_u_i_2 __pyx_string_tab[91]
+#define __pyx_n_u_i_3 __pyx_string_tab[92]
+#define __pyx_n_u_i_n __pyx_string_tab[93]
+#define __pyx_n_u_id __pyx_string_tab[94]
+#define __pyx_n_u_import __pyx_string_tab[95]
+#define __pyx_n_u_index __pyx_string_tab[96]
+#define __pyx_n_u_inf __pyx_string_tab[97]
+#define __pyx_n_u_ins_c __pyx_string_tab[98]
+#define __pyx_n_u_int32 __pyx_string_tab[99]
+#define __pyx_n_u_int_convert __pyx_string_tab[100]
+#define __pyx_n_u_int_convert_from_dict __pyx_string_tab[101]
+#define __pyx_n_u_intc __pyx_string_tab[102]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[103]
+#define __pyx_n_u_items __pyx_string_tab[104]
+#define __pyx_n_u_itemsize __pyx_string_tab[105]
+#define __pyx_n_u_j __pyx_string_tab[106]
+#define __pyx_n_u_j_2 __pyx_string_tab[107]
+#define __pyx_n_u_j_3 __pyx_string_tab[108]
+#define __pyx_n_u_j_n __pyx_string_tab[109]
+#define __pyx_n_u_k __pyx_string_tab[110]
+#define __pyx_n_u_keys __pyx_string_tab[111]
+#define __pyx_n_u_l_s __pyx_string_tab[112]
+#define __pyx_n_u_levenshtein __pyx_string_tab[113]
+#define __pyx_n_u_main __pyx_string_tab[114]
+#define __pyx_n_u_memview __pyx_string_tab[115]
+#define __pyx_n_u_mode __pyx_string_tab[116]
+#define __pyx_n_u_module __pyx_string_tab[117]
+#define __pyx_n_u_n_1 __pyx_string_tab[118]
+#define __pyx_n_u_n_2 __pyx_string_tab[119]
+#define __pyx_n_u_n_dict __pyx_string_tab[120]
 #define __pyx_n_u_name __pyx_string_tab[121]
 #define __pyx_n_u_name_2 __pyx_string_tab[122]
 #define __pyx_n_u_ndim __pyx_string_tab[123]
@@ -3393,7 +3394,7 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_n_u_tmp_2 __pyx_string_tab[166]
 #define __pyx_n_u_unpack __pyx_string_tab[167]
 #define __pyx_n_u_update __pyx_string_tab[168]
-#define __pyx_n_u_val __pyx_string_tab[169]
+#define __pyx_n_u_v __pyx_string_tab[169]
 #define __pyx_n_u_values __pyx_string_tab[170]
 #define __pyx_n_u_vision_toolkit_scanpath_similari __pyx_string_tab[171]
 #define __pyx_n_u_w_d __pyx_string_tab[172]
@@ -3407,10 +3408,10 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_kp_b_iso88591_7_0_a12_AQ_3aq_3aq_RvRs_3c_fBa __pyx_string_tab[180]
 #define __pyx_kp_b_iso88591_7_0_a12_AQ_3aq_3aq_RvRs_3c_fBa_2 __pyx_string_tab[181]
 #define __pyx_kp_b_iso88591_9_8_auA_3aq_3aq_RvRs_3c_fBa_BfB __pyx_string_tab[182]
-#define __pyx_kp_b_iso88591_q_3a_q_3a_WAS_Cq_c_E_t3b_D_1_AS __pyx_string_tab[183]
-#define __pyx_kp_b_iso88591_q_3a_q_3a_WAS_Cs_1_Cs_1_Qc_AQ_t __pyx_string_tab[184]
-#define __pyx_kp_b_iso88591_q_89A_a_G2V1_BfA_Qc_d_uAS_b_BfA __pyx_string_tab[185]
-#define __pyx_kp_b_iso88591_q_89G1Cq_Ba_G2V1_BfA_Qc_d_uAS_b __pyx_string_tab[186]
+#define __pyx_kp_b_iso88591_e1_1Cr_S_Yaq_BfAQl_4t6_vRq_BfAQ __pyx_string_tab[183]
+#define __pyx_kp_b_iso88591_q_3a_q_3a_WAS_Cq_c_E_t3b_D_1_AS __pyx_string_tab[184]
+#define __pyx_kp_b_iso88591_q_89G1Cq_Ba_G2V1_BfA_Qc_d_uAS_b __pyx_string_tab[185]
+#define __pyx_kp_b_iso88591_r_Bd_Cq_r_r_2T_2Q_AS_AQd_T_4q_Q __pyx_string_tab[186]
 #define __pyx_kp_b_iso88591_t5_Cr_Bc_e1Cs_e1Cs_4s_1A_t3aq_A __pyx_string_tab[187]
 #define __pyx_n_b_O __pyx_string_tab[188]
 #define __pyx_int_0 __pyx_number_tab[0]
@@ -17040,11 +17041,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_t_21;
   int __pyx_t_22;
   Py_ssize_t __pyx_t_23;
-  int __pyx_t_24;
+  PyObject *__pyx_t_24 = NULL;
   PyObject *__pyx_t_25 = NULL;
   PyObject *__pyx_t_26 = NULL;
   PyObject *__pyx_t_27 = NULL;
-  PyObject *__pyx_t_28 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -17781,8 +17781,8 @@ __pyx_t_12 = -1;
  * 
  * 
  *     o_l = []             # <<<<<<<<<<<<<<
- *     o_l.insert(0, [s_1[:,n_1-1],
- *                    s_2[:,n_2-1],
+ *     opt_links = dtw_links_backtracking(s_1, s_2, o_l,
+ *                                        d_mat, b_map,
 */
   __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -17792,183 +17792,76 @@ __pyx_t_12 = -1;
   /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":61
  * 
  *     o_l = []
- *     o_l.insert(0, [s_1[:,n_1-1],             # <<<<<<<<<<<<<<
- *                    s_2[:,n_2-1],
- *                    [n_1-1, n_2-1]])
-*/
-  __pyx_t_11.data = __pyx_v_s_1.data;
-  __pyx_t_11.memview = __pyx_v_s_1.memview;
-  __PYX_INC_MEMVIEW(&__pyx_t_11, 1);
-  __pyx_t_11.shape[0] = __pyx_v_s_1.shape[0];
-__pyx_t_11.strides[0] = __pyx_v_s_1.strides[0];
-    __pyx_t_11.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = (__pyx_v_n_1 - 1);
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_1.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_1.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 61, __pyx_L1_error)
-        }
-        __pyx_t_11.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __PYX_XCLEAR_MEMVIEW(&__pyx_t_11, 1);
-  __pyx_t_11.memview = NULL; __pyx_t_11.data = NULL;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":62
- *     o_l = []
- *     o_l.insert(0, [s_1[:,n_1-1],
- *                    s_2[:,n_2-1],             # <<<<<<<<<<<<<<
- *                    [n_1-1, n_2-1]])
- * 
-*/
-  __pyx_t_11.data = __pyx_v_s_2.data;
-  __pyx_t_11.memview = __pyx_v_s_2.memview;
-  __PYX_INC_MEMVIEW(&__pyx_t_11, 1);
-  __pyx_t_11.shape[0] = __pyx_v_s_2.shape[0];
-__pyx_t_11.strides[0] = __pyx_v_s_2.strides[0];
-    __pyx_t_11.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = (__pyx_v_n_2 - 1);
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_2.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_2.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 62, __pyx_L1_error)
-        }
-        __pyx_t_11.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __PYX_XCLEAR_MEMVIEW(&__pyx_t_11, 1);
-  __pyx_t_11.memview = NULL; __pyx_t_11.data = NULL;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":63
- *     o_l.insert(0, [s_1[:,n_1-1],
- *                    s_2[:,n_2-1],
- *                    [n_1-1, n_2-1]])             # <<<<<<<<<<<<<<
- * 
- *     opt_links = dtw_links_backtracking(s_1, s_2, o_l,
-*/
-  __pyx_t_8 = __Pyx_PyLong_From_long((__pyx_v_n_1 - 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyLong_From_long((__pyx_v_n_2 - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_8) != (0)) __PYX_ERR(0, 63, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 63, __pyx_L1_error);
-  __pyx_t_8 = 0;
-  __pyx_t_7 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":61
- * 
- *     o_l = []
- *     o_l.insert(0, [s_1[:,n_1-1],             # <<<<<<<<<<<<<<
- *                    s_2[:,n_2-1],
- *                    [n_1-1, n_2-1]])
-*/
-  __pyx_t_7 = PyList_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 61, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 61, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 61, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 2, __pyx_t_4) != (0)) __PYX_ERR(0, 61, __pyx_L1_error);
-  __pyx_t_3 = 0;
-  __pyx_t_5 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_24 = PyList_Insert(__pyx_v_o_l, 0, __pyx_t_7); if (unlikely(__pyx_t_24 == ((int)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":65
- *                    [n_1-1, n_2-1]])
- * 
  *     opt_links = dtw_links_backtracking(s_1, s_2, o_l,             # <<<<<<<<<<<<<<
  *                                        d_mat, b_map,
  *                                        i = n_1, j = n_2)
 */
-  __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_8 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_5 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":66
- * 
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":62
+ *     o_l = []
  *     opt_links = dtw_links_backtracking(s_1, s_2, o_l,
  *                                        d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                        i = n_1, j = n_2)
  *     cdef double l_s = d_mat[n_1, n_2]
 */
-  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_25 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 66, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_25);
+  __pyx_t_24 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_24);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":67
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":63
  *     opt_links = dtw_links_backtracking(s_1, s_2, o_l,
  *                                        d_mat, b_map,
  *                                        i = n_1, j = n_2)             # <<<<<<<<<<<<<<
  *     cdef double l_s = d_mat[n_1, n_2]
  * 
 */
-  __pyx_t_26 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_25 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_25);
+  __pyx_t_26 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_26);
-  __pyx_t_27 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 67, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_27);
   __pyx_t_9 = 1;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
-    assert(__pyx_t_4);
-    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_5);
-    __Pyx_INCREF(__pyx_t_4);
+  if (unlikely(PyMethod_Check(__pyx_t_8))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
+    assert(__pyx_t_5);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_8);
+    __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx__function);
-    __Pyx_DECREF_SET(__pyx_t_5, __pyx__function);
+    __Pyx_DECREF_SET(__pyx_t_8, __pyx__function);
     __pyx_t_9 = 0;
   }
   #endif
   {
-    PyObject *__pyx_callargs[6 + ((CYTHON_VECTORCALL) ? 2 : 0)] = {__pyx_t_4, __pyx_t_3, __pyx_t_8, __pyx_v_o_l, __pyx_t_6, __pyx_t_25};
-    __pyx_t_28 = __Pyx_MakeVectorcallBuilderKwds(2); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 65, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_28);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_i, __pyx_t_26, __pyx_t_28, __pyx_callargs+6, 0) < (0)) __PYX_ERR(0, 65, __pyx_L1_error)
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_j, __pyx_t_27, __pyx_t_28, __pyx_callargs+6, 1) < (0)) __PYX_ERR(0, 65, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_5, __pyx_callargs+__pyx_t_9, (6-__pyx_t_9) | (__pyx_t_9*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_28);
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    PyObject *__pyx_callargs[6 + ((CYTHON_VECTORCALL) ? 2 : 0)] = {__pyx_t_5, __pyx_t_7, __pyx_t_4, __pyx_v_o_l, __pyx_t_6, __pyx_t_24};
+    __pyx_t_27 = __Pyx_MakeVectorcallBuilderKwds(2); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_27);
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_i, __pyx_t_25, __pyx_t_27, __pyx_callargs+6, 0) < (0)) __PYX_ERR(0, 61, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_j, __pyx_t_26, __pyx_t_27, __pyx_callargs+6, 1) < (0)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_8, __pyx_callargs+__pyx_t_9, (6-__pyx_t_9) | (__pyx_t_9*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_27);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
     __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
-    __Pyx_DECREF(__pyx_t_28); __pyx_t_28 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 65, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
   }
-  __pyx_v_opt_links = __pyx_t_7;
-  __pyx_t_7 = 0;
+  __pyx_v_opt_links = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":68
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":64
  *                                        d_mat, b_map,
  *                                        i = n_1, j = n_2)
  *     cdef double l_s = d_mat[n_1, n_2]             # <<<<<<<<<<<<<<
@@ -17988,11 +17881,11 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __
   } else if (unlikely(__pyx_t_19 >= __pyx_v_d_mat.shape[1])) __pyx_t_12 = 1;
   if (unlikely(__pyx_t_12 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_12);
-    __PYX_ERR(0, 68, __pyx_L1_error)
+    __PYX_ERR(0, 64, __pyx_L1_error)
   }
   __pyx_v_l_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_20 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_19 * __pyx_v_d_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":70
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":66
  *     cdef double l_s = d_mat[n_1, n_2]
  * 
  *     return opt_links, l_s             # <<<<<<<<<<<<<<
@@ -18000,18 +17893,18 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 70, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 70, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_INCREF(__pyx_v_opt_links);
   __Pyx_GIVEREF(__pyx_v_opt_links);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_opt_links) != (0)) __PYX_ERR(0, 70, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 70, __pyx_L1_error);
-  __pyx_t_7 = 0;
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v_opt_links) != (0)) __PYX_ERR(0, 66, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_3);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_3) != (0)) __PYX_ERR(0, 66, __pyx_L1_error);
+  __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_8;
+  __pyx_t_8 = 0;
   goto __pyx_L0;
 
   /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":11
@@ -18033,10 +17926,10 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __
   __Pyx_XDECREF(__pyx_t_8);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_11, 1);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_13, 1);
+  __Pyx_XDECREF(__pyx_t_24);
   __Pyx_XDECREF(__pyx_t_25);
   __Pyx_XDECREF(__pyx_t_26);
   __Pyx_XDECREF(__pyx_t_27);
-  __Pyx_XDECREF(__pyx_t_28);
   __Pyx_AddTraceback("vision_toolkit.scanpath.similarity.c_comparison_algorithms.c_comparison_algorithms.DTW", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -18049,7 +17942,7 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":73
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":69
  * 
  * 
  * def discrete_frechet(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -18098,46 +17991,46 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_dist_mat,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 73, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 69, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 73, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 69, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 73, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 69, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 73, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 69, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "discrete_frechet", 0) < (0)) __PYX_ERR(0, 73, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "discrete_frechet", 0) < (0)) __PYX_ERR(0, 69, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 3; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("discrete_frechet", 1, 3, 3, i); __PYX_ERR(0, 73, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("discrete_frechet", 1, 3, 3, i); __PYX_ERR(0, 69, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 73, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 69, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 73, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 69, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 73, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 69, __pyx_L3_error)
     }
-    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 73, __pyx_L3_error)
-    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 73, __pyx_L3_error)
-    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 74, __pyx_L3_error)
+    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 69, __pyx_L3_error)
+    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 69, __pyx_L3_error)
+    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 70, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("discrete_frechet", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 73, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("discrete_frechet", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 69, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -18220,7 +18113,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("discrete_frechet", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":76
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":72
  *                      double[:,:] dist_mat):
  * 
  *     cdef int n_1 = len(s_1.T)             # <<<<<<<<<<<<<<
@@ -18229,13 +18122,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_t_1 = __pyx_v_s_1;
   __PYX_INC_MEMVIEW(&__pyx_t_1, 1);
-  if (unlikely((__pyx_memslice_transpose(&__pyx_t_1) < 0))) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (unlikely((__pyx_memslice_transpose(&__pyx_t_1) < 0))) __PYX_ERR(0, 72, __pyx_L1_error)
   __pyx_t_2 = __Pyx_MemoryView_Len(__pyx_t_1); 
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
   __pyx_v_n_1 = __pyx_t_2;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":77
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":73
  * 
  *     cdef int n_1 = len(s_1.T)
  *     cdef int n_2 = len(s_2.T)             # <<<<<<<<<<<<<<
@@ -18244,13 +18137,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_t_1 = __pyx_v_s_2;
   __PYX_INC_MEMVIEW(&__pyx_t_1, 1);
-  if (unlikely((__pyx_memslice_transpose(&__pyx_t_1) < 0))) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely((__pyx_memslice_transpose(&__pyx_t_1) < 0))) __PYX_ERR(0, 73, __pyx_L1_error)
   __pyx_t_2 = __Pyx_MemoryView_Len(__pyx_t_1); 
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL; __pyx_t_1.data = NULL;
   __pyx_v_n_2 = __pyx_t_2;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":78
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":74
  *     cdef int n_1 = len(s_1.T)
  *     cdef int n_2 = len(s_2.T)
  *     cdef double[:,:] d_mat = np.zeros((n_1, n_2), dtype=np.double)             # <<<<<<<<<<<<<<
@@ -18258,26 +18151,26 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     d_mat[0,0] = dist_mat[0,0]
 */
   __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5) != (0)) __PYX_ERR(0, 78, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5) != (0)) __PYX_ERR(0, 74, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 78, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 74, __pyx_L1_error);
   __pyx_t_5 = 0;
   __pyx_t_7 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_9 = 1;
@@ -18294,25 +18187,25 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_4, __pyx_t_8};
-    __pyx_t_7 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_5, __pyx_t_7, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 78, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_5, __pyx_t_7, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 74, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_6, __pyx_callargs+__pyx_t_9, (2-__pyx_t_9) | (__pyx_t_9*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_7);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_d_mat = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":80
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":76
  *     cdef double[:,:] d_mat = np.zeros((n_1, n_2), dtype=np.double)
  * 
  *     d_mat[0,0] = dist_mat[0,0]             # <<<<<<<<<<<<<<
@@ -18332,7 +18225,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_11 >= __pyx_v_dist_mat.shape[1])) __pyx_t_12 = 1;
   if (unlikely(__pyx_t_12 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_12);
-    __PYX_ERR(0, 80, __pyx_L1_error)
+    __PYX_ERR(0, 76, __pyx_L1_error)
   }
   __pyx_t_13 = 0;
   __pyx_t_14 = 0;
@@ -18347,11 +18240,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_14 >= __pyx_v_d_mat.shape[1])) __pyx_t_12 = 1;
   if (unlikely(__pyx_t_12 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_12);
-    __PYX_ERR(0, 80, __pyx_L1_error)
+    __PYX_ERR(0, 76, __pyx_L1_error)
   }
   *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_13 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_14 * __pyx_v_d_mat.strides[1]) )) = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_10 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_dist_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":82
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":78
  *     d_mat[0,0] = dist_mat[0,0]
  * 
  *     cdef int[:,:,:] b_map = np.zeros((n_1, n_2, 2),             # <<<<<<<<<<<<<<
@@ -18359,37 +18252,37 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     cdef int i__ = 0
 */
   __pyx_t_6 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7) != (0)) __PYX_ERR(0, 82, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7) != (0)) __PYX_ERR(0, 78, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_8) != (0)) __PYX_ERR(0, 82, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_8) != (0)) __PYX_ERR(0, 78, __pyx_L1_error);
   __Pyx_INCREF(__pyx_mstate_global->__pyx_int_2);
   __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 82, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 78, __pyx_L1_error);
   __pyx_t_7 = 0;
   __pyx_t_8 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":83
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":79
  * 
  *     cdef int[:,:,:] b_map = np.zeros((n_1, n_2, 2),
  *                                      dtype=np.intc)             # <<<<<<<<<<<<<<
  *     cdef int i__ = 0
  *     cdef int j__ = 0
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_9 = 1;
@@ -18406,33 +18299,33 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_6, __pyx_t_4};
-    __pyx_t_8 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 78, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_7, __pyx_t_8, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 82, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_7, __pyx_t_8, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 78, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_5, __pyx_callargs+__pyx_t_9, (2-__pyx_t_9) | (__pyx_t_9*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_8);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":82
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":78
  *     d_mat[0,0] = dist_mat[0,0]
  * 
  *     cdef int[:,:,:] b_map = np.zeros((n_1, n_2, 2),             # <<<<<<<<<<<<<<
  *                                      dtype=np.intc)
  *     cdef int i__ = 0
 */
-  __pyx_t_15 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_15.memview)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_15.memview)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_b_map = __pyx_t_15;
   __pyx_t_15.memview = NULL;
   __pyx_t_15.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":84
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":80
  *     cdef int[:,:,:] b_map = np.zeros((n_1, n_2, 2),
  *                                      dtype=np.intc)
  *     cdef int i__ = 0             # <<<<<<<<<<<<<<
@@ -18441,7 +18334,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":85
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":81
  *                                      dtype=np.intc)
  *     cdef int i__ = 0
  *     cdef int j__ = 0             # <<<<<<<<<<<<<<
@@ -18450,7 +18343,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":87
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":83
  *     cdef int j__ = 0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -18463,7 +18356,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":88
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":84
  * 
  *     with nogil:
  *         for i__ in range(1, n_1):             # <<<<<<<<<<<<<<
@@ -18475,7 +18368,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_17 = 1; __pyx_t_17 < __pyx_t_16; __pyx_t_17+=1) {
           __pyx_v_i__ = __pyx_t_17;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":90
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":86
  *         for i__ in range(1, n_1):
  *             d_mat[i__, 0] = max(d_mat[i__ - 1, 0],
  *                                 dist_mat[i__, 0])             # <<<<<<<<<<<<<<
@@ -18495,11 +18388,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_10 >= __pyx_v_dist_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 90, __pyx_L4_error)
+            __PYX_ERR(0, 86, __pyx_L4_error)
           }
           __pyx_t_19 = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_11 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_dist_mat.strides[1]) )));
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":89
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":85
  *     with nogil:
  *         for i__ in range(1, n_1):
  *             d_mat[i__, 0] = max(d_mat[i__ - 1, 0],             # <<<<<<<<<<<<<<
@@ -18519,11 +18412,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_11 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 89, __pyx_L4_error)
+            __PYX_ERR(0, 85, __pyx_L4_error)
           }
           __pyx_t_20 = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_10 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_d_mat.strides[1]) )));
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":90
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":86
  *         for i__ in range(1, n_1):
  *             d_mat[i__, 0] = max(d_mat[i__ - 1, 0],
  *                                 dist_mat[i__, 0])             # <<<<<<<<<<<<<<
@@ -18537,7 +18430,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_21 = __pyx_t_20;
           }
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":89
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":85
  *     with nogil:
  *         for i__ in range(1, n_1):
  *             d_mat[i__, 0] = max(d_mat[i__ - 1, 0],             # <<<<<<<<<<<<<<
@@ -18557,11 +18450,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_10 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 89, __pyx_L4_error)
+            __PYX_ERR(0, 85, __pyx_L4_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_11 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_d_mat.strides[1]) )) = __pyx_t_21;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":91
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":87
  *             d_mat[i__, 0] = max(d_mat[i__ - 1, 0],
  *                                 dist_mat[i__, 0])
  *             b_map[i__, 0, 0] = i__-1             # <<<<<<<<<<<<<<
@@ -18586,11 +18479,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_14 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 91, __pyx_L4_error)
+            __PYX_ERR(0, 87, __pyx_L4_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_10 * __pyx_v_b_map.strides[0]) ) + __pyx_t_11 * __pyx_v_b_map.strides[1]) ) + __pyx_t_14 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_i__ - 1);
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":92
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":88
  *                                 dist_mat[i__, 0])
  *             b_map[i__, 0, 0] = i__-1
  *             b_map[i__, 0, 1] = 0             # <<<<<<<<<<<<<<
@@ -18615,13 +18508,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_10 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 92, __pyx_L4_error)
+            __PYX_ERR(0, 88, __pyx_L4_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_14 * __pyx_v_b_map.strides[0]) ) + __pyx_t_11 * __pyx_v_b_map.strides[1]) ) + __pyx_t_10 * __pyx_v_b_map.strides[2]) )) = 0;
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":87
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":83
  *     cdef int j__ = 0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -18643,7 +18536,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":94
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":90
  *             b_map[i__, 0, 1] = 0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -18656,7 +18549,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":95
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":91
  * 
  *     with nogil:
  *         for j__ in range(1, n_2):             # <<<<<<<<<<<<<<
@@ -18668,7 +18561,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_17 = 1; __pyx_t_17 < __pyx_t_16; __pyx_t_17+=1) {
           __pyx_v_j__ = __pyx_t_17;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":97
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":93
  *         for j__ in range(1, n_2):
  *             d_mat[0, j__] = max(d_mat[0, j__ - 1],
  *                                 dist_mat[0, j__])             # <<<<<<<<<<<<<<
@@ -18688,11 +18581,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_11 >= __pyx_v_dist_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 97, __pyx_L9_error)
+            __PYX_ERR(0, 93, __pyx_L9_error)
           }
           __pyx_t_21 = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_10 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_dist_mat.strides[1]) )));
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":96
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":92
  *     with nogil:
  *         for j__ in range(1, n_2):
  *             d_mat[0, j__] = max(d_mat[0, j__ - 1],             # <<<<<<<<<<<<<<
@@ -18712,11 +18605,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_10 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 96, __pyx_L9_error)
+            __PYX_ERR(0, 92, __pyx_L9_error)
           }
           __pyx_t_19 = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_11 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_d_mat.strides[1]) )));
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":97
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":93
  *         for j__ in range(1, n_2):
  *             d_mat[0, j__] = max(d_mat[0, j__ - 1],
  *                                 dist_mat[0, j__])             # <<<<<<<<<<<<<<
@@ -18730,7 +18623,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_20 = __pyx_t_19;
           }
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":96
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":92
  *     with nogil:
  *         for j__ in range(1, n_2):
  *             d_mat[0, j__] = max(d_mat[0, j__ - 1],             # <<<<<<<<<<<<<<
@@ -18750,11 +18643,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_11 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 96, __pyx_L9_error)
+            __PYX_ERR(0, 92, __pyx_L9_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_10 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_d_mat.strides[1]) )) = __pyx_t_20;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":98
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":94
  *             d_mat[0, j__] = max(d_mat[0, j__ - 1],
  *                                 dist_mat[0, j__])
  *             b_map[0, j__, 0] = 0             # <<<<<<<<<<<<<<
@@ -18779,11 +18672,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_14 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 98, __pyx_L9_error)
+            __PYX_ERR(0, 94, __pyx_L9_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_11 * __pyx_v_b_map.strides[0]) ) + __pyx_t_10 * __pyx_v_b_map.strides[1]) ) + __pyx_t_14 * __pyx_v_b_map.strides[2]) )) = 0;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":99
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":95
  *                                 dist_mat[0, j__])
  *             b_map[0, j__, 0] = 0
  *             b_map[0, j__, 1] = j__-1             # <<<<<<<<<<<<<<
@@ -18808,13 +18701,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_11 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 99, __pyx_L9_error)
+            __PYX_ERR(0, 95, __pyx_L9_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_14 * __pyx_v_b_map.strides[0]) ) + __pyx_t_10 * __pyx_v_b_map.strides[1]) ) + __pyx_t_11 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_j__ - 1);
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":94
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":90
  *             b_map[i__, 0, 1] = 0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -18836,7 +18729,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":101
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":97
  *             b_map[0, j__, 1] = j__-1
  * 
  *     cdef int i_ = 0             # <<<<<<<<<<<<<<
@@ -18845,7 +18738,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":102
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":98
  * 
  *     cdef int i_ = 0
  *     cdef int j_ = 0             # <<<<<<<<<<<<<<
@@ -18854,7 +18747,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":104
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":100
  *     cdef int j_ = 0
  * 
  *     cdef int s_s_0 = 0             # <<<<<<<<<<<<<<
@@ -18863,7 +18756,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_0 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":105
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":101
  * 
  *     cdef int s_s_0 = 0
  *     cdef int s_s_1 = 0             # <<<<<<<<<<<<<<
@@ -18872,7 +18765,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":107
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":103
  *     cdef int s_s_1 = 0
  * 
  *     cdef double c = 0.0             # <<<<<<<<<<<<<<
@@ -18881,7 +18774,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_c = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":108
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":104
  * 
  *     cdef double c = 0.0
  *     cdef double w_s = 0.0             # <<<<<<<<<<<<<<
@@ -18890,7 +18783,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_s = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":109
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":105
  *     cdef double c = 0.0
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0             # <<<<<<<<<<<<<<
@@ -18899,7 +18792,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_d = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":110
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":106
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0
  *     cdef double w_i = 0.0             # <<<<<<<<<<<<<<
@@ -18908,7 +18801,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_i = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":112
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":108
  *     cdef double w_i = 0.0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -18921,7 +18814,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":113
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":109
  * 
  *     with nogil:
  *         for i_ in range (1, n_1):             # <<<<<<<<<<<<<<
@@ -18933,7 +18826,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_17 = 1; __pyx_t_17 < __pyx_t_16; __pyx_t_17+=1) {
           __pyx_v_i_ = __pyx_t_17;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":114
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":110
  *     with nogil:
  *         for i_ in range (1, n_1):
  *             for j_ in range(1, n_2):             # <<<<<<<<<<<<<<
@@ -18945,7 +18838,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           for (__pyx_t_24 = 1; __pyx_t_24 < __pyx_t_23; __pyx_t_24+=1) {
             __pyx_v_j_ = __pyx_t_24;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":115
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":111
  *         for i_ in range (1, n_1):
  *             for j_ in range(1, n_2):
  *                 c = dist_mat[i_, j_]             # <<<<<<<<<<<<<<
@@ -18965,11 +18858,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_10 >= __pyx_v_dist_mat.shape[1])) __pyx_t_25 = 1;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 115, __pyx_L14_error)
+              __PYX_ERR(0, 111, __pyx_L14_error)
             }
             __pyx_v_c = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_11 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_dist_mat.strides[1]) )));
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":117
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":113
  *                 c = dist_mat[i_, j_]
  * 
  *                 w_s = d_mat[i_ - 1, j_ - 1]             # <<<<<<<<<<<<<<
@@ -18989,11 +18882,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_11 >= __pyx_v_d_mat.shape[1])) __pyx_t_25 = 1;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 117, __pyx_L14_error)
+              __PYX_ERR(0, 113, __pyx_L14_error)
             }
             __pyx_v_w_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_10 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_d_mat.strides[1]) )));
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":118
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":114
  * 
  *                 w_s = d_mat[i_ - 1, j_ - 1]
  *                 s_s_0 = i_ - 1             # <<<<<<<<<<<<<<
@@ -19002,7 +18895,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_0 = (__pyx_v_i_ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":119
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":115
  *                 w_s = d_mat[i_ - 1, j_ - 1]
  *                 s_s_0 = i_ - 1
  *                 s_s_1 = j_ - 1             # <<<<<<<<<<<<<<
@@ -19011,7 +18904,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_1 = (__pyx_v_j_ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":121
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":117
  *                 s_s_1 = j_ - 1
  * 
  *                 w_d = d_mat[i_ - 1, j_]             # <<<<<<<<<<<<<<
@@ -19031,11 +18924,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_10 >= __pyx_v_d_mat.shape[1])) __pyx_t_25 = 1;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 121, __pyx_L14_error)
+              __PYX_ERR(0, 117, __pyx_L14_error)
             }
             __pyx_v_w_d = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_11 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_d_mat.strides[1]) )));
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":122
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":118
  * 
  *                 w_d = d_mat[i_ - 1, j_]
  *                 if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -19045,7 +18938,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_22 = (__pyx_v_w_d < __pyx_v_w_s);
             if (__pyx_t_22) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":123
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":119
  *                 w_d = d_mat[i_ - 1, j_]
  *                 if w_d < w_s:
  *                     w_s = w_d             # <<<<<<<<<<<<<<
@@ -19054,7 +18947,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_d;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":124
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":120
  *                 if w_d < w_s:
  *                     w_s = w_d
  *                     s_s_0 = i_ - 1             # <<<<<<<<<<<<<<
@@ -19063,7 +18956,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = (__pyx_v_i_ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":125
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":121
  *                     w_s = w_d
  *                     s_s_0 = i_ - 1
  *                     s_s_1 = j_             # <<<<<<<<<<<<<<
@@ -19072,7 +18965,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = __pyx_v_j_;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":122
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":118
  * 
  *                 w_d = d_mat[i_ - 1, j_]
  *                 if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -19081,7 +18974,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":127
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":123
  *                     s_s_1 = j_
  * 
  *                 w_i = d_mat[i_, j_ - 1]             # <<<<<<<<<<<<<<
@@ -19101,11 +18994,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_11 >= __pyx_v_d_mat.shape[1])) __pyx_t_25 = 1;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 127, __pyx_L14_error)
+              __PYX_ERR(0, 123, __pyx_L14_error)
             }
             __pyx_v_w_i = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_10 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_d_mat.strides[1]) )));
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":128
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":124
  * 
  *                 w_i = d_mat[i_, j_ - 1]
  *                 if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -19115,7 +19008,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_22 = (__pyx_v_w_i < __pyx_v_w_s);
             if (__pyx_t_22) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":129
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":125
  *                 w_i = d_mat[i_, j_ - 1]
  *                 if w_i < w_s:
  *                     w_s = w_i             # <<<<<<<<<<<<<<
@@ -19124,7 +19017,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_i;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":130
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":126
  *                 if w_i < w_s:
  *                     w_s = w_i
  *                     s_s_0 = i_             # <<<<<<<<<<<<<<
@@ -19133,7 +19026,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = __pyx_v_i_;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":131
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":127
  *                     w_s = w_i
  *                     s_s_0 = i_
  *                     s_s_1 = j_ - 1             # <<<<<<<<<<<<<<
@@ -19142,7 +19035,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = (__pyx_v_j_ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":128
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":124
  * 
  *                 w_i = d_mat[i_, j_ - 1]
  *                 if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -19151,7 +19044,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":133
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":129
  *                     s_s_1 = j_ - 1
  * 
  *                 d_mat[i_, j_] = max(w_s, c)             # <<<<<<<<<<<<<<
@@ -19179,11 +19072,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_10 >= __pyx_v_d_mat.shape[1])) __pyx_t_25 = 1;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 133, __pyx_L14_error)
+              __PYX_ERR(0, 129, __pyx_L14_error)
             }
             *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_11 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_10 * __pyx_v_d_mat.strides[1]) )) = __pyx_t_19;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":134
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":130
  * 
  *                 d_mat[i_, j_] = max(w_s, c)
  *                 b_map[i_, j_, 0] = s_s_0             # <<<<<<<<<<<<<<
@@ -19208,11 +19101,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_14 >= __pyx_v_b_map.shape[2])) __pyx_t_25 = 2;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 134, __pyx_L14_error)
+              __PYX_ERR(0, 130, __pyx_L14_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_10 * __pyx_v_b_map.strides[0]) ) + __pyx_t_11 * __pyx_v_b_map.strides[1]) ) + __pyx_t_14 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_0;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":135
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":131
  *                 d_mat[i_, j_] = max(w_s, c)
  *                 b_map[i_, j_, 0] = s_s_0
  *                 b_map[i_, j_, 1] = s_s_1             # <<<<<<<<<<<<<<
@@ -19237,14 +19130,14 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_10 >= __pyx_v_b_map.shape[2])) __pyx_t_25 = 2;
             if (unlikely(__pyx_t_25 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_25);
-              __PYX_ERR(0, 135, __pyx_L14_error)
+              __PYX_ERR(0, 131, __pyx_L14_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_14 * __pyx_v_b_map.strides[0]) ) + __pyx_t_11 * __pyx_v_b_map.strides[1]) ) + __pyx_t_10 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_1;
           }
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":112
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":108
  *     cdef double w_i = 0.0
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -19266,19 +19159,19 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":138
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":134
  * 
  * 
  *     o_l = []             # <<<<<<<<<<<<<<
  *     o_l.insert(0, [s_1[:,n_1-1],
  *                    s_2[:,n_2-1],
 */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_v_o_l = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":139
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":135
  * 
  *     o_l = []
  *     o_l.insert(0, [s_1[:,n_1-1],             # <<<<<<<<<<<<<<
@@ -19301,17 +19194,17 @@ __pyx_t_26.strides[0] = __pyx_v_s_1.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 139, __pyx_L1_error)
+            __PYX_ERR(0, 135, __pyx_L1_error)
         }
         __pyx_t_26.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 1);
   __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":140
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":136
  *     o_l = []
  *     o_l.insert(0, [s_1[:,n_1-1],
  *                    s_2[:,n_2-1],             # <<<<<<<<<<<<<<
@@ -19334,58 +19227,58 @@ __pyx_t_26.strides[0] = __pyx_v_s_2.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 140, __pyx_L1_error)
+            __PYX_ERR(0, 136, __pyx_L1_error)
         }
         __pyx_t_26.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+__pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_26, 1);
   __pyx_t_26.memview = NULL; __pyx_t_26.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":141
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":137
  *     o_l.insert(0, [s_1[:,n_1-1],
  *                    s_2[:,n_2-1],
  *                    [n_1-1, n_2-1]])             # <<<<<<<<<<<<<<
  * 
  *     opt_links = frechet_links_backtracking(s_1, s_2, o_l,
 */
-  __pyx_t_8 = __Pyx_PyLong_From_long((__pyx_v_n_1 - 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyLong_From_long((__pyx_v_n_1 - 1)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyLong_From_long((__pyx_v_n_2 - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyLong_From_long((__pyx_v_n_2 - 1)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_8) != (0)) __PYX_ERR(0, 141, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_8) != (0)) __PYX_ERR(0, 137, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 141, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 137, __pyx_L1_error);
   __pyx_t_8 = 0;
   __pyx_t_7 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":139
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":135
  * 
  *     o_l = []
  *     o_l.insert(0, [s_1[:,n_1-1],             # <<<<<<<<<<<<<<
  *                    s_2[:,n_2-1],
  *                    [n_1-1, n_2-1]])
 */
-  __pyx_t_7 = PyList_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 139, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 139, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 2, __pyx_t_4) != (0)) __PYX_ERR(0, 139, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 2, __pyx_t_4) != (0)) __PYX_ERR(0, 135, __pyx_L1_error);
   __pyx_t_3 = 0;
   __pyx_t_5 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_27 = PyList_Insert(__pyx_v_o_l, 0, __pyx_t_7); if (unlikely(__pyx_t_27 == ((int)-1))) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_27 = PyList_Insert(__pyx_v_o_l, 0, __pyx_t_7); if (unlikely(__pyx_t_27 == ((int)-1))) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":143
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":139
  *                    [n_1-1, n_2-1]])
  * 
  *     opt_links = frechet_links_backtracking(s_1, s_2, o_l,             # <<<<<<<<<<<<<<
@@ -19393,35 +19286,35 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
  *                                            i = n_1-1, j = n_2-1)
 */
   __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_8 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_8 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":144
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":140
  * 
  *     opt_links = frechet_links_backtracking(s_1, s_2, o_l,
  *                                            d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                            i = n_1-1, j = n_2-1)
  * 
 */
-  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_28 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_28 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_28);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":145
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":141
  *     opt_links = frechet_links_backtracking(s_1, s_2, o_l,
  *                                            d_mat, b_map,
  *                                            i = n_1-1, j = n_2-1)             # <<<<<<<<<<<<<<
  * 
  *     cdef double l_s = d_mat[n_1 - 1, n_2 - 1]
 */
-  __pyx_t_29 = __Pyx_PyLong_From_long((__pyx_v_n_1 - 1)); if (unlikely(!__pyx_t_29)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_29 = __Pyx_PyLong_From_long((__pyx_v_n_1 - 1)); if (unlikely(!__pyx_t_29)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_29);
-  __pyx_t_30 = __Pyx_PyLong_From_long((__pyx_v_n_2 - 1)); if (unlikely(!__pyx_t_30)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_30 = __Pyx_PyLong_From_long((__pyx_v_n_2 - 1)); if (unlikely(!__pyx_t_30)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_30);
   __pyx_t_9 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -19437,10 +19330,10 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
   #endif
   {
     PyObject *__pyx_callargs[6 + ((CYTHON_VECTORCALL) ? 2 : 0)] = {__pyx_t_4, __pyx_t_3, __pyx_t_8, __pyx_v_o_l, __pyx_t_6, __pyx_t_28};
-    __pyx_t_31 = __Pyx_MakeVectorcallBuilderKwds(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_31 = __Pyx_MakeVectorcallBuilderKwds(2); if (unlikely(!__pyx_t_31)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_31);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_i, __pyx_t_29, __pyx_t_31, __pyx_callargs+6, 0) < (0)) __PYX_ERR(0, 143, __pyx_L1_error)
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_j, __pyx_t_30, __pyx_t_31, __pyx_callargs+6, 1) < (0)) __PYX_ERR(0, 143, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_i, __pyx_t_29, __pyx_t_31, __pyx_callargs+6, 0) < (0)) __PYX_ERR(0, 139, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_j, __pyx_t_30, __pyx_t_31, __pyx_callargs+6, 1) < (0)) __PYX_ERR(0, 139, __pyx_L1_error)
     __pyx_t_7 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_5, __pyx_callargs+__pyx_t_9, (6-__pyx_t_9) | (__pyx_t_9*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_31);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -19451,13 +19344,13 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
     __Pyx_DECREF(__pyx_t_30); __pyx_t_30 = 0;
     __Pyx_DECREF(__pyx_t_31); __pyx_t_31 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
   }
   __pyx_v_opt_links = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":147
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":143
  *                                            i = n_1-1, j = n_2-1)
  * 
  *     cdef double l_s = d_mat[n_1 - 1, n_2 - 1]             # <<<<<<<<<<<<<<
@@ -19477,11 +19370,11 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
   } else if (unlikely(__pyx_t_11 >= __pyx_v_d_mat.shape[1])) __pyx_t_12 = 1;
   if (unlikely(__pyx_t_12 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_12);
-    __PYX_ERR(0, 147, __pyx_L1_error)
+    __PYX_ERR(0, 143, __pyx_L1_error)
   }
   __pyx_v_l_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_10 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_11 * __pyx_v_d_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":149
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":145
  *     cdef double l_s = d_mat[n_1 - 1, n_2 - 1]
  * 
  *     return opt_links, l_s             # <<<<<<<<<<<<<<
@@ -19489,21 +19382,21 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_opt_links);
   __Pyx_GIVEREF(__pyx_v_opt_links);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_opt_links) != (0)) __PYX_ERR(0, 149, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_opt_links) != (0)) __PYX_ERR(0, 145, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 149, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 145, __pyx_L1_error);
   __pyx_t_7 = 0;
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":73
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":69
  * 
  * 
  * def discrete_frechet(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -19538,7 +19431,7 @@ __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_26, 1, (PyObject *(*)(char *)) __
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":152
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":148
  * 
  * 
  * def levenshtein (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -19589,56 +19482,56 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_del_c,&__pyx_mstate_global->__pyx_n_u_ins_c,&__pyx_mstate_global->__pyx_n_u_sub_c,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 152, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 148, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "levenshtein", 0) < (0)) __PYX_ERR(0, 152, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "levenshtein", 0) < (0)) __PYX_ERR(0, 148, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 2; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("levenshtein", 0, 2, 5, i); __PYX_ERR(0, 152, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("levenshtein", 0, 2, 5, i); __PYX_ERR(0, 148, __pyx_L3_error) }
       }
     } else {
       switch (__pyx_nargs) {
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 148, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 148, __pyx_L3_error)
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 148, __pyx_L3_error)
         break;
         default: goto __pyx_L5_argtuple_error;
       }
@@ -19646,24 +19539,24 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
     if (values[2]) {
-      __pyx_v_del_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_del_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L3_error)
+      __pyx_v_del_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_del_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
     } else {
       __pyx_v_del_c = ((double)((double)1.0));
     }
     if (values[3]) {
-      __pyx_v_ins_c = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_ins_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L3_error)
+      __pyx_v_ins_c = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_ins_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
     } else {
       __pyx_v_ins_c = ((double)((double)1.0));
     }
     if (values[4]) {
-      __pyx_v_sub_c = __Pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_sub_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L3_error)
+      __pyx_v_sub_c = __Pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_sub_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
     } else {
       __pyx_v_sub_c = ((double)((double)1.0));
     }
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("levenshtein", 0, 2, 5, __pyx_nargs); __PYX_ERR(0, 152, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("levenshtein", 0, 2, 5, __pyx_nargs); __PYX_ERR(0, 148, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19674,8 +19567,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 152, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 148, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 148, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_4levenshtein(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_del_c, __pyx_v_ins_c, __pyx_v_sub_c);
 
   /* function exit code */
@@ -19747,7 +19640,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("levenshtein", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":155
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":151
  *                  double del_c = 1.0, double ins_c = 1.0, double sub_c = 1.0) :
  * 
  *     tmp_1, tmp_2 = int_convert(s_1, s_2)             # <<<<<<<<<<<<<<
@@ -19755,7 +19648,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     cdef int[:] s_1_c = tmp_1
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -19774,7 +19667,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (3-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -19783,7 +19676,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 155, __pyx_L1_error)
+      __PYX_ERR(0, 151, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -19793,22 +19686,22 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_INCREF(__pyx_t_2);
     } else {
       __pyx_t_3 = __Pyx_PyList_GetItemRefFast(sequence, 0, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_3);
       __pyx_t_2 = __Pyx_PyList_GetItemRefFast(sequence, 1, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_2);
     }
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_6 = (CYTHON_COMPILING_IN_LIMITED_API) ? PyIter_Next : __Pyx_PyObject_GetIterNextFunc(__pyx_t_5);
@@ -19816,7 +19709,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_GOTREF(__pyx_t_3);
     index = 1; __pyx_t_2 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_2)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 2) < (0)) __PYX_ERR(0, 155, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 2) < (0)) __PYX_ERR(0, 151, __pyx_L1_error)
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -19824,7 +19717,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 155, __pyx_L1_error)
+    __PYX_ERR(0, 151, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_tmp_1 = __pyx_t_3;
@@ -19832,31 +19725,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   __pyx_v_tmp_2 = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":157
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":153
  *     tmp_1, tmp_2 = int_convert(s_1, s_2)
  * 
  *     cdef int[:] s_1_c = tmp_1             # <<<<<<<<<<<<<<
  *     cdef int[:] s_2_c = tmp_2
  * 
 */
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 153, __pyx_L1_error)
   __pyx_v_s_1_c = __pyx_t_7;
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":158
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":154
  * 
  *     cdef int[:] s_1_c = tmp_1
  *     cdef int[:] s_2_c = tmp_2             # <<<<<<<<<<<<<<
  * 
  *     cdef int n_1 = len(s_1)
 */
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 154, __pyx_L1_error)
   __pyx_v_s_2_c = __pyx_t_7;
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":160
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":156
  *     cdef int[:] s_2_c = tmp_2
  * 
  *     cdef int n_1 = len(s_1)             # <<<<<<<<<<<<<<
@@ -19865,12 +19758,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 160, __pyx_L1_error)
+    __PYX_ERR(0, 156, __pyx_L1_error)
   }
-  __pyx_t_8 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 156, __pyx_L1_error)
   __pyx_v_n_1 = __pyx_t_8;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":161
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":157
  * 
  *     cdef int n_1 = len(s_1)
  *     cdef int n_2 = len(s_2)             # <<<<<<<<<<<<<<
@@ -19879,12 +19772,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_2 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 161, __pyx_L1_error)
+    __PYX_ERR(0, 157, __pyx_L1_error)
   }
-  __pyx_t_8 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 157, __pyx_L1_error)
   __pyx_v_n_2 = __pyx_t_8;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":163
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":159
  *     cdef int n_2 = len(s_2)
  * 
  *     cdef double[:,:] d_mat = np.zeros((n_1+1, n_2+1), dtype=np.double)             # <<<<<<<<<<<<<<
@@ -19892,26 +19785,26 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     ## Declare a path matrix for backtracking
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_9 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 163, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 159, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_9);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9) != (0)) __PYX_ERR(0, 163, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9) != (0)) __PYX_ERR(0, 159, __pyx_L1_error);
   __pyx_t_3 = 0;
   __pyx_t_9 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_4 = 1;
@@ -19928,25 +19821,25 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_2, __pyx_t_10};
-    __pyx_t_9 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_3, __pyx_t_9, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_3, __pyx_t_9, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 159, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_5, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d_mat = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":166
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":162
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
@@ -19954,37 +19847,37 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     cdef int s_s_0 = 0
 */
   __pyx_t_5 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_9);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_9) != (0)) __PYX_ERR(0, 166, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_9) != (0)) __PYX_ERR(0, 162, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_10);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_10) != (0)) __PYX_ERR(0, 166, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_10) != (0)) __PYX_ERR(0, 162, __pyx_L1_error);
   __Pyx_INCREF(__pyx_mstate_global->__pyx_int_2);
   __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 166, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 162, __pyx_L1_error);
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":167
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":163
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),
  *                                      dtype=np.intc)             # <<<<<<<<<<<<<<
  *     cdef int s_s_0 = 0
  *     cdef int s_s_1 = 0
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_4 = 1;
@@ -20001,33 +19894,33 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_5, __pyx_t_2};
-    __pyx_t_10 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_9, __pyx_t_10, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 166, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_9, __pyx_t_10, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 162, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":166
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":162
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
  *                                      dtype=np.intc)
  *     cdef int s_s_0 = 0
 */
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_b_map = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":168
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":164
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),
  *                                      dtype=np.intc)
  *     cdef int s_s_0 = 0             # <<<<<<<<<<<<<<
@@ -20036,7 +19929,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_0 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":169
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":165
  *                                      dtype=np.intc)
  *     cdef int s_s_0 = 0
  *     cdef int s_s_1 = 0             # <<<<<<<<<<<<<<
@@ -20045,7 +19938,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":171
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":167
  *     cdef int s_s_1 = 0
  * 
  *     cdef int i_ = 0             # <<<<<<<<<<<<<<
@@ -20054,7 +19947,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":172
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":168
  * 
  *     cdef int i_ = 0
  *     cdef int j_ = 0             # <<<<<<<<<<<<<<
@@ -20063,7 +19956,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":175
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":171
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -20076,7 +19969,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":176
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":172
  *     ## Fill the first column and row
  *     with nogil:
  *         for i_ in range(n_1+1):             # <<<<<<<<<<<<<<
@@ -20088,7 +19981,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":177
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":173
  *     with nogil:
  *         for i_ in range(n_1+1):
  *             d_mat[i_, 0] = i_ * del_c             # <<<<<<<<<<<<<<
@@ -20108,12 +20001,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 177, __pyx_L6_error)
+            __PYX_ERR(0, 173, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) )) = (__pyx_v_i_ * __pyx_v_del_c);
         }
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":178
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":174
  *         for i_ in range(n_1+1):
  *             d_mat[i_, 0] = i_ * del_c
  *         for j_ in range(n_2+1):             # <<<<<<<<<<<<<<
@@ -20125,7 +20018,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_j_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":179
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":175
  *             d_mat[i_, 0] = i_ * del_c
  *         for j_ in range(n_2+1):
  *             d_mat[0, j_] = j_ * ins_c             # <<<<<<<<<<<<<<
@@ -20145,13 +20038,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 179, __pyx_L6_error)
+            __PYX_ERR(0, 175, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) )) = (__pyx_v_j_ * __pyx_v_ins_c);
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":175
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":171
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -20173,7 +20066,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":181
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":177
  *             d_mat[0, j_] = j_ * ins_c
  * 
  *     cdef double w_s = 0.0             # <<<<<<<<<<<<<<
@@ -20182,7 +20075,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_s = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":182
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":178
  * 
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0             # <<<<<<<<<<<<<<
@@ -20191,7 +20084,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_d = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":183
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":179
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0
  *     cdef double w_i = 0.0             # <<<<<<<<<<<<<<
@@ -20200,7 +20093,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_i = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":185
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":181
  *     cdef double w_i = 0.0
  * 
  *     cdef int i__ = 0             # <<<<<<<<<<<<<<
@@ -20209,7 +20102,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":186
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":182
  * 
  *     cdef int i__ = 0
  *     cdef int j__ = 0             # <<<<<<<<<<<<<<
@@ -20218,7 +20111,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":188
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":184
  *     cdef int j__ = 0
  * 
  *     cdef double tmp = 0.0             # <<<<<<<<<<<<<<
@@ -20227,7 +20120,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_tmp = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":191
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":187
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -20240,7 +20133,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":192
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":188
  *     ## Fill the D-matrix
  *     with nogil:
  *         for i__ in range (1, n_1 + 1):             # <<<<<<<<<<<<<<
@@ -20252,7 +20145,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 1; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i__ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":193
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":189
  *     with nogil:
  *         for i__ in range (1, n_1 + 1):
  *             b_map[i__, 0, 0] = i__-1             # <<<<<<<<<<<<<<
@@ -20277,11 +20170,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_19 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 193, __pyx_L13_error)
+            __PYX_ERR(0, 189, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_19 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_i__ - 1);
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":194
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":190
  *         for i__ in range (1, n_1 + 1):
  *             b_map[i__, 0, 0] = i__-1
  *             b_map[i__, 0, 1] = 0             # <<<<<<<<<<<<<<
@@ -20306,11 +20199,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 194, __pyx_L13_error)
+            __PYX_ERR(0, 190, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_19 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = 0;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":196
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":192
  *             b_map[i__, 0, 1] = 0
  * 
  *             for j__ in range (1, n_2 + 1):             # <<<<<<<<<<<<<<
@@ -20322,7 +20215,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           for (__pyx_t_18 = 1; __pyx_t_18 < __pyx_t_21; __pyx_t_18+=1) {
             __pyx_v_j__ = __pyx_t_18;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":197
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":193
  * 
  *             for j__ in range (1, n_2 + 1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -20332,7 +20225,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_22 = (__pyx_v_i__ == 1);
             if (__pyx_t_22) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":198
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":194
  *             for j__ in range (1, n_2 + 1):
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0             # <<<<<<<<<<<<<<
@@ -20357,11 +20250,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_19 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 198, __pyx_L13_error)
+                __PYX_ERR(0, 194, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_19 * __pyx_v_b_map.strides[2]) )) = 0;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":199
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":195
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0
  *                     b_map[0, j__, 1] = j__-1             # <<<<<<<<<<<<<<
@@ -20386,11 +20279,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 199, __pyx_L13_error)
+                __PYX_ERR(0, 195, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_19 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":197
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":193
  * 
  *             for j__ in range (1, n_2 + 1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -20399,7 +20292,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":201
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":197
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:             # <<<<<<<<<<<<<<
@@ -20414,7 +20307,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_16 >= __pyx_v_s_1_c.shape[0])) __pyx_t_23 = 0;
             if (unlikely(__pyx_t_23 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-              __PYX_ERR(0, 201, __pyx_L13_error)
+              __PYX_ERR(0, 197, __pyx_L13_error)
             }
             __pyx_t_17 = (__pyx_v_j__ - 1);
             __pyx_t_23 = -1;
@@ -20424,12 +20317,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_17 >= __pyx_v_s_2_c.shape[0])) __pyx_t_23 = 0;
             if (unlikely(__pyx_t_23 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-              __PYX_ERR(0, 201, __pyx_L13_error)
+              __PYX_ERR(0, 197, __pyx_L13_error)
             }
             __pyx_t_22 = ((*((int *) ( /* dim=0 */ (__pyx_v_s_1_c.data + __pyx_t_16 * __pyx_v_s_1_c.strides[0]) ))) == (*((int *) ( /* dim=0 */ (__pyx_v_s_2_c.data + __pyx_t_17 * __pyx_v_s_2_c.strides[0]) ))));
             if (__pyx_t_22) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":202
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":198
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:
  *                     tmp = d_mat[i__-1, j__-1]             # <<<<<<<<<<<<<<
@@ -20449,11 +20342,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 202, __pyx_L13_error)
+                __PYX_ERR(0, 198, __pyx_L13_error)
               }
               __pyx_v_tmp = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) )));
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":203
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":199
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:
  *                     tmp = d_mat[i__-1, j__-1]
  *                     d_mat[i__, j__] = tmp             # <<<<<<<<<<<<<<
@@ -20473,11 +20366,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 203, __pyx_L13_error)
+                __PYX_ERR(0, 199, __pyx_L13_error)
               }
               *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) )) = __pyx_v_tmp;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":205
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":201
  *                     d_mat[i__, j__] = tmp
  * 
  *                     b_map[i__, j__, 0] = i__-1             # <<<<<<<<<<<<<<
@@ -20502,11 +20395,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_19 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 205, __pyx_L13_error)
+                __PYX_ERR(0, 201, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_17 * __pyx_v_b_map.strides[0]) ) + __pyx_t_16 * __pyx_v_b_map.strides[1]) ) + __pyx_t_19 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_i__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":206
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":202
  * 
  *                     b_map[i__, j__, 0] = i__-1
  *                     b_map[i__, j__, 1] = j__-1             # <<<<<<<<<<<<<<
@@ -20531,11 +20424,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 206, __pyx_L13_error)
+                __PYX_ERR(0, 202, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_19 * __pyx_v_b_map.strides[0]) ) + __pyx_t_16 * __pyx_v_b_map.strides[1]) ) + __pyx_t_17 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":201
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":197
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:             # <<<<<<<<<<<<<<
@@ -20545,7 +20438,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               goto __pyx_L20;
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":209
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":205
  * 
  *                 else:
  *                     w_s = d_mat[i__-1, j__-1] + sub_c             # <<<<<<<<<<<<<<
@@ -20566,11 +20459,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 209, __pyx_L13_error)
+                __PYX_ERR(0, 205, __pyx_L13_error)
               }
               __pyx_v_w_s = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_sub_c);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":210
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":206
  *                 else:
  *                     w_s = d_mat[i__-1, j__-1] + sub_c
  *                     s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -20579,7 +20472,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":211
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":207
  *                     w_s = d_mat[i__-1, j__-1] + sub_c
  *                     s_s_0 = i__-1
  *                     s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -20588,7 +20481,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":213
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":209
  *                     s_s_1 = j__-1
  * 
  *                     w_d = d_mat[i__-1, j__] + del_c             # <<<<<<<<<<<<<<
@@ -20608,11 +20501,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 213, __pyx_L13_error)
+                __PYX_ERR(0, 209, __pyx_L13_error)
               }
               __pyx_v_w_d = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_del_c);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":214
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":210
  * 
  *                     w_d = d_mat[i__-1, j__] + del_c
  *                     if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -20622,7 +20515,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               __pyx_t_22 = (__pyx_v_w_d < __pyx_v_w_s);
               if (__pyx_t_22) {
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":215
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":211
  *                     w_d = d_mat[i__-1, j__] + del_c
  *                     if w_d < w_s:
  *                         w_s = w_d             # <<<<<<<<<<<<<<
@@ -20631,7 +20524,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_w_s = __pyx_v_w_d;
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":216
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":212
  *                     if w_d < w_s:
  *                         w_s = w_d
  *                         s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -20640,7 +20533,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":217
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":213
  *                         w_s = w_d
  *                         s_s_0 = i__-1
  *                         s_s_1 = j__             # <<<<<<<<<<<<<<
@@ -20649,7 +20542,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_s_s_1 = __pyx_v_j__;
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":214
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":210
  * 
  *                     w_d = d_mat[i__-1, j__] + del_c
  *                     if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -20658,7 +20551,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               }
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":219
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":215
  *                         s_s_1 = j__
  * 
  *                     w_i = d_mat[i__, j__-1] + ins_c             # <<<<<<<<<<<<<<
@@ -20678,11 +20571,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 219, __pyx_L13_error)
+                __PYX_ERR(0, 215, __pyx_L13_error)
               }
               __pyx_v_w_i = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_ins_c);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":220
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":216
  * 
  *                     w_i = d_mat[i__, j__-1] + ins_c
  *                     if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -20692,7 +20585,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               __pyx_t_22 = (__pyx_v_w_i < __pyx_v_w_s);
               if (__pyx_t_22) {
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":221
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":217
  *                     w_i = d_mat[i__, j__-1] + ins_c
  *                     if w_i < w_s:
  *                         w_s = w_i             # <<<<<<<<<<<<<<
@@ -20701,7 +20594,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_w_s = __pyx_v_w_i;
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":222
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":218
  *                     if w_i < w_s:
  *                         w_s = w_i
  *                         s_s_0 = i__             # <<<<<<<<<<<<<<
@@ -20710,7 +20603,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_s_s_0 = __pyx_v_i__;
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":223
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":219
  *                         w_s = w_i
  *                         s_s_0 = i__
  *                         s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -20719,7 +20612,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
                 __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":220
+                /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":216
  * 
  *                     w_i = d_mat[i__, j__-1] + ins_c
  *                     if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -20728,7 +20621,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               }
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":225
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":221
  *                         s_s_1 = j__-1
  * 
  *                     d_mat[i__, j__] = w_s             # <<<<<<<<<<<<<<
@@ -20748,11 +20641,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_23 = 1;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 225, __pyx_L13_error)
+                __PYX_ERR(0, 221, __pyx_L13_error)
               }
               *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) )) = __pyx_v_w_s;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":226
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":222
  * 
  *                     d_mat[i__, j__] = w_s
  *                     b_map[i__, j__, 0] = s_s_0             # <<<<<<<<<<<<<<
@@ -20777,11 +20670,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_19 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 226, __pyx_L13_error)
+                __PYX_ERR(0, 222, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_17 * __pyx_v_b_map.strides[0]) ) + __pyx_t_16 * __pyx_v_b_map.strides[1]) ) + __pyx_t_19 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_0;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":227
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":223
  *                     d_mat[i__, j__] = w_s
  *                     b_map[i__, j__, 0] = s_s_0
  *                     b_map[i__, j__, 1] = s_s_1             # <<<<<<<<<<<<<<
@@ -20806,7 +20699,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_b_map.shape[2])) __pyx_t_23 = 2;
               if (unlikely(__pyx_t_23 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_23);
-                __PYX_ERR(0, 227, __pyx_L13_error)
+                __PYX_ERR(0, 223, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_19 * __pyx_v_b_map.strides[0]) ) + __pyx_t_16 * __pyx_v_b_map.strides[1]) ) + __pyx_t_17 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_1;
             }
@@ -20815,7 +20708,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":191
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":187
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -20837,7 +20730,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":229
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":225
  *                     b_map[i__, j__, 1] = s_s_1
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -20845,31 +20738,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *                                                n_1, n_2)
 */
   __pyx_t_3 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":230
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":226
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                                n_1, n_2)
  * 
 */
-  __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":231
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":227
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,
  *                                                n_1, n_2)             # <<<<<<<<<<<<<<
  * 
  *     cdef double l_s = d_mat[n_1, n_2]
 */
-  __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_24 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_24 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_24);
   __pyx_t_4 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -20892,13 +20785,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_v_opt_align = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":233
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":229
  *                                                n_1, n_2)
  * 
  *     cdef double l_s = d_mat[n_1, n_2]             # <<<<<<<<<<<<<<
@@ -20918,11 +20811,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_15 = 1;
   if (unlikely(__pyx_t_15 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_15);
-    __PYX_ERR(0, 233, __pyx_L1_error)
+    __PYX_ERR(0, 229, __pyx_L1_error)
   }
   __pyx_v_l_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":235
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":231
  *     cdef double l_s = d_mat[n_1, n_2]
  * 
  *     return opt_align, l_s             # <<<<<<<<<<<<<<
@@ -20930,21 +20823,21 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_l_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_INCREF(__pyx_v_opt_align);
   __Pyx_GIVEREF(__pyx_v_opt_align);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 235, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 231, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 235, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 231, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_r = __pyx_t_10;
   __pyx_t_10 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":152
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":148
  * 
  * 
  * def levenshtein (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -20979,7 +20872,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":238
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":234
  * 
  * 
  * def generalized_edit (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -21031,67 +20924,67 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_del_c,&__pyx_mstate_global->__pyx_n_u_ins_c,&__pyx_mstate_global->__pyx_n_u_dict_chr_idx,&__pyx_mstate_global->__pyx_n_u_dist_mat,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 238, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 234, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 238, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 234, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "generalized_edit", 0) < (0)) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "generalized_edit", 0) < (0)) __PYX_ERR(0, 234, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 6; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("generalized_edit", 1, 6, 6, i); __PYX_ERR(0, 238, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("generalized_edit", 1, 6, 6, i); __PYX_ERR(0, 234, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 234, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 234, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 234, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 234, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 234, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 238, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 234, __pyx_L3_error)
     }
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
-    __pyx_v_del_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_del_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 239, __pyx_L3_error)
-    __pyx_v_ins_c = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_ins_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 239, __pyx_L3_error)
+    __pyx_v_del_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_del_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 235, __pyx_L3_error)
+    __pyx_v_ins_c = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_ins_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 235, __pyx_L3_error)
     __pyx_v_dict_chr_idx = ((PyObject*)values[4]);
-    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 240, __pyx_L3_error)
+    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 236, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("generalized_edit", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 238, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("generalized_edit", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 234, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21103,9 +20996,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 238, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 238, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 234, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 234, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 236, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_6generalized_edit(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_del_c, __pyx_v_ins_c, __pyx_v_dict_chr_idx, __pyx_v_dist_mat);
 
   /* function exit code */
@@ -21183,7 +21076,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("generalized_edit", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":242
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":238
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -21191,10 +21084,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":243
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":239
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,
  *                                                  dict_chr_idx)             # <<<<<<<<<<<<<<
@@ -21218,7 +21111,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (4-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -21227,7 +21120,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 242, __pyx_L1_error)
+      __PYX_ERR(0, 238, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -21239,27 +21132,27 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_INCREF(__pyx_t_5);
     } else {
       __pyx_t_3 = __Pyx_PyList_GetItemRefFast(sequence, 0, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_3);
       __pyx_t_2 = __Pyx_PyList_GetItemRefFast(sequence, 1, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_2);
       __pyx_t_5 = __Pyx_PyList_GetItemRefFast(sequence, 2, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 242, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_5);
     }
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 242, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 242, __pyx_L1_error)
+    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_7 = (CYTHON_COMPILING_IN_LIMITED_API) ? PyIter_Next : __Pyx_PyObject_GetIterNextFunc(__pyx_t_6);
@@ -21269,7 +21162,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_GOTREF(__pyx_t_2);
     index = 2; __pyx_t_5 = __pyx_t_7(__pyx_t_6); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 3) < (0)) __PYX_ERR(0, 242, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 3) < (0)) __PYX_ERR(0, 238, __pyx_L1_error)
     __pyx_t_7 = NULL;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     goto __pyx_L4_unpacking_done;
@@ -21277,11 +21170,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 242, __pyx_L1_error)
+    __PYX_ERR(0, 238, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":242
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":238
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -21295,31 +21188,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   __pyx_v_n_dict = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":245
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":241
  *                                                  dict_chr_idx)
  * 
  *     cdef int[:] s_1_c = tmp_1             # <<<<<<<<<<<<<<
  *     cdef int[:] s_2_c = tmp_2
  * 
 */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 241, __pyx_L1_error)
   __pyx_v_s_1_c = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":246
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":242
  * 
  *     cdef int[:] s_1_c = tmp_1
  *     cdef int[:] s_2_c = tmp_2             # <<<<<<<<<<<<<<
  * 
  *     ## Convert python dict to c dict for nogil loops
 */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 246, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 242, __pyx_L1_error)
   __pyx_v_s_2_c = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":249
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":245
  * 
  *     ## Convert python dict to c dict for nogil loops
  *     cdef map[int, int] c_dict = dict_to_cmap(n_dict)             # <<<<<<<<<<<<<<
@@ -21328,12 +21221,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_t_1 = __pyx_v_n_dict;
   __Pyx_INCREF(__pyx_t_1);
-  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_1))) __PYX_ERR(0, 249, __pyx_L1_error)
-  __pyx_t_9 = __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_dict_to_cmap(((PyObject*)__pyx_t_1)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 249, __pyx_L1_error)
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_1))) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_9 = __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_dict_to_cmap(((PyObject*)__pyx_t_1)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_c_dict = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_9);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":252
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":248
  * 
  *     ## Declare some constants
  *     cdef int n_1 = len(s_1)             # <<<<<<<<<<<<<<
@@ -21342,12 +21235,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 252, __pyx_L1_error)
+    __PYX_ERR(0, 248, __pyx_L1_error)
   }
-  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 248, __pyx_L1_error)
   __pyx_v_n_1 = __pyx_t_10;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":253
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":249
  *     ## Declare some constants
  *     cdef int n_1 = len(s_1)
  *     cdef int n_2 = len(s_2)             # <<<<<<<<<<<<<<
@@ -21356,12 +21249,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_2 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 253, __pyx_L1_error)
+    __PYX_ERR(0, 249, __pyx_L1_error)
   }
-  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 249, __pyx_L1_error)
   __pyx_v_n_2 = __pyx_t_10;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":255
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":251
  *     cdef int n_2 = len(s_2)
  * 
  *     cdef int i_ = 0             # <<<<<<<<<<<<<<
@@ -21370,7 +21263,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":256
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":252
  * 
  *     cdef int i_ = 0
  *     cdef int j_ = 0             # <<<<<<<<<<<<<<
@@ -21379,7 +21272,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":259
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":255
  * 
  *     ## Declare the D matrix
  *     cdef double[:,:] d_mat = np.zeros((n_1+1, n_2+1), dtype=np.double)             # <<<<<<<<<<<<<<
@@ -21387,26 +21280,26 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     ## Fill the first column and row
 */
   __pyx_t_5 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2) != (0)) __PYX_ERR(0, 259, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2) != (0)) __PYX_ERR(0, 255, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_6) != (0)) __PYX_ERR(0, 259, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_6) != (0)) __PYX_ERR(0, 255, __pyx_L1_error);
   __pyx_t_2 = 0;
   __pyx_t_6 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_4 = 1;
@@ -21423,25 +21316,25 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_5, __pyx_t_11};
-    __pyx_t_6 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 255, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_2, __pyx_t_6, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_2, __pyx_t_6, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 255, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d_mat = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":262
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":258
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -21454,7 +21347,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":263
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":259
  *     ## Fill the first column and row
  *     with nogil:
  *         for i_ in range(n_1+1):             # <<<<<<<<<<<<<<
@@ -21466,7 +21359,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":264
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":260
  *     with nogil:
  *         for i_ in range(n_1+1):
  *             d_mat[i_][0] = i_ * del_c             # <<<<<<<<<<<<<<
@@ -21486,12 +21379,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 264, __pyx_L6_error)
+            __PYX_ERR(0, 260, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) )) = (__pyx_v_i_ * __pyx_v_del_c);
         }
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":265
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":261
  *         for i_ in range(n_1+1):
  *             d_mat[i_][0] = i_ * del_c
  *         for j_ in range(n_2+1):             # <<<<<<<<<<<<<<
@@ -21503,7 +21396,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_j_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":266
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":262
  *             d_mat[i_][0] = i_ * del_c
  *         for j_ in range(n_2+1):
  *             d_mat[0][j_] = j_ * ins_c             # <<<<<<<<<<<<<<
@@ -21523,13 +21416,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 266, __pyx_L6_error)
+            __PYX_ERR(0, 262, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) )) = (__pyx_v_j_ * __pyx_v_ins_c);
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":262
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":258
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -21551,7 +21444,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":268
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":264
  *             d_mat[0][j_] = j_ * ins_c
  * 
  *     cdef double w_s = 0.0             # <<<<<<<<<<<<<<
@@ -21560,7 +21453,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_s = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":269
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":265
  * 
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0             # <<<<<<<<<<<<<<
@@ -21569,7 +21462,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_d = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":270
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":266
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0
  *     cdef double w_i = 0.0             # <<<<<<<<<<<<<<
@@ -21578,7 +21471,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_i = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":273
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":269
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
@@ -21586,37 +21479,37 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __pyx_t_3 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 273, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 269, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_11);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 273, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 269, __pyx_L1_error);
   __Pyx_INCREF(__pyx_mstate_global->__pyx_int_2);
   __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 273, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 269, __pyx_L1_error);
   __pyx_t_6 = 0;
   __pyx_t_11 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":274
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":270
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),
  *                                      dtype=np.intc)             # <<<<<<<<<<<<<<
  * 
  *     cdef int s_s_0 = 0
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_t_4 = 1;
@@ -21633,33 +21526,33 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_3, __pyx_t_5};
-    __pyx_t_11 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 269, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_6, __pyx_t_11, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 273, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_6, __pyx_t_11, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 269, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_2, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_11);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":273
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":269
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
  *                                      dtype=np.intc)
  * 
 */
-  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_b_map = __pyx_t_19;
   __pyx_t_19.memview = NULL;
   __pyx_t_19.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":276
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":272
  *                                      dtype=np.intc)
  * 
  *     cdef int s_s_0 = 0             # <<<<<<<<<<<<<<
@@ -21668,7 +21561,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_0 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":277
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":273
  * 
  *     cdef int s_s_0 = 0
  *     cdef int s_s_1 = 0             # <<<<<<<<<<<<<<
@@ -21677,7 +21570,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":279
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":275
  *     cdef int s_s_1 = 0
  * 
  *     cdef int i__ = 0             # <<<<<<<<<<<<<<
@@ -21686,7 +21579,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":280
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":276
  * 
  *     cdef int i__ = 0
  *     cdef int j__ = 0             # <<<<<<<<<<<<<<
@@ -21695,7 +21588,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":283
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":279
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -21708,7 +21601,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":284
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":280
  *     ## Fill the D-matrix
  *     with nogil:
  *         for i__ in range (1, n_1+1):             # <<<<<<<<<<<<<<
@@ -21720,7 +21613,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 1; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i__ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":285
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":281
  *     with nogil:
  *         for i__ in range (1, n_1+1):
  *             b_map[i__, 0, 0] = i__-1             # <<<<<<<<<<<<<<
@@ -21745,11 +21638,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 285, __pyx_L13_error)
+            __PYX_ERR(0, 281, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_i__ - 1);
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":286
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":282
  *         for i__ in range (1, n_1+1):
  *             b_map[i__, 0, 0] = i__-1
  *             b_map[i__, 0, 1] = 0             # <<<<<<<<<<<<<<
@@ -21774,11 +21667,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 286, __pyx_L13_error)
+            __PYX_ERR(0, 282, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = 0;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":288
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":284
  *             b_map[i__, 0, 1] = 0
  * 
  *             for j__ in range (1, n_2+1):             # <<<<<<<<<<<<<<
@@ -21790,7 +21683,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           for (__pyx_t_18 = 1; __pyx_t_18 < __pyx_t_22; __pyx_t_18+=1) {
             __pyx_v_j__ = __pyx_t_18;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":289
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":285
  * 
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -21800,7 +21693,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_i__ == 1);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":290
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":286
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0             # <<<<<<<<<<<<<<
@@ -21825,11 +21718,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 290, __pyx_L13_error)
+                __PYX_ERR(0, 286, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = 0;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":291
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":287
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0
  *                     b_map[0, j__, 1] = j__-1             # <<<<<<<<<<<<<<
@@ -21854,11 +21747,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 291, __pyx_L13_error)
+                __PYX_ERR(0, 287, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":289
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":285
  * 
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -21867,7 +21760,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":293
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":289
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 w_s = d_mat[i__-1, j__-1] + dist_mat[c_dict[s_1_c[i__-1]],             # <<<<<<<<<<<<<<
@@ -21887,7 +21780,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 293, __pyx_L13_error)
+              __PYX_ERR(0, 289, __pyx_L13_error)
             }
             __pyx_t_20 = (__pyx_v_i__ - 1);
             __pyx_t_24 = -1;
@@ -21897,10 +21790,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_s_1_c.shape[0])) __pyx_t_24 = 0;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 293, __pyx_L13_error)
+              __PYX_ERR(0, 289, __pyx_L13_error)
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":294
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":290
  * 
  *                 w_s = d_mat[i__-1, j__-1] + dist_mat[c_dict[s_1_c[i__-1]],
  *                                                             c_dict[s_2_c[j__-1]]]             # <<<<<<<<<<<<<<
@@ -21915,10 +21808,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_25 >= __pyx_v_s_2_c.shape[0])) __pyx_t_24 = 0;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 294, __pyx_L13_error)
+              __PYX_ERR(0, 290, __pyx_L13_error)
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":293
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":289
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 w_s = d_mat[i__-1, j__-1] + dist_mat[c_dict[s_1_c[i__-1]],             # <<<<<<<<<<<<<<
@@ -21938,11 +21831,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_27 >= __pyx_v_dist_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 293, __pyx_L13_error)
+              __PYX_ERR(0, 289, __pyx_L13_error)
             }
             __pyx_v_w_s = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) ))) + (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_26 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_27 * __pyx_v_dist_mat.strides[1]) ))));
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":295
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":291
  *                 w_s = d_mat[i__-1, j__-1] + dist_mat[c_dict[s_1_c[i__-1]],
  *                                                             c_dict[s_2_c[j__-1]]]
  *                 s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -21951,7 +21844,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":296
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":292
  *                                                             c_dict[s_2_c[j__-1]]]
  *                 s_s_0 = i__-1
  *                 s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -21960,7 +21853,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":298
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":294
  *                 s_s_1 = j__-1
  * 
  *                 w_d = d_mat[i__-1, j__] + del_c             # <<<<<<<<<<<<<<
@@ -21980,11 +21873,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 298, __pyx_L13_error)
+              __PYX_ERR(0, 294, __pyx_L13_error)
             }
             __pyx_v_w_d = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_25 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_20 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_del_c);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":299
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":295
  * 
  *                 w_d = d_mat[i__-1, j__] + del_c
  *                 if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -21994,7 +21887,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_w_d < __pyx_v_w_s);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":300
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":296
  *                 w_d = d_mat[i__-1, j__] + del_c
  *                 if w_d < w_s:
  *                     w_s = w_d             # <<<<<<<<<<<<<<
@@ -22003,7 +21896,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_d;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":301
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":297
  *                 if w_d < w_s:
  *                     w_s = w_d
  *                     s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -22012,7 +21905,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":302
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":298
  *                     w_s = w_d
  *                     s_s_0 = i__-1
  *                     s_s_1 = j__             # <<<<<<<<<<<<<<
@@ -22021,7 +21914,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = __pyx_v_j__;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":299
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":295
  * 
  *                 w_d = d_mat[i__-1, j__] + del_c
  *                 if w_d < w_s:             # <<<<<<<<<<<<<<
@@ -22030,7 +21923,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":304
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":300
  *                     s_s_1 = j__
  * 
  *                 w_i = d_mat[i__, j__-1] + ins_c             # <<<<<<<<<<<<<<
@@ -22050,11 +21943,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_25 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 304, __pyx_L13_error)
+              __PYX_ERR(0, 300, __pyx_L13_error)
             }
             __pyx_v_w_i = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_20 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_25 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_ins_c);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":305
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":301
  * 
  *                 w_i = d_mat[i__, j__-1] + ins_c
  *                 if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -22064,7 +21957,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_w_i < __pyx_v_w_s);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":306
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":302
  *                 w_i = d_mat[i__, j__-1] + ins_c
  *                 if w_i < w_s:
  *                     w_s = w_i             # <<<<<<<<<<<<<<
@@ -22073,7 +21966,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_i;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":307
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":303
  *                 if w_i < w_s:
  *                     w_s = w_i
  *                     s_s_0 = i__             # <<<<<<<<<<<<<<
@@ -22082,7 +21975,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = __pyx_v_i__;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":308
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":304
  *                     w_s = w_i
  *                     s_s_0 = i__
  *                     s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -22091,7 +21984,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":305
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":301
  * 
  *                 w_i = d_mat[i__, j__-1] + ins_c
  *                 if w_i < w_s:             # <<<<<<<<<<<<<<
@@ -22100,7 +21993,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":310
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":306
  *                     s_s_1 = j__-1
  * 
  *                 d_mat[i__, j__] = w_s             # <<<<<<<<<<<<<<
@@ -22120,11 +22013,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 310, __pyx_L13_error)
+              __PYX_ERR(0, 306, __pyx_L13_error)
             }
             *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_25 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_20 * __pyx_v_d_mat.strides[1]) )) = __pyx_v_w_s;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":311
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":307
  * 
  *                 d_mat[i__, j__] = w_s
  *                 b_map[i__, j__, 0] = s_s_0             # <<<<<<<<<<<<<<
@@ -22149,11 +22042,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_27 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 311, __pyx_L13_error)
+              __PYX_ERR(0, 307, __pyx_L13_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_25 * __pyx_v_b_map.strides[1]) ) + __pyx_t_27 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_0;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":312
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":308
  *                 d_mat[i__, j__] = w_s
  *                 b_map[i__, j__, 0] = s_s_0
  *                 b_map[i__, j__, 1] = s_s_1             # <<<<<<<<<<<<<<
@@ -22178,14 +22071,14 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 312, __pyx_L13_error)
+              __PYX_ERR(0, 308, __pyx_L13_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_27 * __pyx_v_b_map.strides[0]) ) + __pyx_t_25 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_1;
           }
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":283
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":279
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -22207,7 +22100,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":314
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":310
  *                 b_map[i__, j__, 1] = s_s_1
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -22215,31 +22108,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *                                                n_1, n_2)
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 314, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":315
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":311
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                                n_1, n_2)
  * 
 */
-  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":316
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":312
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,
  *                                                n_1, n_2)             # <<<<<<<<<<<<<<
  * 
  *     cdef double wf_s = d_mat[n_1, n_2]
 */
-  __pyx_t_3 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_28 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_t_28 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 312, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_28);
   __pyx_t_4 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -22262,13 +22155,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_28); __pyx_t_28 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_v_opt_align = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":318
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":314
  *                                                n_1, n_2)
  * 
  *     cdef double wf_s = d_mat[n_1, n_2]             # <<<<<<<<<<<<<<
@@ -22288,11 +22181,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_25 >= __pyx_v_d_mat.shape[1])) __pyx_t_15 = 1;
   if (unlikely(__pyx_t_15 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_15);
-    __PYX_ERR(0, 318, __pyx_L1_error)
+    __PYX_ERR(0, 314, __pyx_L1_error)
   }
   __pyx_v_wf_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_20 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_25 * __pyx_v_d_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":320
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":316
  *     cdef double wf_s = d_mat[n_1, n_2]
  * 
  *     return opt_align, wf_s             # <<<<<<<<<<<<<<
@@ -22300,21 +22193,21 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_wf_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_wf_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_INCREF(__pyx_v_opt_align);
   __Pyx_GIVEREF(__pyx_v_opt_align);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 320, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 316, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 320, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 316, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_r = __pyx_t_11;
   __pyx_t_11 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":238
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":234
  * 
  * 
  * def generalized_edit (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -22350,7 +22243,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":323
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":319
  * 
  * 
  * def needleman_wunsch (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -22402,67 +22295,67 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_gap_c,&__pyx_mstate_global->__pyx_n_u_conc_b,&__pyx_mstate_global->__pyx_n_u_dict_chr_idx,&__pyx_mstate_global->__pyx_n_u_dist_mat,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 323, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 319, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 323, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 319, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "needleman_wunsch", 0) < (0)) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "needleman_wunsch", 0) < (0)) __PYX_ERR(0, 319, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 6; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("needleman_wunsch", 1, 6, 6, i); __PYX_ERR(0, 323, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("needleman_wunsch", 1, 6, 6, i); __PYX_ERR(0, 319, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 319, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 319, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 319, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 319, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 319, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 323, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 319, __pyx_L3_error)
     }
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
-    __pyx_v_gap_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_gap_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 324, __pyx_L3_error)
-    __pyx_v_conc_b = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_conc_b == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 324, __pyx_L3_error)
+    __pyx_v_gap_c = __Pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_gap_c == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 320, __pyx_L3_error)
+    __pyx_v_conc_b = __Pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_conc_b == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 320, __pyx_L3_error)
     __pyx_v_dict_chr_idx = ((PyObject*)values[4]);
-    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 325, __pyx_L3_error)
+    __pyx_v_dist_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dist_mat.memview)) __PYX_ERR(0, 321, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("needleman_wunsch", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 323, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("needleman_wunsch", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 319, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22474,9 +22367,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 323, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 323, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 325, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 319, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 319, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 321, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_8needleman_wunsch(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_gap_c, __pyx_v_conc_b, __pyx_v_dict_chr_idx, __pyx_v_dist_mat);
 
   /* function exit code */
@@ -22553,7 +22446,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("needleman_wunsch", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":327
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":323
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -22561,10 +22454,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":328
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":324
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,
  *                                                  dict_chr_idx)             # <<<<<<<<<<<<<<
@@ -22588,7 +22481,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (4-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -22597,7 +22490,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 327, __pyx_L1_error)
+      __PYX_ERR(0, 323, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -22609,27 +22502,27 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_INCREF(__pyx_t_5);
     } else {
       __pyx_t_3 = __Pyx_PyList_GetItemRefFast(sequence, 0, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_3);
       __pyx_t_2 = __Pyx_PyList_GetItemRefFast(sequence, 1, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_2);
       __pyx_t_5 = __Pyx_PyList_GetItemRefFast(sequence, 2, __Pyx_ReferenceSharing_SharedReference);
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 323, __pyx_L1_error)
       __Pyx_XGOTREF(__pyx_t_5);
     }
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 323, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 323, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_7 = (CYTHON_COMPILING_IN_LIMITED_API) ? PyIter_Next : __Pyx_PyObject_GetIterNextFunc(__pyx_t_6);
@@ -22639,7 +22532,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_GOTREF(__pyx_t_2);
     index = 2; __pyx_t_5 = __pyx_t_7(__pyx_t_6); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 3) < (0)) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_6), 3) < (0)) __PYX_ERR(0, 323, __pyx_L1_error)
     __pyx_t_7 = NULL;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     goto __pyx_L4_unpacking_done;
@@ -22647,11 +22540,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 327, __pyx_L1_error)
+    __PYX_ERR(0, 323, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":327
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":323
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
  * 
  *     tmp_1, tmp_2, n_dict = int_convert_from_dict(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -22665,31 +22558,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   __pyx_v_n_dict = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":330
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":326
  *                                                  dict_chr_idx)
  * 
  *     cdef int[:] s_1_c = tmp_1             # <<<<<<<<<<<<<<
  *     cdef int[:] s_2_c = tmp_2
  * 
 */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 330, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 326, __pyx_L1_error)
   __pyx_v_s_1_c = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":331
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":327
  * 
  *     cdef int[:] s_1_c = tmp_1
  *     cdef int[:] s_2_c = tmp_2             # <<<<<<<<<<<<<<
  * 
  *     ## Convert python dict to c dict for nogil loops
 */
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_v_tmp_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 327, __pyx_L1_error)
   __pyx_v_s_2_c = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":334
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":330
  * 
  *     ## Convert python dict to c dict for nogil loops
  *     cdef map[int, int] c_dict = dict_to_cmap(n_dict)             # <<<<<<<<<<<<<<
@@ -22698,12 +22591,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_t_1 = __pyx_v_n_dict;
   __Pyx_INCREF(__pyx_t_1);
-  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_1))) __PYX_ERR(0, 334, __pyx_L1_error)
-  __pyx_t_9 = __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_dict_to_cmap(((PyObject*)__pyx_t_1)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 334, __pyx_L1_error)
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_1))) __PYX_ERR(0, 330, __pyx_L1_error)
+  __pyx_t_9 = __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_dict_to_cmap(((PyObject*)__pyx_t_1)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 330, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_c_dict = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_9);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":337
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":333
  * 
  *     ## Declare some constants
  *     cdef int n_1 = len(s_1)             # <<<<<<<<<<<<<<
@@ -22712,12 +22605,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 337, __pyx_L1_error)
+    __PYX_ERR(0, 333, __pyx_L1_error)
   }
-  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 337, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 333, __pyx_L1_error)
   __pyx_v_n_1 = __pyx_t_10;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":338
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":334
  *     ## Declare some constants
  *     cdef int n_1 = len(s_1)
  *     cdef int n_2 = len(s_2)             # <<<<<<<<<<<<<<
@@ -22726,12 +22619,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_s_2 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 338, __pyx_L1_error)
+    __PYX_ERR(0, 334, __pyx_L1_error)
   }
-  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 334, __pyx_L1_error)
   __pyx_v_n_2 = __pyx_t_10;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":340
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":336
  *     cdef int n_2 = len(s_2)
  * 
  *     cdef int i_ = 0             # <<<<<<<<<<<<<<
@@ -22740,7 +22633,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":341
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":337
  * 
  *     cdef int i_ = 0
  *     cdef int j_ = 0             # <<<<<<<<<<<<<<
@@ -22749,7 +22642,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j_ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":344
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":340
  * 
  *     ## Declare the D matrix
  *     cdef double[:,:] d_mat = np.zeros((n_1+1, n_2+1), dtype=np.double)             # <<<<<<<<<<<<<<
@@ -22757,26 +22650,26 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *     ## Fill the first column and row
 */
   __pyx_t_5 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2) != (0)) __PYX_ERR(0, 344, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_2) != (0)) __PYX_ERR(0, 340, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_6) != (0)) __PYX_ERR(0, 344, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_6) != (0)) __PYX_ERR(0, 340, __pyx_L1_error);
   __pyx_t_2 = 0;
   __pyx_t_6 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_double); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_4 = 1;
@@ -22793,25 +22686,25 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_5, __pyx_t_11};
-    __pyx_t_6 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_2, __pyx_t_6, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 344, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_2, __pyx_t_6, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 340, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_3, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_d_mat = __pyx_t_12;
   __pyx_t_12.memview = NULL;
   __pyx_t_12.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":347
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":343
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -22824,7 +22717,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":348
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":344
  *     ## Fill the first column and row
  *     with nogil:
  *         for i_ in range(n_1+1):             # <<<<<<<<<<<<<<
@@ -22836,7 +22729,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":349
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":345
  *     with nogil:
  *         for i_ in range(n_1+1):
  *             d_mat[i_][0] = - i_ * gap_c             # <<<<<<<<<<<<<<
@@ -22856,12 +22749,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 349, __pyx_L6_error)
+            __PYX_ERR(0, 345, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) )) = ((-__pyx_v_i_) * __pyx_v_gap_c);
         }
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":351
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":347
  *             d_mat[i_][0] = - i_ * gap_c
  * 
  *         for j_ in range(n_2+1):             # <<<<<<<<<<<<<<
@@ -22873,7 +22766,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_j_ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":352
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":348
  * 
  *         for j_ in range(n_2+1):
  *             d_mat[0][j_] = - j_ * gap_c             # <<<<<<<<<<<<<<
@@ -22893,13 +22786,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_18 = 1;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 352, __pyx_L6_error)
+            __PYX_ERR(0, 348, __pyx_L6_error)
           }
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) )) = ((-__pyx_v_j_) * __pyx_v_gap_c);
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":347
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":343
  * 
  *     ## Fill the first column and row
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -22921,7 +22814,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":356
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":352
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
@@ -22929,37 +22822,37 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __pyx_t_3 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyLong_From_long((__pyx_v_n_1 + 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_11 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyLong_From_long((__pyx_v_n_2 + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 356, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 352, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_11);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 356, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 352, __pyx_L1_error);
   __Pyx_INCREF(__pyx_mstate_global->__pyx_int_2);
   __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 356, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_mstate_global->__pyx_int_2) != (0)) __PYX_ERR(0, 352, __pyx_L1_error);
   __pyx_t_6 = 0;
   __pyx_t_11 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":357
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":353
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),
  *                                      dtype=np.intc)             # <<<<<<<<<<<<<<
  * 
  *     cdef int s_s_0 = 0
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 357, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 357, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_t_4 = 1;
@@ -22976,33 +22869,33 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_3, __pyx_t_5};
-    __pyx_t_11 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 356, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_6, __pyx_t_11, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 356, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_6, __pyx_t_11, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 352, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_2, __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_11);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 356, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":356
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":352
  * 
  *     ## Declare a path matrix for backtracking
  *     cdef int[:,:,:] b_map = np.zeros((n_1 + 1, n_2 + 1, 2),             # <<<<<<<<<<<<<<
  *                                      dtype=np.intc)
  * 
 */
-  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 356, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_b_map = __pyx_t_19;
   __pyx_t_19.memview = NULL;
   __pyx_t_19.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":359
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":355
  *                                      dtype=np.intc)
  * 
  *     cdef int s_s_0 = 0             # <<<<<<<<<<<<<<
@@ -23011,7 +22904,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_0 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":360
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":356
  * 
  *     cdef int s_s_0 = 0
  *     cdef int s_s_1 = 0             # <<<<<<<<<<<<<<
@@ -23020,7 +22913,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_s_s_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":362
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":358
  *     cdef int s_s_1 = 0
  * 
  *     cdef double w_s = 0.0             # <<<<<<<<<<<<<<
@@ -23029,7 +22922,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_s = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":363
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":359
  * 
  *     cdef double w_s = 0.0
  *     cdef double w_d = 0.0             # <<<<<<<<<<<<<<
@@ -23038,7 +22931,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_w_d = 0.0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":365
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":361
  *     cdef double w_d = 0.0
  * 
  *     cdef int i__ = 0             # <<<<<<<<<<<<<<
@@ -23047,7 +22940,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_i__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":366
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":362
  * 
  *     cdef int i__ = 0
  *     cdef int j__ = 0             # <<<<<<<<<<<<<<
@@ -23056,7 +22949,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __pyx_v_j__ = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":369
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":365
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -23069,7 +22962,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":370
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":366
  *     ## Fill the D-matrix
  *     with nogil:
  *         for i__ in range (1, n_1+1):             # <<<<<<<<<<<<<<
@@ -23081,7 +22974,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         for (__pyx_t_15 = 1; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
           __pyx_v_i__ = __pyx_t_15;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":371
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":367
  *     with nogil:
  *         for i__ in range (1, n_1+1):
  *             b_map[i__, 0, 0] = i__-1             # <<<<<<<<<<<<<<
@@ -23106,11 +22999,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 371, __pyx_L13_error)
+            __PYX_ERR(0, 367, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_i__ - 1);
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":372
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":368
  *         for i__ in range (1, n_1+1):
  *             b_map[i__, 0, 0] = i__-1
  *             b_map[i__, 0, 1] = 0             # <<<<<<<<<<<<<<
@@ -23135,11 +23028,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_18 = 2;
           if (unlikely(__pyx_t_18 != -1)) {
             __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_18);
-            __PYX_ERR(0, 372, __pyx_L13_error)
+            __PYX_ERR(0, 368, __pyx_L13_error)
           }
           *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = 0;
 
-          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":374
+          /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":370
  *             b_map[i__, 0, 1] = 0
  * 
  *             for j__ in range (1, n_2+1):             # <<<<<<<<<<<<<<
@@ -23151,7 +23044,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
           for (__pyx_t_18 = 1; __pyx_t_18 < __pyx_t_22; __pyx_t_18+=1) {
             __pyx_v_j__ = __pyx_t_18;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":375
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":371
  * 
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -23161,7 +23054,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_i__ == 1);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":376
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":372
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0             # <<<<<<<<<<<<<<
@@ -23186,11 +23079,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 376, __pyx_L13_error)
+                __PYX_ERR(0, 372, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_16 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = 0;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":377
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":373
  *                 if i__ == 1:
  *                     b_map[0, j__, 0] = 0
  *                     b_map[0, j__, 1] = j__-1             # <<<<<<<<<<<<<<
@@ -23215,11 +23108,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 377, __pyx_L13_error)
+                __PYX_ERR(0, 373, __pyx_L13_error)
               }
               *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_17 * __pyx_v_b_map.strides[1]) ) + __pyx_t_16 * __pyx_v_b_map.strides[2]) )) = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":375
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":371
  * 
  *             for j__ in range (1, n_2+1):
  *                 if i__ == 1:             # <<<<<<<<<<<<<<
@@ -23228,7 +23121,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":379
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":375
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:             # <<<<<<<<<<<<<<
@@ -23243,7 +23136,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_16 >= __pyx_v_s_1_c.shape[0])) __pyx_t_24 = 0;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 379, __pyx_L13_error)
+              __PYX_ERR(0, 375, __pyx_L13_error)
             }
             __pyx_t_17 = (__pyx_v_j__ - 1);
             __pyx_t_24 = -1;
@@ -23253,12 +23146,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_17 >= __pyx_v_s_2_c.shape[0])) __pyx_t_24 = 0;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 379, __pyx_L13_error)
+              __PYX_ERR(0, 375, __pyx_L13_error)
             }
             __pyx_t_23 = ((*((int *) ( /* dim=0 */ (__pyx_v_s_1_c.data + __pyx_t_16 * __pyx_v_s_1_c.strides[0]) ))) == (*((int *) ( /* dim=0 */ (__pyx_v_s_2_c.data + __pyx_t_17 * __pyx_v_s_2_c.strides[0]) ))));
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":380
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":376
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:
  *                     w_s = d_mat[i__-1, j__-1] + conc_b             # <<<<<<<<<<<<<<
@@ -23278,11 +23171,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_16 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 380, __pyx_L13_error)
+                __PYX_ERR(0, 376, __pyx_L13_error)
               }
               __pyx_v_w_s = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_17 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_16 * __pyx_v_d_mat.strides[1]) ))) + __pyx_v_conc_b);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":379
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":375
  *                     b_map[0, j__, 1] = j__-1
  * 
  *                 if s_1_c[i__-1] == s_2_c[j__-1]:             # <<<<<<<<<<<<<<
@@ -23292,7 +23185,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               goto __pyx_L20;
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":382
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":378
  *                     w_s = d_mat[i__-1, j__-1] + conc_b
  *                 else:
  *                     w_s = d_mat[i__-1, j__-1] - dist_mat[c_dict[s_1_c[i__-1]],             # <<<<<<<<<<<<<<
@@ -23313,7 +23206,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_17 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 382, __pyx_L13_error)
+                __PYX_ERR(0, 378, __pyx_L13_error)
               }
               __pyx_t_20 = (__pyx_v_i__ - 1);
               __pyx_t_24 = -1;
@@ -23323,10 +23216,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_20 >= __pyx_v_s_1_c.shape[0])) __pyx_t_24 = 0;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 382, __pyx_L13_error)
+                __PYX_ERR(0, 378, __pyx_L13_error)
               }
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":383
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":379
  *                 else:
  *                     w_s = d_mat[i__-1, j__-1] - dist_mat[c_dict[s_1_c[i__-1]],
  *                                                          c_dict[s_2_c[j__-1]]]             # <<<<<<<<<<<<<<
@@ -23341,10 +23234,10 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_25 >= __pyx_v_s_2_c.shape[0])) __pyx_t_24 = 0;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 383, __pyx_L13_error)
+                __PYX_ERR(0, 379, __pyx_L13_error)
               }
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":382
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":378
  *                     w_s = d_mat[i__-1, j__-1] + conc_b
  *                 else:
  *                     w_s = d_mat[i__-1, j__-1] - dist_mat[c_dict[s_1_c[i__-1]],             # <<<<<<<<<<<<<<
@@ -23364,13 +23257,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
               } else if (unlikely(__pyx_t_27 >= __pyx_v_dist_mat.shape[1])) __pyx_t_24 = 1;
               if (unlikely(__pyx_t_24 != -1)) {
                 __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-                __PYX_ERR(0, 382, __pyx_L13_error)
+                __PYX_ERR(0, 378, __pyx_L13_error)
               }
               __pyx_v_w_s = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_16 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_17 * __pyx_v_d_mat.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_dist_mat.data + __pyx_t_26 * __pyx_v_dist_mat.strides[0]) ) + __pyx_t_27 * __pyx_v_dist_mat.strides[1]) ))));
             }
             __pyx_L20:;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":384
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":380
  *                     w_s = d_mat[i__-1, j__-1] - dist_mat[c_dict[s_1_c[i__-1]],
  *                                                          c_dict[s_2_c[j__-1]]]
  *                 s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -23379,7 +23272,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":385
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":381
  *                                                          c_dict[s_2_c[j__-1]]]
  *                 s_s_0 = i__-1
  *                 s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -23388,7 +23281,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":387
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":383
  *                 s_s_1 = j__-1
  * 
  *                 w_d = d_mat[i__, j__-1] - gap_c             # <<<<<<<<<<<<<<
@@ -23408,11 +23301,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 387, __pyx_L13_error)
+              __PYX_ERR(0, 383, __pyx_L13_error)
             }
             __pyx_v_w_d = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_25 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_20 * __pyx_v_d_mat.strides[1]) ))) - __pyx_v_gap_c);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":388
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":384
  * 
  *                 w_d = d_mat[i__, j__-1] - gap_c
  *                 if w_d > w_s:             # <<<<<<<<<<<<<<
@@ -23422,7 +23315,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_w_d > __pyx_v_w_s);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":389
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":385
  *                 w_d = d_mat[i__, j__-1] - gap_c
  *                 if w_d > w_s:
  *                     w_s = w_d             # <<<<<<<<<<<<<<
@@ -23431,7 +23324,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_d;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":390
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":386
  *                 if w_d > w_s:
  *                     w_s = w_d
  *                     s_s_0 = i__             # <<<<<<<<<<<<<<
@@ -23440,7 +23333,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = __pyx_v_i__;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":391
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":387
  *                     w_s = w_d
  *                     s_s_0 = i__
  *                     s_s_1 = j__-1             # <<<<<<<<<<<<<<
@@ -23449,7 +23342,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = (__pyx_v_j__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":388
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":384
  * 
  *                 w_d = d_mat[i__, j__-1] - gap_c
  *                 if w_d > w_s:             # <<<<<<<<<<<<<<
@@ -23458,7 +23351,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":393
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":389
  *                     s_s_1 = j__-1
  * 
  *                 w_d = d_mat[i__-1, j__] - gap_c             # <<<<<<<<<<<<<<
@@ -23478,11 +23371,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_25 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 393, __pyx_L13_error)
+              __PYX_ERR(0, 389, __pyx_L13_error)
             }
             __pyx_v_w_d = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_20 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_25 * __pyx_v_d_mat.strides[1]) ))) - __pyx_v_gap_c);
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":394
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":390
  * 
  *                 w_d = d_mat[i__-1, j__] - gap_c
  *                 if w_d > w_s:             # <<<<<<<<<<<<<<
@@ -23492,7 +23385,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             __pyx_t_23 = (__pyx_v_w_d > __pyx_v_w_s);
             if (__pyx_t_23) {
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":395
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":391
  *                 w_d = d_mat[i__-1, j__] - gap_c
  *                 if w_d > w_s:
  *                     w_s = w_d             # <<<<<<<<<<<<<<
@@ -23501,7 +23394,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_w_s = __pyx_v_w_d;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":396
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":392
  *                 if w_d > w_s:
  *                     w_s = w_d
  *                     s_s_0 = i__-1             # <<<<<<<<<<<<<<
@@ -23510,7 +23403,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_0 = (__pyx_v_i__ - 1);
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":397
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":393
  *                     w_s = w_d
  *                     s_s_0 = i__-1
  *                     s_s_1 = j__             # <<<<<<<<<<<<<<
@@ -23519,7 +23412,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
               __pyx_v_s_s_1 = __pyx_v_j__;
 
-              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":394
+              /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":390
  * 
  *                 w_d = d_mat[i__-1, j__] - gap_c
  *                 if w_d > w_s:             # <<<<<<<<<<<<<<
@@ -23528,7 +23421,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
             }
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":399
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":395
  *                     s_s_1 = j__
  * 
  *                 d_mat[i__, j__] = w_s             # <<<<<<<<<<<<<<
@@ -23548,11 +23441,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_d_mat.shape[1])) __pyx_t_24 = 1;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 399, __pyx_L13_error)
+              __PYX_ERR(0, 395, __pyx_L13_error)
             }
             *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_25 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_20 * __pyx_v_d_mat.strides[1]) )) = __pyx_v_w_s;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":400
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":396
  * 
  *                 d_mat[i__, j__] = w_s
  *                 b_map[i__, j__, 0] = s_s_0             # <<<<<<<<<<<<<<
@@ -23577,11 +23470,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_27 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 400, __pyx_L13_error)
+              __PYX_ERR(0, 396, __pyx_L13_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_20 * __pyx_v_b_map.strides[0]) ) + __pyx_t_25 * __pyx_v_b_map.strides[1]) ) + __pyx_t_27 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_0;
 
-            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":401
+            /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":397
  *                 d_mat[i__, j__] = w_s
  *                 b_map[i__, j__, 0] = s_s_0
  *                 b_map[i__, j__, 1] = s_s_1             # <<<<<<<<<<<<<<
@@ -23606,14 +23499,14 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
             } else if (unlikely(__pyx_t_20 >= __pyx_v_b_map.shape[2])) __pyx_t_24 = 2;
             if (unlikely(__pyx_t_24 != -1)) {
               __Pyx_RaiseBufferIndexErrorNogil(__pyx_t_24);
-              __PYX_ERR(0, 401, __pyx_L13_error)
+              __PYX_ERR(0, 397, __pyx_L13_error)
             }
             *((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_27 * __pyx_v_b_map.strides[0]) ) + __pyx_t_25 * __pyx_v_b_map.strides[1]) ) + __pyx_t_20 * __pyx_v_b_map.strides[2]) )) = __pyx_v_s_s_1;
           }
         }
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":369
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":365
  * 
  *     ## Fill the D-matrix
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -23635,7 +23528,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       }
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":403
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":399
  *                 b_map[i__, j__, 1] = s_s_1
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,             # <<<<<<<<<<<<<<
@@ -23643,31 +23536,31 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *                                                n_1, n_2)
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 403, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 399, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":404
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":400
  * 
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                                n_1, n_2)
  *     cdef double nw_s = d_mat[n_1, n_2]
 */
-  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 404, __pyx_L1_error)
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 404, __pyx_L1_error)
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 400, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":405
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":401
  *     opt_align = character_generic_backtracking(s_1, s_2,
  *                                                d_mat, b_map,
  *                                                n_1, n_2)             # <<<<<<<<<<<<<<
  *     cdef double nw_s = d_mat[n_1, n_2]
  * 
 */
-  __pyx_t_3 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 405, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_28 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 405, __pyx_L1_error)
+  __pyx_t_28 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 401, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_28);
   __pyx_t_4 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -23690,13 +23583,13 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_28); __pyx_t_28 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 403, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 399, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_v_opt_align = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":406
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":402
  *                                                d_mat, b_map,
  *                                                n_1, n_2)
  *     cdef double nw_s = d_mat[n_1, n_2]             # <<<<<<<<<<<<<<
@@ -23716,11 +23609,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_25 >= __pyx_v_d_mat.shape[1])) __pyx_t_15 = 1;
   if (unlikely(__pyx_t_15 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_15);
-    __PYX_ERR(0, 406, __pyx_L1_error)
+    __PYX_ERR(0, 402, __pyx_L1_error)
   }
   __pyx_v_nw_s = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_d_mat.data + __pyx_t_20 * __pyx_v_d_mat.strides[0]) ) + __pyx_t_25 * __pyx_v_d_mat.strides[1]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":408
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":404
  *     cdef double nw_s = d_mat[n_1, n_2]
  * 
  *     return opt_align, nw_s             # <<<<<<<<<<<<<<
@@ -23728,21 +23621,21 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_nw_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_nw_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 404, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 408, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 404, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_INCREF(__pyx_v_opt_align);
   __Pyx_GIVEREF(__pyx_v_opt_align);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 408, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_v_opt_align) != (0)) __PYX_ERR(0, 404, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 408, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_1) != (0)) __PYX_ERR(0, 404, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_r = __pyx_t_11;
   __pyx_t_11 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":323
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":319
  * 
  * 
  * def needleman_wunsch (list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -23778,7 +23671,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":411
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":407
  * 
  * 
  * cdef map[int, int] dict_to_cmap(dict p_dict):             # <<<<<<<<<<<<<<
@@ -23809,7 +23702,7 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("dict_to_cmap", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":419
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":415
  *     cdef map[int, int] c_map
  * 
  *     for key,val in p_dict.items():             # <<<<<<<<<<<<<<
@@ -23819,9 +23712,9 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
   __pyx_t_2 = 0;
   if (unlikely(__pyx_v_p_dict == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 419, __pyx_L1_error)
+    __PYX_ERR(0, 415, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_dict_iterator(__pyx_v_p_dict, 1, __pyx_mstate_global->__pyx_n_u_items, (&__pyx_t_3), (&__pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_dict_iterator(__pyx_v_p_dict, 1, __pyx_mstate_global->__pyx_n_u_items, (&__pyx_t_3), (&__pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_1);
   __pyx_t_1 = __pyx_t_5;
@@ -23829,7 +23722,7 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
   while (1) {
     __pyx_t_7 = __Pyx_dict_iter_next(__pyx_t_1, __pyx_t_3, &__pyx_t_2, &__pyx_t_5, &__pyx_t_6, NULL, __pyx_t_4);
     if (unlikely(__pyx_t_7 == 0)) break;
-    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 419, __pyx_L1_error)
+    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 415, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_5);
@@ -23837,50 +23730,50 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
     __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":420
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":416
  * 
  *     for key,val in p_dict.items():
  *         map_key = key             # <<<<<<<<<<<<<<
  *         map_val = val
  *         map_e = (map_key, map_val)
 */
-    __pyx_t_7 = __Pyx_PyLong_As_int(__pyx_v_key); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 420, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyLong_As_int(__pyx_v_key); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 416, __pyx_L1_error)
     __pyx_v_map_key = __pyx_t_7;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":421
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":417
  *     for key,val in p_dict.items():
  *         map_key = key
  *         map_val = val             # <<<<<<<<<<<<<<
  *         map_e = (map_key, map_val)
  *         c_map.insert(map_e)
 */
-    __pyx_t_7 = __Pyx_PyLong_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyLong_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 417, __pyx_L1_error)
     __pyx_v_map_val = __pyx_t_7;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":422
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":418
  *         map_key = key
  *         map_val = val
  *         map_e = (map_key, map_val)             # <<<<<<<<<<<<<<
  *         c_map.insert(map_e)
  * 
 */
-    __pyx_t_6 = __Pyx_PyLong_From_int(__pyx_v_map_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 422, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyLong_From_int(__pyx_v_map_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_map_val); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 422, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyLong_From_int(__pyx_v_map_val); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 422, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_6);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 422, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 418, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_5);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 422, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 418, __pyx_L1_error);
     __pyx_t_6 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_9 = __pyx_convert_pair_from_py_int__and_int(__pyx_t_8); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 422, __pyx_L1_error)
+    __pyx_t_9 = __pyx_convert_pair_from_py_int__and_int(__pyx_t_8); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 418, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_v_map_e = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_9);
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":423
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":419
  *         map_val = val
  *         map_e = (map_key, map_val)
  *         c_map.insert(map_e)             # <<<<<<<<<<<<<<
@@ -23891,12 +23784,12 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
       __pyx_v_c_map.insert(__pyx_v_map_e);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 423, __pyx_L1_error)
+      __PYX_ERR(0, 419, __pyx_L1_error)
     }
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":425
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":421
  *         c_map.insert(map_e)
  * 
  *     return c_map             # <<<<<<<<<<<<<<
@@ -23906,7 +23799,7 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
   __pyx_r = __pyx_v_c_map;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":411
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":407
  * 
  * 
  * cdef map[int, int] dict_to_cmap(dict p_dict):             # <<<<<<<<<<<<<<
@@ -23929,7 +23822,7 @@ static std::map<int,int>  __pyx_f_14vision_toolkit_8scanpath_10similarity_23c_co
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":428
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":424
  * 
  * 
  * def int_convert(list s_1, list s_2):             # <<<<<<<<<<<<<<
@@ -23977,39 +23870,39 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 428, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 424, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 428, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 424, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 428, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 424, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "int_convert", 0) < (0)) __PYX_ERR(0, 428, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "int_convert", 0) < (0)) __PYX_ERR(0, 424, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 2; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("int_convert", 1, 2, 2, i); __PYX_ERR(0, 428, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("int_convert", 1, 2, 2, i); __PYX_ERR(0, 424, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 428, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 424, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 428, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 424, __pyx_L3_error)
     }
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("int_convert", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 428, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("int_convert", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 424, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -24020,8 +23913,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 428, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 428, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 424, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 424, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_10int_convert(__pyx_self, __pyx_v_s_1, __pyx_v_s_2);
 
   /* function exit code */
@@ -24066,19 +23959,19 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("int_convert", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":430
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":426
  * def int_convert(list s_1, list s_2):
  * 
  *     dict_str_int = dict()             # <<<<<<<<<<<<<<
  *     for i, str_ in enumerate(sorted(set(s_1 + s_2))):
  *         dict_str_int.update({str_: i})
 */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 430, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_dict_str_int = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":431
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":427
  * 
  *     dict_str_int = dict()
  *     for i, str_ in enumerate(sorted(set(s_1 + s_2))):             # <<<<<<<<<<<<<<
@@ -24087,15 +23980,15 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
   __pyx_t_1 = __pyx_mstate_global->__pyx_int_0;
-  __pyx_t_2 = PyNumber_Add(__pyx_v_s_1, __pyx_v_s_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Add(__pyx_v_s_1, __pyx_v_s_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_2 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely((PyList_Sort(__pyx_t_2) < 0))) __PYX_ERR(0, 431, __pyx_L1_error)
+  if (unlikely((PyList_Sort(__pyx_t_2) < 0))) __PYX_ERR(0, 427, __pyx_L1_error)
   __pyx_t_3 = __pyx_t_2; __Pyx_INCREF(__pyx_t_3);
   __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -24103,40 +23996,40 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
       #if !CYTHON_ASSUME_SAFE_SIZE
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 431, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 427, __pyx_L1_error)
       #endif
       if (__pyx_t_4 >= __pyx_temp) break;
     }
     __pyx_t_2 = __Pyx_PyList_GetItemRefFast(__pyx_t_3, __pyx_t_4, __Pyx_ReferenceSharing_OwnStrongReference);
     ++__pyx_t_4;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_str_, __pyx_t_2);
     __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
-    __pyx_t_2 = __Pyx_PyLong_AddObjC(__pyx_t_1, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyLong_AddObjC(__pyx_t_1, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 427, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":432
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":428
  *     dict_str_int = dict()
  *     for i, str_ in enumerate(sorted(set(s_1 + s_2))):
  *         dict_str_int.update({str_: i})             # <<<<<<<<<<<<<<
  * 
  *     ## Convert input lists of str to list of int
 */
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 432, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_t_2, __pyx_v_str_, __pyx_v_i) < (0)) __PYX_ERR(0, 432, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_CallUnboundCMethod1(&__pyx_mstate_global->__pyx_umethod_PyDict_Type__update, __pyx_v_dict_str_int, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 432, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_v_str_, __pyx_v_i) < (0)) __PYX_ERR(0, 428, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_CallUnboundCMethod1(&__pyx_mstate_global->__pyx_umethod_PyDict_Type__update, __pyx_v_dict_str_int, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":431
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":427
  * 
  *     dict_str_int = dict()
  *     for i, str_ in enumerate(sorted(set(s_1 + s_2))):             # <<<<<<<<<<<<<<
@@ -24147,7 +24040,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":435
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":431
  * 
  *     ## Convert input lists of str to list of int
  *     tmp_1 = np.array(             # <<<<<<<<<<<<<<
@@ -24155,54 +24048,54 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *         dtype=np.int32
 */
   __pyx_t_3 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 435, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 435, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   { /* enter inner scope */
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":436
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":432
  *     ## Convert input lists of str to list of int
  *     tmp_1 = np.array(
  *         [dict_str_int[s_1[i]] for i in range(len(s_1))],             # <<<<<<<<<<<<<<
  *         dtype=np.int32
  *             )
 */
-    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 436, __pyx_L1_error)
+    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 432, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (unlikely(__pyx_v_s_1 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 436, __pyx_L1_error)
+      __PYX_ERR(0, 432, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 436, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 432, __pyx_L1_error)
     __pyx_t_6 = __pyx_t_4;
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_7genexpr__pyx_v_i = __pyx_t_7;
       if (unlikely(__pyx_v_s_1 == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 436, __pyx_L1_error)
+        __PYX_ERR(0, 432, __pyx_L1_error)
       }
-      __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_s_1, __pyx_7genexpr__pyx_v_i, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 436, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_s_1, __pyx_7genexpr__pyx_v_i, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 432, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 436, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 432, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_9))) __PYX_ERR(0, 436, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_9))) __PYX_ERR(0, 432, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
   } /* exit inner scope */
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":437
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":433
  *     tmp_1 = np.array(
  *         [dict_str_int[s_1[i]] for i in range(len(s_1))],
  *         dtype=np.int32             # <<<<<<<<<<<<<<
  *             )
  *     tmp_2 = np.array(
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 437, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 437, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_10 = 1;
@@ -24219,22 +24112,22 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_3, __pyx_t_5};
-    __pyx_t_9 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 435, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 431, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_8, __pyx_t_9, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 435, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_8, __pyx_t_9, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 431, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_2, __pyx_callargs+__pyx_t_10, (2-__pyx_t_10) | (__pyx_t_10*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 435, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_v_tmp_1 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":439
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":435
  *         dtype=np.int32
  *             )
  *     tmp_2 = np.array(             # <<<<<<<<<<<<<<
@@ -24242,54 +24135,54 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *         dtype=np.int32
 */
   __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 439, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 439, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   { /* enter inner scope */
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":440
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":436
  *             )
  *     tmp_2 = np.array(
  *         [dict_str_int[s_2[j]] for j in range(len(s_2))],             # <<<<<<<<<<<<<<
  *         dtype=np.int32
  *             )
 */
-    __pyx_t_9 = PyList_New(0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 440, __pyx_L1_error)
+    __pyx_t_9 = PyList_New(0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 436, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     if (unlikely(__pyx_v_s_2 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 440, __pyx_L1_error)
+      __PYX_ERR(0, 436, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 440, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 436, __pyx_L1_error)
     __pyx_t_6 = __pyx_t_4;
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_8genexpr1__pyx_v_j = __pyx_t_7;
       if (unlikely(__pyx_v_s_2 == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 440, __pyx_L1_error)
+        __PYX_ERR(0, 436, __pyx_L1_error)
       }
-      __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_s_2, __pyx_8genexpr1__pyx_v_j, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 440, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_s_2, __pyx_8genexpr1__pyx_v_j, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 436, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 440, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 436, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_9, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 440, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_9, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 436, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
   } /* exit inner scope */
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":441
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":437
  *     tmp_2 = np.array(
  *         [dict_str_int[s_2[j]] for j in range(len(s_2))],
  *         dtype=np.int32             # <<<<<<<<<<<<<<
  *             )
  * 
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_10 = 1;
@@ -24306,22 +24199,22 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_2, __pyx_t_9};
-    __pyx_t_3 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_5, __pyx_t_3, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 439, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_5, __pyx_t_3, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 435, __pyx_L1_error)
     __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_8, __pyx_callargs+__pyx_t_10, (2-__pyx_t_10) | (__pyx_t_10*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 439, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 435, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_v_tmp_2 = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":444
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":440
  *             )
  * 
  *     return tmp_1, tmp_2             # <<<<<<<<<<<<<<
@@ -24329,19 +24222,19 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_tmp_1);
   __Pyx_GIVEREF(__pyx_v_tmp_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_tmp_1) != (0)) __PYX_ERR(0, 444, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_tmp_1) != (0)) __PYX_ERR(0, 440, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_tmp_2);
   __Pyx_GIVEREF(__pyx_v_tmp_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_tmp_2) != (0)) __PYX_ERR(0, 444, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_tmp_2) != (0)) __PYX_ERR(0, 440, __pyx_L1_error);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":428
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":424
  * 
  * 
  * def int_convert(list s_1, list s_2):             # <<<<<<<<<<<<<<
@@ -24370,12 +24263,12 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":447
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":443
  * 
  * 
- * def int_convert_from_dict(list s_1, list s_2,             # <<<<<<<<<<<<<<
- *                           dict dict_chr_idx):
- * 
+ * def int_convert_from_dict(list s_1, list s_2, dict dict_chr_idx):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convertit 2 squences de symboles (ex: ["AA","AB",...]) en tableaux d'int,
 */
 
 /* Python wrapper */
@@ -24386,7 +24279,8 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict = {"int_convert_from_dict", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+PyDoc_STRVAR(__pyx_doc_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_12int_convert_from_dict, "\n    Convertit 2 s\303\251quences de symboles (ex: [\"AA\",\"AB\",...]) en tableaux d'int,\n    en s'appuyant sur dict_chr_idx (symbole -> index dist_mat).\n\n    Retourne:\n      - tmp_1: np.int32 (len(s_1),)\n      - tmp_2: np.int32 (len(s_2),)\n      - n_dict: dict[int -> int] (index \"compact\" -> index dist_mat)\n    ");
+static PyMethodDef __pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict = {"int_convert_from_dict", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_12int_convert_from_dict};
 static PyObject *__pyx_pw_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
@@ -24419,38 +24313,38 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_dict_chr_idx,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 447, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 443, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 447, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 443, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 447, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 443, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 447, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 443, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "int_convert_from_dict", 0) < (0)) __PYX_ERR(0, 447, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "int_convert_from_dict", 0) < (0)) __PYX_ERR(0, 443, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 3; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("int_convert_from_dict", 1, 3, 3, i); __PYX_ERR(0, 447, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("int_convert_from_dict", 1, 3, 3, i); __PYX_ERR(0, 443, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 447, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 443, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 447, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 443, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 447, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 443, __pyx_L3_error)
     }
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
@@ -24458,7 +24352,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("int_convert_from_dict", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 447, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("int_convert_from_dict", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 443, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -24469,9 +24363,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 447, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 447, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 448, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 443, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 443, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dict_chr_idx), (&PyDict_Type), 1, "dict_chr_idx", 1))) __PYX_ERR(0, 443, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_12int_convert_from_dict(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_dict_chr_idx);
 
   /* function exit code */
@@ -24492,400 +24386,379 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_12int_convert_from_dict(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_s_1, PyObject *__pyx_v_s_2, PyObject *__pyx_v_dict_chr_idx) {
+  PyObject *__pyx_v_keys = NULL;
   PyObject *__pyx_v_dict_str_int = NULL;
-  PyObject *__pyx_v_i = NULL;
-  PyObject *__pyx_v_str_ = NULL;
   PyObject *__pyx_v_tmp_1 = NULL;
   PyObject *__pyx_v_tmp_2 = NULL;
   PyObject *__pyx_v_n_dict = NULL;
-  PyObject *__pyx_v_key = NULL;
-  PyObject *__pyx_v_val = NULL;
-  PyObject *__pyx_v_n_key = NULL;
-  Py_ssize_t __pyx_8genexpr2__pyx_v_i;
-  Py_ssize_t __pyx_8genexpr3__pyx_v_j;
+  PyObject *__pyx_8genexpr2__pyx_v_i = NULL;
+  PyObject *__pyx_8genexpr2__pyx_v_k = NULL;
+  PyObject *__pyx_8genexpr3__pyx_v_ch = NULL;
+  PyObject *__pyx_8genexpr4__pyx_v_ch = NULL;
+  PyObject *__pyx_8genexpr5__pyx_v_k = NULL;
+  PyObject *__pyx_8genexpr5__pyx_v_v = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   Py_ssize_t __pyx_t_4;
-  int __pyx_t_5;
+  PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  size_t __pyx_t_8;
   Py_ssize_t __pyx_t_9;
-  PyObject *__pyx_t_10 = NULL;
-  PyObject *__pyx_t_11 = NULL;
-  size_t __pyx_t_12;
+  int __pyx_t_10;
+  int __pyx_t_11;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("int_convert_from_dict", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":451
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":454
+ *     """
  * 
- *     ## Create dict from str to int
- *     dict_str_int = dict()             # <<<<<<<<<<<<<<
+ *     keys = sorted(dict_chr_idx.keys())             # <<<<<<<<<<<<<<
  * 
- *     for i, str_ in enumerate(dict_chr_idx.keys()):
+ *     dict_str_int = {k: i for i, k in enumerate(keys)}
 */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_dict_str_int = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":453
- *     dict_str_int = dict()
- * 
- *     for i, str_ in enumerate(dict_chr_idx.keys()):             # <<<<<<<<<<<<<<
- *         dict_str_int.update({str_: i})
- * 
-*/
-  __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
-  __pyx_t_1 = __pyx_mstate_global->__pyx_int_0;
-  __pyx_t_3 = 0;
   if (unlikely(__pyx_v_dict_chr_idx == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-    __PYX_ERR(0, 453, __pyx_L1_error)
+    __PYX_ERR(0, 454, __pyx_L1_error)
   }
-  __pyx_t_6 = __Pyx_dict_iterator(__pyx_v_dict_chr_idx, 1, __pyx_mstate_global->__pyx_n_u_keys, (&__pyx_t_4), (&__pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 453, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_2);
-  __pyx_t_2 = __pyx_t_6;
-  __pyx_t_6 = 0;
-  while (1) {
-    __pyx_t_7 = __Pyx_dict_iter_next(__pyx_t_2, __pyx_t_4, &__pyx_t_3, &__pyx_t_6, NULL, NULL, __pyx_t_5);
-    if (unlikely(__pyx_t_7 == 0)) break;
-    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 453, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_XDECREF_SET(__pyx_v_str_, __pyx_t_6);
-    __pyx_t_6 = 0;
-    __Pyx_INCREF(__pyx_t_1);
-    __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
-    __pyx_t_6 = __Pyx_PyLong_AddObjC(__pyx_t_1, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 453, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1);
-    __pyx_t_1 = __pyx_t_6;
-    __pyx_t_6 = 0;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":454
- * 
- *     for i, str_ in enumerate(dict_chr_idx.keys()):
- *         dict_str_int.update({str_: i})             # <<<<<<<<<<<<<<
- * 
- *     ## Convert input lists of str to list of int
-*/
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 454, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_6, __pyx_v_str_, __pyx_v_i) < (0)) __PYX_ERR(0, 454, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_CallUnboundCMethod1(&__pyx_mstate_global->__pyx_umethod_PyDict_Type__update, __pyx_v_dict_str_int, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 454, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_Keys(__pyx_v_dict_chr_idx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely((PyList_Sort(__pyx_t_2) < 0))) __PYX_ERR(0, 454, __pyx_L1_error)
+  __pyx_v_keys = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":457
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":456
+ *     keys = sorted(dict_chr_idx.keys())
  * 
- *     ## Convert input lists of str to list of int
- *     tmp_1 = np.array(             # <<<<<<<<<<<<<<
- *         [dict_str_int[s_1[i]] for i in range(len(s_1))],
- *         dtype=np.int32
+ *     dict_str_int = {k: i for i, k in enumerate(keys)}             # <<<<<<<<<<<<<<
+ * 
+ *     tmp_1 = np.array([dict_str_int[ch] for ch in s_1], dtype=np.int32)
 */
-  __pyx_t_2 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 457, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 457, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   { /* enter inner scope */
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":458
- *     ## Convert input lists of str to list of int
- *     tmp_1 = np.array(
- *         [dict_str_int[s_1[i]] for i in range(len(s_1))],             # <<<<<<<<<<<<<<
- *         dtype=np.int32
- *             )
-*/
-    __pyx_t_8 = PyList_New(0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 458, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    if (unlikely(__pyx_v_s_1 == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 458, __pyx_L1_error)
-    }
-    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_1); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 458, __pyx_L1_error)
-    __pyx_t_3 = __pyx_t_4;
-    for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_3; __pyx_t_9+=1) {
-      __pyx_8genexpr2__pyx_v_i = __pyx_t_9;
-      if (unlikely(__pyx_v_s_1 == Py_None)) {
-        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L5_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
+    __pyx_t_1 = __pyx_mstate_global->__pyx_int_0;
+    __pyx_t_3 = __pyx_v_keys; __Pyx_INCREF(__pyx_t_3);
+    __pyx_t_4 = 0;
+    for (;;) {
+      {
+        Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
+        #if !CYTHON_ASSUME_SAFE_SIZE
+        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 456, __pyx_L5_error)
+        #endif
+        if (__pyx_t_4 >= __pyx_temp) break;
       }
-      __pyx_t_10 = __Pyx_GetItemInt_List(__pyx_v_s_1, __pyx_8genexpr2__pyx_v_i, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 458, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_11 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 458, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_11);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_8, (PyObject*)__pyx_t_11))) __PYX_ERR(0, 458, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __pyx_t_5 = __Pyx_PyList_GetItemRefFast(__pyx_t_3, __pyx_t_4, __Pyx_ReferenceSharing_OwnStrongReference);
+      ++__pyx_t_4;
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 456, __pyx_L5_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_XDECREF_SET(__pyx_8genexpr2__pyx_v_k, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_XDECREF_SET(__pyx_8genexpr2__pyx_v_i, __pyx_t_1);
+      __pyx_t_5 = __Pyx_PyLong_AddObjC(__pyx_t_1, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 456, __pyx_L5_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_1);
+      __pyx_t_1 = __pyx_t_5;
+      __pyx_t_5 = 0;
+      if (unlikely(PyDict_SetItem(__pyx_t_2, (PyObject*)__pyx_8genexpr2__pyx_v_k, (PyObject*)__pyx_8genexpr2__pyx_v_i))) __PYX_ERR(0, 456, __pyx_L5_error)
     }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_i); __pyx_8genexpr2__pyx_v_i = 0;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_k); __pyx_8genexpr2__pyx_v_k = 0;
+    goto __pyx_L9_exit_scope;
+    __pyx_L5_error:;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_i); __pyx_8genexpr2__pyx_v_i = 0;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_k); __pyx_8genexpr2__pyx_v_k = 0;
+    goto __pyx_L1_error;
+    __pyx_L9_exit_scope:;
   } /* exit inner scope */
+  __pyx_v_dict_str_int = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":458
+ *     dict_str_int = {k: i for i, k in enumerate(keys)}
+ * 
+ *     tmp_1 = np.array([dict_str_int[ch] for ch in s_1], dtype=np.int32)             # <<<<<<<<<<<<<<
+ *     tmp_2 = np.array([dict_str_int[ch] for ch in s_2], dtype=np.int32)
+ * 
+*/
+  __pyx_t_1 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  { /* enter inner scope */
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 458, __pyx_L12_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (unlikely(__pyx_v_s_1 == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+      __PYX_ERR(0, 458, __pyx_L12_error)
+    }
+    __pyx_t_6 = __pyx_v_s_1; __Pyx_INCREF(__pyx_t_6);
+    __pyx_t_4 = 0;
+    for (;;) {
+      {
+        Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_6);
+        #if !CYTHON_ASSUME_SAFE_SIZE
+        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 458, __pyx_L12_error)
+        #endif
+        if (__pyx_t_4 >= __pyx_temp) break;
+      }
+      __pyx_t_7 = __Pyx_PyList_GetItemRefFast(__pyx_t_6, __pyx_t_4, __Pyx_ReferenceSharing_OwnStrongReference);
+      ++__pyx_t_4;
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 458, __pyx_L12_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_XDECREF_SET(__pyx_8genexpr3__pyx_v_ch, __pyx_t_7);
+      __pyx_t_7 = 0;
+      __pyx_t_7 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_8genexpr3__pyx_v_ch); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 458, __pyx_L12_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_7))) __PYX_ERR(0, 458, __pyx_L12_error)
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr3__pyx_v_ch); __pyx_8genexpr3__pyx_v_ch = 0;
+    goto __pyx_L16_exit_scope;
+    __pyx_L12_error:;
+    __Pyx_XDECREF(__pyx_8genexpr3__pyx_v_ch); __pyx_8genexpr3__pyx_v_ch = 0;
+    goto __pyx_L1_error;
+    __pyx_L16_exit_scope:;
+  } /* exit inner scope */
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_8 = 1;
+  #if CYTHON_UNPACK_METHODS
+  if (unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+    assert(__pyx_t_1);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_5);
+    __Pyx_INCREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx__function);
+    __Pyx_DECREF_SET(__pyx_t_5, __pyx__function);
+    __pyx_t_8 = 0;
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_1, __pyx_t_3};
+    __pyx_t_6 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_7, __pyx_t_6, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_5, __pyx_callargs+__pyx_t_8, (2-__pyx_t_8) | (__pyx_t_8*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+  }
+  __pyx_v_tmp_1 = __pyx_t_2;
+  __pyx_t_2 = 0;
 
   /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":459
- *     tmp_1 = np.array(
- *         [dict_str_int[s_1[i]] for i in range(len(s_1))],
- *         dtype=np.int32             # <<<<<<<<<<<<<<
- *             )
- *     tmp_2 = np.array(
+ * 
+ *     tmp_1 = np.array([dict_str_int[ch] for ch in s_1], dtype=np.int32)
+ *     tmp_2 = np.array([dict_str_int[ch] for ch in s_2], dtype=np.int32)             # <<<<<<<<<<<<<<
+ * 
+ *     n_dict = {dict_str_int[k]: v for k, v in dict_chr_idx.items()}
 */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 459, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 459, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_12 = 1;
+  __pyx_t_5 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  { /* enter inner scope */
+    __pyx_t_6 = PyList_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L19_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (unlikely(__pyx_v_s_2 == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+      __PYX_ERR(0, 459, __pyx_L19_error)
+    }
+    __pyx_t_3 = __pyx_v_s_2; __Pyx_INCREF(__pyx_t_3);
+    __pyx_t_4 = 0;
+    for (;;) {
+      {
+        Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
+        #if !CYTHON_ASSUME_SAFE_SIZE
+        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 459, __pyx_L19_error)
+        #endif
+        if (__pyx_t_4 >= __pyx_temp) break;
+      }
+      __pyx_t_1 = __Pyx_PyList_GetItemRefFast(__pyx_t_3, __pyx_t_4, __Pyx_ReferenceSharing_OwnStrongReference);
+      ++__pyx_t_4;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L19_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_XDECREF_SET(__pyx_8genexpr4__pyx_v_ch, __pyx_t_1);
+      __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_8genexpr4__pyx_v_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L19_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_6, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 459, __pyx_L19_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr4__pyx_v_ch); __pyx_8genexpr4__pyx_v_ch = 0;
+    goto __pyx_L23_exit_scope;
+    __pyx_L19_error:;
+    __Pyx_XDECREF(__pyx_8genexpr4__pyx_v_ch); __pyx_8genexpr4__pyx_v_ch = 0;
+    goto __pyx_L1_error;
+    __pyx_L23_exit_scope:;
+  } /* exit inner scope */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 459, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_8 = 1;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_6))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
-    assert(__pyx_t_2);
-    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_6);
-    __Pyx_INCREF(__pyx_t_2);
+  if (unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_7);
+    assert(__pyx_t_5);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_7);
+    __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx__function);
-    __Pyx_DECREF_SET(__pyx_t_6, __pyx__function);
-    __pyx_t_12 = 0;
+    __Pyx_DECREF_SET(__pyx_t_7, __pyx__function);
+    __pyx_t_8 = 0;
   }
   #endif
   {
-    PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_2, __pyx_t_8};
-    __pyx_t_11 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 457, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_10, __pyx_t_11, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 457, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_6, __pyx_callargs+__pyx_t_12, (2-__pyx_t_12) | (__pyx_t_12*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_11);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_5, __pyx_t_6};
+    __pyx_t_3 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_1, __pyx_t_3, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_7, __pyx_callargs+__pyx_t_8, (2-__pyx_t_8) | (__pyx_t_8*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_3);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
   }
-  __pyx_v_tmp_1 = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_tmp_2 = __pyx_t_2;
+  __pyx_t_2 = 0;
 
   /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":461
- *         dtype=np.int32
- *             )
- *     tmp_2 = np.array(             # <<<<<<<<<<<<<<
- *         [dict_str_int[s_2[j]] for j in range(len(s_2))],
- *         dtype=np.int32
-*/
-  __pyx_t_6 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_array); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 461, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  { /* enter inner scope */
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":462
- *             )
- *     tmp_2 = np.array(
- *         [dict_str_int[s_2[j]] for j in range(len(s_2))],             # <<<<<<<<<<<<<<
- *         dtype=np.int32
- *             )
-*/
-    __pyx_t_11 = PyList_New(0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 462, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    if (unlikely(__pyx_v_s_2 == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 462, __pyx_L1_error)
-    }
-    __pyx_t_4 = __Pyx_PyList_GET_SIZE(__pyx_v_s_2); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 462, __pyx_L1_error)
-    __pyx_t_3 = __pyx_t_4;
-    for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_3; __pyx_t_9+=1) {
-      __pyx_8genexpr3__pyx_v_j = __pyx_t_9;
-      if (unlikely(__pyx_v_s_2 == Py_None)) {
-        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 462, __pyx_L1_error)
-      }
-      __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_s_2, __pyx_8genexpr3__pyx_v_j, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_FunctionArgument); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 462, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 462, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_11, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 462, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-  } /* exit inner scope */
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":463
- *     tmp_2 = np.array(
- *         [dict_str_int[s_2[j]] for j in range(len(s_2))],
- *         dtype=np.int32             # <<<<<<<<<<<<<<
- *             )
- *     ## Create dict from int to indexes for the dist_mat
-*/
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_mstate_global->__pyx_n_u_int32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 463, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_12 = 1;
-  #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_10);
-    assert(__pyx_t_6);
-    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_10);
-    __Pyx_INCREF(__pyx_t_6);
-    __Pyx_INCREF(__pyx__function);
-    __Pyx_DECREF_SET(__pyx_t_10, __pyx__function);
-    __pyx_t_12 = 0;
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_6, __pyx_t_11};
-    __pyx_t_2 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_8, __pyx_t_2, __pyx_callargs+2, 0) < (0)) __PYX_ERR(0, 461, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_Object_Vectorcall_CallFromBuilder((PyObject*)__pyx_t_10, __pyx_callargs+__pyx_t_12, (2-__pyx_t_12) | (__pyx_t_12*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_2);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-  }
-  __pyx_v_tmp_2 = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":466
- *             )
- *     ## Create dict from int to indexes for the dist_mat
- *     n_dict = dict()             # <<<<<<<<<<<<<<
- *     for key, val in dict_chr_idx.items():
- *         n_key = dict_str_int[key]
-*/
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_n_dict = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":467
- *     ## Create dict from int to indexes for the dist_mat
- *     n_dict = dict()
- *     for key, val in dict_chr_idx.items():             # <<<<<<<<<<<<<<
- *         n_key = dict_str_int[key]
- *         n_dict.update({n_key: val})
-*/
-  __pyx_t_4 = 0;
-  if (unlikely(__pyx_v_dict_chr_idx == Py_None)) {
-    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 467, __pyx_L1_error)
-  }
-  __pyx_t_10 = __Pyx_dict_iterator(__pyx_v_dict_chr_idx, 1, __pyx_mstate_global->__pyx_n_u_items, (&__pyx_t_3), (&__pyx_t_5)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 467, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_XDECREF(__pyx_t_1);
-  __pyx_t_1 = __pyx_t_10;
-  __pyx_t_10 = 0;
-  while (1) {
-    __pyx_t_7 = __Pyx_dict_iter_next(__pyx_t_1, __pyx_t_3, &__pyx_t_4, &__pyx_t_10, &__pyx_t_2, NULL, __pyx_t_5);
-    if (unlikely(__pyx_t_7 == 0)) break;
-    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 467, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_10);
-    __pyx_t_10 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
-    __pyx_t_2 = 0;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":468
- *     n_dict = dict()
- *     for key, val in dict_chr_idx.items():
- *         n_key = dict_str_int[key]             # <<<<<<<<<<<<<<
- *         n_dict.update({n_key: val})
+ *     tmp_2 = np.array([dict_str_int[ch] for ch in s_2], dtype=np.int32)
  * 
-*/
-    __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_v_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_XDECREF_SET(__pyx_v_n_key, __pyx_t_2);
-    __pyx_t_2 = 0;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":469
- *     for key, val in dict_chr_idx.items():
- *         n_key = dict_str_int[key]
- *         n_dict.update({n_key: val})             # <<<<<<<<<<<<<<
+ *     n_dict = {dict_str_int[k]: v for k, v in dict_chr_idx.items()}             # <<<<<<<<<<<<<<
  * 
  *     return tmp_1, tmp_2, n_dict
 */
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 469, __pyx_L1_error)
+  { /* enter inner scope */
+    __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L26_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_t_2, __pyx_v_n_key, __pyx_v_val) < (0)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_CallUnboundCMethod1(&__pyx_mstate_global->__pyx_umethod_PyDict_Type__update, __pyx_v_n_dict, __pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 469, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_4 = 0;
+    if (unlikely(__pyx_v_dict_chr_idx == Py_None)) {
+      PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
+      __PYX_ERR(0, 461, __pyx_L26_error)
+    }
+    __pyx_t_3 = __Pyx_dict_iterator(__pyx_v_dict_chr_idx, 1, __pyx_mstate_global->__pyx_n_u_items, (&__pyx_t_9), (&__pyx_t_10)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 461, __pyx_L26_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_XDECREF(__pyx_t_7);
+    __pyx_t_7 = __pyx_t_3;
+    __pyx_t_3 = 0;
+    while (1) {
+      __pyx_t_11 = __Pyx_dict_iter_next(__pyx_t_7, __pyx_t_9, &__pyx_t_4, &__pyx_t_3, &__pyx_t_1, NULL, __pyx_t_10);
+      if (unlikely(__pyx_t_11 == 0)) break;
+      if (unlikely(__pyx_t_11 == -1)) __PYX_ERR(0, 461, __pyx_L26_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_XDECREF_SET(__pyx_8genexpr5__pyx_v_k, __pyx_t_3);
+      __pyx_t_3 = 0;
+      __Pyx_XDECREF_SET(__pyx_8genexpr5__pyx_v_v, __pyx_t_1);
+      __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_dict_str_int, __pyx_8genexpr5__pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L26_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(PyDict_SetItem(__pyx_t_2, (PyObject*)__pyx_t_1, (PyObject*)__pyx_8genexpr5__pyx_v_v))) __PYX_ERR(0, 461, __pyx_L26_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_k); __pyx_8genexpr5__pyx_v_k = 0;
+    __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_v); __pyx_8genexpr5__pyx_v_v = 0;
+    goto __pyx_L29_exit_scope;
+    __pyx_L26_error:;
+    __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_k); __pyx_8genexpr5__pyx_v_k = 0;
+    __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_v); __pyx_8genexpr5__pyx_v_v = 0;
+    goto __pyx_L1_error;
+    __pyx_L29_exit_scope:;
+  } /* exit inner scope */
+  __pyx_v_n_dict = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":471
- *         n_dict.update({n_key: val})
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":463
+ *     n_dict = {dict_str_int[k]: v for k, v in dict_chr_idx.items()}
  * 
  *     return tmp_1, tmp_2, n_dict             # <<<<<<<<<<<<<<
  * 
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 471, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_tmp_1);
   __Pyx_GIVEREF(__pyx_v_tmp_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_tmp_1) != (0)) __PYX_ERR(0, 471, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_tmp_1) != (0)) __PYX_ERR(0, 463, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_tmp_2);
   __Pyx_GIVEREF(__pyx_v_tmp_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_tmp_2) != (0)) __PYX_ERR(0, 471, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_tmp_2) != (0)) __PYX_ERR(0, 463, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_n_dict);
   __Pyx_GIVEREF(__pyx_v_n_dict);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_n_dict) != (0)) __PYX_ERR(0, 471, __pyx_L1_error);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_n_dict) != (0)) __PYX_ERR(0, 463, __pyx_L1_error);
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":447
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":443
  * 
  * 
- * def int_convert_from_dict(list s_1, list s_2,             # <<<<<<<<<<<<<<
- *                           dict dict_chr_idx):
- * 
+ * def int_convert_from_dict(list s_1, list s_2, dict dict_chr_idx):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convertit 2 squences de symboles (ex: ["AA","AB",...]) en tableaux d'int,
 */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("vision_toolkit.scanpath.similarity.c_comparison_algorithms.c_comparison_algorithms.int_convert_from_dict", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_keys);
   __Pyx_XDECREF(__pyx_v_dict_str_int);
-  __Pyx_XDECREF(__pyx_v_i);
-  __Pyx_XDECREF(__pyx_v_str_);
   __Pyx_XDECREF(__pyx_v_tmp_1);
   __Pyx_XDECREF(__pyx_v_tmp_2);
   __Pyx_XDECREF(__pyx_v_n_dict);
-  __Pyx_XDECREF(__pyx_v_key);
-  __Pyx_XDECREF(__pyx_v_val);
-  __Pyx_XDECREF(__pyx_v_n_key);
+  __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_i);
+  __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_k);
+  __Pyx_XDECREF(__pyx_8genexpr3__pyx_v_ch);
+  __Pyx_XDECREF(__pyx_8genexpr4__pyx_v_ch);
+  __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_k);
+  __Pyx_XDECREF(__pyx_8genexpr5__pyx_v_v);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":474
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":466
  * 
  * 
  * def character_generic_backtracking(list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -24937,67 +24810,67 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_d_mat,&__pyx_mstate_global->__pyx_n_u_b_map,&__pyx_mstate_global->__pyx_n_u_n_1,&__pyx_mstate_global->__pyx_n_u_n_2,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 474, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 466, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 474, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 466, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "character_generic_backtracking", 0) < (0)) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "character_generic_backtracking", 0) < (0)) __PYX_ERR(0, 466, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 6; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("character_generic_backtracking", 1, 6, 6, i); __PYX_ERR(0, 474, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("character_generic_backtracking", 1, 6, 6, i); __PYX_ERR(0, 466, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 466, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 466, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 466, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 466, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 466, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 474, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 466, __pyx_L3_error)
     }
     __pyx_v_s_1 = ((PyObject*)values[0]);
     __pyx_v_s_2 = ((PyObject*)values[1]);
-    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 475, __pyx_L3_error)
-    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 475, __pyx_L3_error)
-    __pyx_v_n_1 = __Pyx_PyLong_As_int(values[4]); if (unlikely((__pyx_v_n_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L3_error)
-    __pyx_v_n_2 = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_n_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L3_error)
+    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[2], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 467, __pyx_L3_error)
+    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 467, __pyx_L3_error)
+    __pyx_v_n_1 = __Pyx_PyLong_As_int(values[4]); if (unlikely((__pyx_v_n_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 468, __pyx_L3_error)
+    __pyx_v_n_2 = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_n_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 468, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("character_generic_backtracking", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 474, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("character_generic_backtracking", 1, 6, 6, __pyx_nargs); __PYX_ERR(0, 466, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -25010,8 +24883,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 474, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 474, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_1), (&PyList_Type), 1, "s_1", 1))) __PYX_ERR(0, 466, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_s_2), (&PyList_Type), 1, "s_2", 1))) __PYX_ERR(0, 466, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_14character_generic_backtracking(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_d_mat, __pyx_v_b_map, __pyx_v_n_1, __pyx_v_n_2);
 
   /* function exit code */
@@ -25058,35 +24931,35 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("character_generic_backtracking", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":478
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":470
  *                                    int n_1, int n_2):
  * 
  *     opt_align = []             # <<<<<<<<<<<<<<
  *     i, j = n_1, n_2
  * 
 */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 470, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_opt_align = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":479
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":471
  * 
  *     opt_align = []
  *     i, j = n_1, n_2             # <<<<<<<<<<<<<<
  * 
  *     ## Fast enough using Python
 */
-  __pyx_t_1 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyLong_From_int(__pyx_v_n_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyLong_From_int(__pyx_v_n_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_i = __pyx_t_1;
   __pyx_t_1 = 0;
   __pyx_v_j = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":482
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":474
  * 
  *     ## Fast enough using Python
  *     while i != 0 or j != 0:             # <<<<<<<<<<<<<<
@@ -25094,26 +24967,26 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
  *         j_n = b_map[i, j, 1]
 */
   while (1) {
-    __pyx_t_4 = (__Pyx_PyLong_BoolNeObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_0, 0, 0)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 482, __pyx_L1_error)
+    __pyx_t_4 = (__Pyx_PyLong_BoolNeObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_0, 0, 0)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 474, __pyx_L1_error)
     if (!__pyx_t_4) {
     } else {
       __pyx_t_3 = __pyx_t_4;
       goto __pyx_L5_bool_binop_done;
     }
-    __pyx_t_4 = (__Pyx_PyLong_BoolNeObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_0, 0, 0)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 482, __pyx_L1_error)
+    __pyx_t_4 = (__Pyx_PyLong_BoolNeObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_0, 0, 0)); if (unlikely((__pyx_t_4 < 0))) __PYX_ERR(0, 474, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_4;
     __pyx_L5_bool_binop_done:;
     if (!__pyx_t_3) break;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":483
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":475
  *     ## Fast enough using Python
  *     while i != 0 or j != 0:
  *         i_n = b_map[i, j, 0]             # <<<<<<<<<<<<<<
  *         j_n = b_map[i, j, 1]
  *         if i_n == i-1:
 */
-    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L1_error)
-    __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 483, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 475, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_5;
     __pyx_t_8 = __pyx_t_6;
     __pyx_t_9 = 0;
@@ -25132,22 +25005,22 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     } else if (unlikely(__pyx_t_9 >= __pyx_v_b_map.shape[2])) __pyx_t_10 = 2;
     if (unlikely(__pyx_t_10 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_10);
-      __PYX_ERR(0, 483, __pyx_L1_error)
+      __PYX_ERR(0, 475, __pyx_L1_error)
     }
-    __pyx_t_2 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_7 * __pyx_v_b_map.strides[0]) ) + __pyx_t_8 * __pyx_v_b_map.strides[1]) ) + __pyx_t_9 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_7 * __pyx_v_b_map.strides[0]) ) + __pyx_t_8 * __pyx_v_b_map.strides[1]) ) + __pyx_t_9 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_i_n, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":484
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":476
  *     while i != 0 or j != 0:
  *         i_n = b_map[i, j, 0]
  *         j_n = b_map[i, j, 1]             # <<<<<<<<<<<<<<
  *         if i_n == i-1:
  *             if j_n == j-1:
 */
-    __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 484, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 484, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 476, __pyx_L1_error)
     __pyx_t_9 = __pyx_t_6;
     __pyx_t_8 = __pyx_t_5;
     __pyx_t_7 = 1;
@@ -25166,44 +25039,44 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     } else if (unlikely(__pyx_t_7 >= __pyx_v_b_map.shape[2])) __pyx_t_10 = 2;
     if (unlikely(__pyx_t_10 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_10);
-      __PYX_ERR(0, 484, __pyx_L1_error)
+      __PYX_ERR(0, 476, __pyx_L1_error)
     }
-    __pyx_t_2 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_9 * __pyx_v_b_map.strides[0]) ) + __pyx_t_8 * __pyx_v_b_map.strides[1]) ) + __pyx_t_7 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 484, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_9 * __pyx_v_b_map.strides[0]) ) + __pyx_t_8 * __pyx_v_b_map.strides[1]) ) + __pyx_t_7 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 476, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_j_n, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":485
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":477
  *         i_n = b_map[i, j, 0]
  *         j_n = b_map[i, j, 1]
  *         if i_n == i-1:             # <<<<<<<<<<<<<<
  *             if j_n == j-1:
  *                 opt_align.insert(0, [s_1[i-1], s_2[j-1]])
 */
-    __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 485, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_i_n, __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 485, __pyx_L1_error)
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_i_n, __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 485, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 477, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_3) {
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":486
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":478
  *         j_n = b_map[i, j, 1]
  *         if i_n == i-1:
  *             if j_n == j-1:             # <<<<<<<<<<<<<<
  *                 opt_align.insert(0, [s_1[i-1], s_2[j-1]])
  *             else:
 */
-      __pyx_t_1 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyObject_RichCompare(__pyx_v_j_n, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_2 = PyObject_RichCompare(__pyx_v_j_n, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 478, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_3) {
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":487
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":479
  *         if i_n == i-1:
  *             if j_n == j-1:
  *                 opt_align.insert(0, [s_1[i-1], s_2[j-1]])             # <<<<<<<<<<<<<<
@@ -25212,34 +25085,34 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
         if (unlikely(__pyx_v_s_1 == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 487, __pyx_L1_error)
+          __PYX_ERR(0, 479, __pyx_L1_error)
         }
-        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_s_1, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_s_1, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (unlikely(__pyx_v_s_2 == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 487, __pyx_L1_error)
+          __PYX_ERR(0, 479, __pyx_L1_error)
         }
-        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_2, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_2, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_1);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_1) != (0)) __PYX_ERR(0, 487, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_1) != (0)) __PYX_ERR(0, 479, __pyx_L1_error);
         __Pyx_GIVEREF(__pyx_t_11);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 487, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 479, __pyx_L1_error);
         __pyx_t_1 = 0;
         __pyx_t_11 = 0;
-        __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":486
+        /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":478
  *         j_n = b_map[i, j, 1]
  *         if i_n == i-1:
  *             if j_n == j-1:             # <<<<<<<<<<<<<<
@@ -25249,7 +25122,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
         goto __pyx_L8;
       }
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":489
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":481
  *                 opt_align.insert(0, [s_1[i-1], s_2[j-1]])
  *             else:
  *                 opt_align.insert(0, [s_1[i-1], '__'])             # <<<<<<<<<<<<<<
@@ -25259,27 +25132,27 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       /*else*/ {
         if (unlikely(__pyx_v_s_1 == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 489, __pyx_L1_error)
+          __PYX_ERR(0, 481, __pyx_L1_error)
         }
-        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 489, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_i, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_1, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 489, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_1, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 481, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 489, __pyx_L1_error)
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_11);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_11) != (0)) __PYX_ERR(0, 489, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_11) != (0)) __PYX_ERR(0, 481, __pyx_L1_error);
         __Pyx_INCREF(__pyx_mstate_global->__pyx_n_u__6);
         __Pyx_GIVEREF(__pyx_mstate_global->__pyx_n_u__6);
-        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_mstate_global->__pyx_n_u__6) != (0)) __PYX_ERR(0, 489, __pyx_L1_error);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_mstate_global->__pyx_n_u__6) != (0)) __PYX_ERR(0, 481, __pyx_L1_error);
         __pyx_t_11 = 0;
-        __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 489, __pyx_L1_error)
+        __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 481, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
       __pyx_L8:;
 
-      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":485
+      /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":477
  *         i_n = b_map[i, j, 0]
  *         j_n = b_map[i, j, 1]
  *         if i_n == i-1:             # <<<<<<<<<<<<<<
@@ -25289,7 +25162,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
       goto __pyx_L7;
     }
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":491
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":483
  *                 opt_align.insert(0, [s_1[i-1], '__'])
  *         else:
  *             opt_align.insert(0, ['__', s_2[j-1]])             # <<<<<<<<<<<<<<
@@ -25299,27 +25172,27 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     /*else*/ {
       if (unlikely(__pyx_v_s_2 == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 491, __pyx_L1_error)
+        __PYX_ERR(0, 483, __pyx_L1_error)
       }
-      __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyLong_SubtractObjC(__pyx_v_j, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_2, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_GetItem(__pyx_v_s_2, __pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_mstate_global->__pyx_n_u__6);
       __Pyx_GIVEREF(__pyx_mstate_global->__pyx_n_u__6);
-      if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_mstate_global->__pyx_n_u__6) != (0)) __PYX_ERR(0, 491, __pyx_L1_error);
+      if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_mstate_global->__pyx_n_u__6) != (0)) __PYX_ERR(0, 483, __pyx_L1_error);
       __Pyx_GIVEREF(__pyx_t_11);
-      if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 491, __pyx_L1_error);
+      if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 483, __pyx_L1_error);
       __pyx_t_11 = 0;
-      __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_12 = PyList_Insert(__pyx_v_opt_align, 0, __pyx_t_2); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
     __pyx_L7:;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":493
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":485
  *             opt_align.insert(0, ['__', s_2[j-1]])
  * 
  *         i, j = i_n, j_n             # <<<<<<<<<<<<<<
@@ -25336,7 +25209,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
     __pyx_t_11 = 0;
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":495
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":487
  *         i, j = i_n, j_n
  * 
  *     return opt_align             # <<<<<<<<<<<<<<
@@ -25348,7 +25221,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   __pyx_r = __pyx_v_opt_align;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":474
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":466
  * 
  * 
  * def character_generic_backtracking(list s_1, list s_2,             # <<<<<<<<<<<<<<
@@ -25374,7 +25247,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":498
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":490
  * 
  * 
  * def dtw_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -25427,74 +25300,74 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_opt_links,&__pyx_mstate_global->__pyx_n_u_d_mat,&__pyx_mstate_global->__pyx_n_u_b_map,&__pyx_mstate_global->__pyx_n_u_i,&__pyx_mstate_global->__pyx_n_u_j,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 498, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 490, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  7:
         values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 498, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 490, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "dtw_links_backtracking", 0) < (0)) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "dtw_links_backtracking", 0) < (0)) __PYX_ERR(0, 490, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 7; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("dtw_links_backtracking", 1, 7, 7, i); __PYX_ERR(0, 498, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("dtw_links_backtracking", 1, 7, 7, i); __PYX_ERR(0, 490, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 7)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 490, __pyx_L3_error)
       values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 498, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 490, __pyx_L3_error)
     }
-    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 498, __pyx_L3_error)
-    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 498, __pyx_L3_error)
+    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 490, __pyx_L3_error)
+    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 490, __pyx_L3_error)
     __pyx_v_opt_links = ((PyObject*)values[2]);
-    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 500, __pyx_L3_error)
-    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 500, __pyx_L3_error)
-    __pyx_v_i = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 501, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyLong_As_int(values[6]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 501, __pyx_L3_error)
+    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 492, __pyx_L3_error)
+    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 492, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 493, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyLong_As_int(values[6]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 493, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("dtw_links_backtracking", 1, 7, 7, __pyx_nargs); __PYX_ERR(0, 498, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("dtw_links_backtracking", 1, 7, 7, __pyx_nargs); __PYX_ERR(0, 490, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -25509,7 +25382,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_opt_links), (&PyList_Type), 1, "opt_links", 1))) __PYX_ERR(0, 499, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_opt_links), (&PyList_Type), 1, "opt_links", 1))) __PYX_ERR(0, 491, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_16dtw_links_backtracking(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_opt_links, __pyx_v_d_mat, __pyx_v_b_map, __pyx_v_i, __pyx_v_j);
 
   /* function exit code */
@@ -25534,451 +25407,324 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 
 static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_16dtw_links_backtracking(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_s_1, __Pyx_memviewslice __pyx_v_s_2, PyObject *__pyx_v_opt_links, __Pyx_memviewslice __pyx_v_d_mat, __Pyx_memviewslice __pyx_v_b_map, int __pyx_v_i, int __pyx_v_j) {
-  PyObject *__pyx_v_i_n = NULL;
-  PyObject *__pyx_v_j_n = NULL;
+  int __pyx_v_i_n;
+  int __pyx_v_j_n;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  Py_ssize_t __pyx_t_1;
-  Py_ssize_t __pyx_t_2;
-  Py_ssize_t __pyx_t_3;
-  int __pyx_t_4;
+  int __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  Py_ssize_t __pyx_t_6;
-  __Pyx_memviewslice __pyx_t_7 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  size_t __pyx_t_7;
+  __Pyx_memviewslice __pyx_t_8 = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_t_9 = NULL;
-  PyObject *__pyx_t_10 = NULL;
-  PyObject *__pyx_t_11 = NULL;
-  int __pyx_t_12;
-  int __pyx_t_13;
+  int __pyx_t_10;
+  Py_ssize_t __pyx_t_11;
+  Py_ssize_t __pyx_t_12;
+  Py_ssize_t __pyx_t_13;
   int __pyx_t_14;
-  size_t __pyx_t_15;
+  PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
   PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_18 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("dtw_links_backtracking", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":503
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":495
  *                            int i, int j):
  * 
- *     i_n = b_map[i, j, 0]             # <<<<<<<<<<<<<<
- *     j_n = b_map[i, j, 1]
- *     opt_links.insert(0, [s_1[:,i_n-1],
-*/
-  __pyx_t_1 = __pyx_v_i;
-  __pyx_t_2 = __pyx_v_j;
-  __pyx_t_3 = 0;
-  __pyx_t_4 = -1;
-  if (__pyx_t_1 < 0) {
-    __pyx_t_1 += __pyx_v_b_map.shape[0];
-    if (unlikely(__pyx_t_1 < 0)) __pyx_t_4 = 0;
-  } else if (unlikely(__pyx_t_1 >= __pyx_v_b_map.shape[0])) __pyx_t_4 = 0;
-  if (__pyx_t_2 < 0) {
-    __pyx_t_2 += __pyx_v_b_map.shape[1];
-    if (unlikely(__pyx_t_2 < 0)) __pyx_t_4 = 1;
-  } else if (unlikely(__pyx_t_2 >= __pyx_v_b_map.shape[1])) __pyx_t_4 = 1;
-  if (__pyx_t_3 < 0) {
-    __pyx_t_3 += __pyx_v_b_map.shape[2];
-    if (unlikely(__pyx_t_3 < 0)) __pyx_t_4 = 2;
-  } else if (unlikely(__pyx_t_3 >= __pyx_v_b_map.shape[2])) __pyx_t_4 = 2;
-  if (unlikely(__pyx_t_4 != -1)) {
-    __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 503, __pyx_L1_error)
-  }
-  __pyx_t_5 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_1 * __pyx_v_b_map.strides[0]) ) + __pyx_t_2 * __pyx_v_b_map.strides[1]) ) + __pyx_t_3 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 503, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_v_i_n = __pyx_t_5;
-  __pyx_t_5 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":504
- * 
- *     i_n = b_map[i, j, 0]
- *     j_n = b_map[i, j, 1]             # <<<<<<<<<<<<<<
- *     opt_links.insert(0, [s_1[:,i_n-1],
- *                          s_2[:,j_n-1],
-*/
-  __pyx_t_3 = __pyx_v_i;
-  __pyx_t_2 = __pyx_v_j;
-  __pyx_t_1 = 1;
-  __pyx_t_4 = -1;
-  if (__pyx_t_3 < 0) {
-    __pyx_t_3 += __pyx_v_b_map.shape[0];
-    if (unlikely(__pyx_t_3 < 0)) __pyx_t_4 = 0;
-  } else if (unlikely(__pyx_t_3 >= __pyx_v_b_map.shape[0])) __pyx_t_4 = 0;
-  if (__pyx_t_2 < 0) {
-    __pyx_t_2 += __pyx_v_b_map.shape[1];
-    if (unlikely(__pyx_t_2 < 0)) __pyx_t_4 = 1;
-  } else if (unlikely(__pyx_t_2 >= __pyx_v_b_map.shape[1])) __pyx_t_4 = 1;
-  if (__pyx_t_1 < 0) {
-    __pyx_t_1 += __pyx_v_b_map.shape[2];
-    if (unlikely(__pyx_t_1 < 0)) __pyx_t_4 = 2;
-  } else if (unlikely(__pyx_t_1 >= __pyx_v_b_map.shape[2])) __pyx_t_4 = 2;
-  if (unlikely(__pyx_t_4 != -1)) {
-    __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 504, __pyx_L1_error)
-  }
-  __pyx_t_5 = __Pyx_PyLong_From_int((*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_3 * __pyx_v_b_map.strides[0]) ) + __pyx_t_2 * __pyx_v_b_map.strides[1]) ) + __pyx_t_1 * __pyx_v_b_map.strides[2]) )))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 504, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_v_j_n = __pyx_t_5;
-  __pyx_t_5 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":505
- *     i_n = b_map[i, j, 0]
- *     j_n = b_map[i, j, 1]
- *     opt_links.insert(0, [s_1[:,i_n-1],             # <<<<<<<<<<<<<<
- *                          s_2[:,j_n-1],
- *                          [i_n-1, j_n-1]])
-*/
-  if (unlikely(__pyx_v_opt_links == Py_None)) {
-    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "insert");
-    __PYX_ERR(0, 505, __pyx_L1_error)
-  }
-  __pyx_t_5 = __Pyx_PyLong_SubtractObjC(__pyx_v_i_n, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_t_5); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_7.data = __pyx_v_s_1.data;
-  __pyx_t_7.memview = __pyx_v_s_1.memview;
-  __PYX_INC_MEMVIEW(&__pyx_t_7, 1);
-  __pyx_t_7.shape[0] = __pyx_v_s_1.shape[0];
-__pyx_t_7.strides[0] = __pyx_v_s_1.strides[0];
-    __pyx_t_7.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = __pyx_t_6;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_1.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_1.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 505, __pyx_L1_error)
-        }
-        __pyx_t_7.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_7, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
-  __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":506
- *     j_n = b_map[i, j, 1]
- *     opt_links.insert(0, [s_1[:,i_n-1],
- *                          s_2[:,j_n-1],             # <<<<<<<<<<<<<<
- *                          [i_n-1, j_n-1]])
+ *     if i == 0 and j == 0:             # <<<<<<<<<<<<<<
+ *         return np.asarray(opt_links)
  * 
 */
-  __pyx_t_8 = __Pyx_PyLong_SubtractObjC(__pyx_v_j_n, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 506, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_t_8); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 506, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_7.data = __pyx_v_s_2.data;
-  __pyx_t_7.memview = __pyx_v_s_2.memview;
-  __PYX_INC_MEMVIEW(&__pyx_t_7, 1);
-  __pyx_t_7.shape[0] = __pyx_v_s_2.shape[0];
-__pyx_t_7.strides[0] = __pyx_v_s_2.strides[0];
-    __pyx_t_7.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = __pyx_t_6;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_2.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_2.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 506, __pyx_L1_error)
-        }
-        __pyx_t_7.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_8 = __pyx_memoryview_fromslice(__pyx_t_7, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 506, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
-  __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":507
- *     opt_links.insert(0, [s_1[:,i_n-1],
- *                          s_2[:,j_n-1],
- *                          [i_n-1, j_n-1]])             # <<<<<<<<<<<<<<
- * 
- *     if i_n == 1 and j_n == 1:
-*/
-  __pyx_t_9 = __Pyx_PyLong_SubtractObjC(__pyx_v_i_n, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 507, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyLong_SubtractObjC(__pyx_v_j_n, __pyx_mstate_global->__pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 507, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = PyList_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 507, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
-  __Pyx_GIVEREF(__pyx_t_9);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_9) != (0)) __PYX_ERR(0, 507, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_10);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_11, 1, __pyx_t_10) != (0)) __PYX_ERR(0, 507, __pyx_L1_error);
-  __pyx_t_9 = 0;
-  __pyx_t_10 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":505
- *     i_n = b_map[i, j, 0]
- *     j_n = b_map[i, j, 1]
- *     opt_links.insert(0, [s_1[:,i_n-1],             # <<<<<<<<<<<<<<
- *                          s_2[:,j_n-1],
- *                          [i_n-1, j_n-1]])
-*/
-  __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_5) != (0)) __PYX_ERR(0, 505, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 1, __pyx_t_8) != (0)) __PYX_ERR(0, 505, __pyx_L1_error);
-  __Pyx_GIVEREF(__pyx_t_11);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 2, __pyx_t_11) != (0)) __PYX_ERR(0, 505, __pyx_L1_error);
-  __pyx_t_5 = 0;
-  __pyx_t_8 = 0;
-  __pyx_t_11 = 0;
-  __pyx_t_12 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_10); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 505, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":509
- *                          [i_n-1, j_n-1]])
- * 
- *     if i_n == 1 and j_n == 1:             # <<<<<<<<<<<<<<
- *         opt_links.insert(0, [s_1[:,0],
- *                              s_2[:,0],
-*/
-  __pyx_t_14 = (__Pyx_PyLong_BoolEqObjC(__pyx_v_i_n, __pyx_mstate_global->__pyx_int_1, 1, 0)); if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(0, 509, __pyx_L1_error)
-  if (__pyx_t_14) {
+  __pyx_t_2 = (__pyx_v_i == 0);
+  if (__pyx_t_2) {
   } else {
-    __pyx_t_13 = __pyx_t_14;
+    __pyx_t_1 = __pyx_t_2;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_14 = (__Pyx_PyLong_BoolEqObjC(__pyx_v_j_n, __pyx_mstate_global->__pyx_int_1, 1, 0)); if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(0, 509, __pyx_L1_error)
-  __pyx_t_13 = __pyx_t_14;
+  __pyx_t_2 = (__pyx_v_j == 0);
+  __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
-  if (__pyx_t_13) {
+  if (__pyx_t_1) {
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":510
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":496
  * 
- *     if i_n == 1 and j_n == 1:
- *         opt_links.insert(0, [s_1[:,0],             # <<<<<<<<<<<<<<
- *                              s_2[:,0],
- *                              [0, 0]])
-*/
-    if (unlikely(__pyx_v_opt_links == Py_None)) {
-      PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "insert");
-      __PYX_ERR(0, 510, __pyx_L1_error)
-    }
-    __pyx_t_7.data = __pyx_v_s_1.data;
-    __pyx_t_7.memview = __pyx_v_s_1.memview;
-    __PYX_INC_MEMVIEW(&__pyx_t_7, 1);
-    __pyx_t_7.shape[0] = __pyx_v_s_1.shape[0];
-__pyx_t_7.strides[0] = __pyx_v_s_1.strides[0];
-    __pyx_t_7.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = 0;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_1.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_1.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 510, __pyx_L1_error)
-        }
-        __pyx_t_7.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_7, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 510, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
-    __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":511
- *     if i_n == 1 and j_n == 1:
- *         opt_links.insert(0, [s_1[:,0],
- *                              s_2[:,0],             # <<<<<<<<<<<<<<
- *                              [0, 0]])
- * 
-*/
-    __pyx_t_7.data = __pyx_v_s_2.data;
-    __pyx_t_7.memview = __pyx_v_s_2.memview;
-    __PYX_INC_MEMVIEW(&__pyx_t_7, 1);
-    __pyx_t_7.shape[0] = __pyx_v_s_2.shape[0];
-__pyx_t_7.strides[0] = __pyx_v_s_2.strides[0];
-    __pyx_t_7.suboffsets[0] = -1;
-
-{
-    Py_ssize_t __pyx_tmp_idx = 0;
-        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_2.shape[1];
-    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_2.strides[1];
-        if (__pyx_tmp_idx < 0)
-            __pyx_tmp_idx += __pyx_tmp_shape;
-        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
-            PyErr_SetString(PyExc_IndexError,
-                            "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 511, __pyx_L1_error)
-        }
-        __pyx_t_7.data += __pyx_tmp_idx * __pyx_tmp_stride;
-}
-
-__pyx_t_11 = __pyx_memoryview_fromslice(__pyx_t_7, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 511, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
-    __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":512
- *         opt_links.insert(0, [s_1[:,0],
- *                              s_2[:,0],
- *                              [0, 0]])             # <<<<<<<<<<<<<<
- * 
- *         return np.asarray(opt_links)
-*/
-    __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 512, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_8, 0, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 512, __pyx_L1_error);
-    __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
-    __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_8, 1, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 512, __pyx_L1_error);
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":510
- * 
- *     if i_n == 1 and j_n == 1:
- *         opt_links.insert(0, [s_1[:,0],             # <<<<<<<<<<<<<<
- *                              s_2[:,0],
- *                              [0, 0]])
-*/
-    __pyx_t_5 = PyList_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 510, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_10);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_10) != (0)) __PYX_ERR(0, 510, __pyx_L1_error);
-    __Pyx_GIVEREF(__pyx_t_11);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_11) != (0)) __PYX_ERR(0, 510, __pyx_L1_error);
-    __Pyx_GIVEREF(__pyx_t_8);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 2, __pyx_t_8) != (0)) __PYX_ERR(0, 510, __pyx_L1_error);
-    __pyx_t_10 = 0;
-    __pyx_t_11 = 0;
-    __pyx_t_8 = 0;
-    __pyx_t_12 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_5); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 510, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":514
- *                              [0, 0]])
- * 
+ *     if i == 0 and j == 0:
  *         return np.asarray(opt_links)             # <<<<<<<<<<<<<<
  * 
- *     return dtw_links_backtracking(s_1, s_2, opt_links,
+ *     if i > 0 and j > 0:
 */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_8 = NULL;
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 514, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_mstate_global->__pyx_n_u_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 514, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_15 = 1;
+    __pyx_t_4 = NULL;
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 496, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 496, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_7 = 1;
     #if CYTHON_UNPACK_METHODS
-    if (unlikely(PyMethod_Check(__pyx_t_10))) {
-      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_10);
-      assert(__pyx_t_8);
-      PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_10);
-      __Pyx_INCREF(__pyx_t_8);
+    if (unlikely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_6);
+      assert(__pyx_t_4);
+      PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(__pyx__function);
-      __Pyx_DECREF_SET(__pyx_t_10, __pyx__function);
-      __pyx_t_15 = 0;
+      __Pyx_DECREF_SET(__pyx_t_6, __pyx__function);
+      __pyx_t_7 = 0;
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_8, __pyx_v_opt_links};
-      __pyx_t_5 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_10, __pyx_callargs+__pyx_t_15, (2-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 514, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
+      PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_v_opt_links};
+      __pyx_t_3 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_6, __pyx_callargs+__pyx_t_7, (2-__pyx_t_7) | (__pyx_t_7*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 496, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
     }
-    __pyx_r = __pyx_t_5;
-    __pyx_t_5 = 0;
+    __pyx_r = __pyx_t_3;
+    __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":509
- *                          [i_n-1, j_n-1]])
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":495
+ *                            int i, int j):
  * 
- *     if i_n == 1 and j_n == 1:             # <<<<<<<<<<<<<<
- *         opt_links.insert(0, [s_1[:,0],
- *                              s_2[:,0],
+ *     if i == 0 and j == 0:             # <<<<<<<<<<<<<<
+ *         return np.asarray(opt_links)
+ * 
 */
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":516
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":498
  *         return np.asarray(opt_links)
  * 
- *     return dtw_links_backtracking(s_1, s_2, opt_links,             # <<<<<<<<<<<<<<
- *                                   d_mat, b_map,
- *                                   i_n, j_n)
+ *     if i > 0 and j > 0:             # <<<<<<<<<<<<<<
+ *         opt_links.insert(0, [s_1[:, i-1], s_2[:, j-1], [i-1, j-1]])
+ * 
+*/
+  __pyx_t_2 = (__pyx_v_i > 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L7_bool_binop_done;
+  }
+  __pyx_t_2 = (__pyx_v_j > 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L7_bool_binop_done:;
+  if (__pyx_t_1) {
+
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":499
+ * 
+ *     if i > 0 and j > 0:
+ *         opt_links.insert(0, [s_1[:, i-1], s_2[:, j-1], [i-1, j-1]])             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int i_n = b_map[i, j, 0]
+*/
+    if (unlikely(__pyx_v_opt_links == Py_None)) {
+      PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "insert");
+      __PYX_ERR(0, 499, __pyx_L1_error)
+    }
+    __pyx_t_8.data = __pyx_v_s_1.data;
+    __pyx_t_8.memview = __pyx_v_s_1.memview;
+    __PYX_INC_MEMVIEW(&__pyx_t_8, 1);
+    __pyx_t_8.shape[0] = __pyx_v_s_1.shape[0];
+__pyx_t_8.strides[0] = __pyx_v_s_1.strides[0];
+    __pyx_t_8.suboffsets[0] = -1;
+
+{
+    Py_ssize_t __pyx_tmp_idx = (__pyx_v_i - 1);
+        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_1.shape[1];
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_1.strides[1];
+        if (__pyx_tmp_idx < 0)
+            __pyx_tmp_idx += __pyx_tmp_shape;
+        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
+            PyErr_SetString(PyExc_IndexError,
+                            "Index out of bounds (axis 1)");
+            __PYX_ERR(0, 499, __pyx_L1_error)
+        }
+        __pyx_t_8.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_8, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __PYX_XCLEAR_MEMVIEW(&__pyx_t_8, 1);
+    __pyx_t_8.memview = NULL; __pyx_t_8.data = NULL;
+    __pyx_t_8.data = __pyx_v_s_2.data;
+    __pyx_t_8.memview = __pyx_v_s_2.memview;
+    __PYX_INC_MEMVIEW(&__pyx_t_8, 1);
+    __pyx_t_8.shape[0] = __pyx_v_s_2.shape[0];
+__pyx_t_8.strides[0] = __pyx_v_s_2.strides[0];
+    __pyx_t_8.suboffsets[0] = -1;
+
+{
+    Py_ssize_t __pyx_tmp_idx = (__pyx_v_j - 1);
+        Py_ssize_t __pyx_tmp_shape = __pyx_v_s_2.shape[1];
+    Py_ssize_t __pyx_tmp_stride = __pyx_v_s_2.strides[1];
+        if (__pyx_tmp_idx < 0)
+            __pyx_tmp_idx += __pyx_tmp_shape;
+        if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
+            PyErr_SetString(PyExc_IndexError,
+                            "Index out of bounds (axis 1)");
+            __PYX_ERR(0, 499, __pyx_L1_error)
+        }
+        __pyx_t_8.data += __pyx_tmp_idx * __pyx_tmp_stride;
+}
+
+__pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_8, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __PYX_XCLEAR_MEMVIEW(&__pyx_t_8, 1);
+    __pyx_t_8.memview = NULL; __pyx_t_8.data = NULL;
+    __pyx_t_4 = __Pyx_PyLong_From_long((__pyx_v_i - 1)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyLong_From_long((__pyx_v_j - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_9 = PyList_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GIVEREF(__pyx_t_4);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_4) != (0)) __PYX_ERR(0, 499, __pyx_L1_error);
+    __Pyx_GIVEREF(__pyx_t_5);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_5) != (0)) __PYX_ERR(0, 499, __pyx_L1_error);
+    __pyx_t_4 = 0;
+    __pyx_t_5 = 0;
+    __pyx_t_5 = PyList_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_3);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_3) != (0)) __PYX_ERR(0, 499, __pyx_L1_error);
+    __Pyx_GIVEREF(__pyx_t_6);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_6) != (0)) __PYX_ERR(0, 499, __pyx_L1_error);
+    __Pyx_GIVEREF(__pyx_t_9);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_5, 2, __pyx_t_9) != (0)) __PYX_ERR(0, 499, __pyx_L1_error);
+    __pyx_t_3 = 0;
+    __pyx_t_6 = 0;
+    __pyx_t_9 = 0;
+    __pyx_t_10 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_5); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 499, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":498
+ *         return np.asarray(opt_links)
+ * 
+ *     if i > 0 and j > 0:             # <<<<<<<<<<<<<<
+ *         opt_links.insert(0, [s_1[:, i-1], s_2[:, j-1], [i-1, j-1]])
+ * 
+*/
+  }
+
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":501
+ *         opt_links.insert(0, [s_1[:, i-1], s_2[:, j-1], [i-1, j-1]])
+ * 
+ *     cdef int i_n = b_map[i, j, 0]             # <<<<<<<<<<<<<<
+ *     cdef int j_n = b_map[i, j, 1]
+ * 
+*/
+  __pyx_t_11 = __pyx_v_i;
+  __pyx_t_12 = __pyx_v_j;
+  __pyx_t_13 = 0;
+  __pyx_t_14 = -1;
+  if (__pyx_t_11 < 0) {
+    __pyx_t_11 += __pyx_v_b_map.shape[0];
+    if (unlikely(__pyx_t_11 < 0)) __pyx_t_14 = 0;
+  } else if (unlikely(__pyx_t_11 >= __pyx_v_b_map.shape[0])) __pyx_t_14 = 0;
+  if (__pyx_t_12 < 0) {
+    __pyx_t_12 += __pyx_v_b_map.shape[1];
+    if (unlikely(__pyx_t_12 < 0)) __pyx_t_14 = 1;
+  } else if (unlikely(__pyx_t_12 >= __pyx_v_b_map.shape[1])) __pyx_t_14 = 1;
+  if (__pyx_t_13 < 0) {
+    __pyx_t_13 += __pyx_v_b_map.shape[2];
+    if (unlikely(__pyx_t_13 < 0)) __pyx_t_14 = 2;
+  } else if (unlikely(__pyx_t_13 >= __pyx_v_b_map.shape[2])) __pyx_t_14 = 2;
+  if (unlikely(__pyx_t_14 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_14);
+    __PYX_ERR(0, 501, __pyx_L1_error)
+  }
+  __pyx_v_i_n = (*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_11 * __pyx_v_b_map.strides[0]) ) + __pyx_t_12 * __pyx_v_b_map.strides[1]) ) + __pyx_t_13 * __pyx_v_b_map.strides[2]) )));
+
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":502
+ * 
+ *     cdef int i_n = b_map[i, j, 0]
+ *     cdef int j_n = b_map[i, j, 1]             # <<<<<<<<<<<<<<
+ * 
+ *     return dtw_links_backtracking(s_1, s_2, opt_links, d_mat, b_map, i_n, j_n)
+*/
+  __pyx_t_13 = __pyx_v_i;
+  __pyx_t_12 = __pyx_v_j;
+  __pyx_t_11 = 1;
+  __pyx_t_14 = -1;
+  if (__pyx_t_13 < 0) {
+    __pyx_t_13 += __pyx_v_b_map.shape[0];
+    if (unlikely(__pyx_t_13 < 0)) __pyx_t_14 = 0;
+  } else if (unlikely(__pyx_t_13 >= __pyx_v_b_map.shape[0])) __pyx_t_14 = 0;
+  if (__pyx_t_12 < 0) {
+    __pyx_t_12 += __pyx_v_b_map.shape[1];
+    if (unlikely(__pyx_t_12 < 0)) __pyx_t_14 = 1;
+  } else if (unlikely(__pyx_t_12 >= __pyx_v_b_map.shape[1])) __pyx_t_14 = 1;
+  if (__pyx_t_11 < 0) {
+    __pyx_t_11 += __pyx_v_b_map.shape[2];
+    if (unlikely(__pyx_t_11 < 0)) __pyx_t_14 = 2;
+  } else if (unlikely(__pyx_t_11 >= __pyx_v_b_map.shape[2])) __pyx_t_14 = 2;
+  if (unlikely(__pyx_t_14 != -1)) {
+    __Pyx_RaiseBufferIndexError(__pyx_t_14);
+    __PYX_ERR(0, 502, __pyx_L1_error)
+  }
+  __pyx_v_j_n = (*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_13 * __pyx_v_b_map.strides[0]) ) + __pyx_t_12 * __pyx_v_b_map.strides[1]) ) + __pyx_t_11 * __pyx_v_b_map.strides[2]) )));
+
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":504
+ *     cdef int j_n = b_map[i, j, 1]
+ * 
+ *     return dtw_links_backtracking(s_1, s_2, opt_links, d_mat, b_map, i_n, j_n)             # <<<<<<<<<<<<<<
+ * 
+ * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_10 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 516, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 516, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 516, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":517
- * 
- *     return dtw_links_backtracking(s_1, s_2, opt_links,
- *                                   d_mat, b_map,             # <<<<<<<<<<<<<<
- *                                   i_n, j_n)
- * 
-*/
-  __pyx_t_16 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_9 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_15 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_15);
+  __pyx_t_16 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 504, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_17 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 517, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyLong_From_int(__pyx_v_i_n); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 504, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":518
- *     return dtw_links_backtracking(s_1, s_2, opt_links,
- *                                   d_mat, b_map,
- *                                   i_n, j_n)             # <<<<<<<<<<<<<<
- * 
- * 
-*/
-  __pyx_t_15 = 1;
+  __pyx_t_18 = __Pyx_PyLong_From_int(__pyx_v_j_n); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 504, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_18);
+  __pyx_t_7 = 1;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_8);
-    assert(__pyx_t_10);
-    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_8);
-    __Pyx_INCREF(__pyx_t_10);
+  if (unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_6);
+    assert(__pyx_t_9);
+    PyObject* __pyx__function = PyMethod_GET_FUNCTION(__pyx_t_6);
+    __Pyx_INCREF(__pyx_t_9);
     __Pyx_INCREF(__pyx__function);
-    __Pyx_DECREF_SET(__pyx_t_8, __pyx__function);
-    __pyx_t_15 = 0;
+    __Pyx_DECREF_SET(__pyx_t_6, __pyx__function);
+    __pyx_t_7 = 0;
   }
   #endif
   {
-    PyObject *__pyx_callargs[8] = {__pyx_t_10, __pyx_t_11, __pyx_t_9, __pyx_v_opt_links, __pyx_t_16, __pyx_t_17, __pyx_v_i_n, __pyx_v_j_n};
-    __pyx_t_5 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_8, __pyx_callargs+__pyx_t_15, (8-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
-    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    PyObject *__pyx_callargs[8] = {__pyx_t_9, __pyx_t_3, __pyx_t_4, __pyx_v_opt_links, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+    __pyx_t_5 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_6, __pyx_callargs+__pyx_t_7, (8-__pyx_t_7) | (__pyx_t_7*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 516, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 504, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
   }
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":498
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":490
  * 
  * 
  * def dtw_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -25988,25 +25734,25 @@ __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_t_7, 1, (PyObject *(*)(char *)) __
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
-  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_6);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_8, 1);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
   __Pyx_XDECREF(__pyx_t_17);
+  __Pyx_XDECREF(__pyx_t_18);
   __Pyx_AddTraceback("vision_toolkit.scanpath.similarity.c_comparison_algorithms.c_comparison_algorithms.dtw_links_backtracking", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_i_n);
-  __Pyx_XDECREF(__pyx_v_j_n);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":521
+/* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":508
  * 
  * 
  * def frechet_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -26059,74 +25805,74 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_s_1,&__pyx_mstate_global->__pyx_n_u_s_2,&__pyx_mstate_global->__pyx_n_u_opt_links,&__pyx_mstate_global->__pyx_n_u_d_mat,&__pyx_mstate_global->__pyx_n_u_b_map,&__pyx_mstate_global->__pyx_n_u_i,&__pyx_mstate_global->__pyx_n_u_j,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 521, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 508, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  7:
         values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  6:
         values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  5:
         values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  4:
         values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  3:
         values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  2:
         values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 521, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 508, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "frechet_links_backtracking", 0) < (0)) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "frechet_links_backtracking", 0) < (0)) __PYX_ERR(0, 508, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 7; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("frechet_links_backtracking", 1, 7, 7, i); __PYX_ERR(0, 521, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("frechet_links_backtracking", 1, 7, 7, i); __PYX_ERR(0, 508, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 7)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[1] = __Pyx_ArgRef_FASTCALL(__pyx_args, 1);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[1])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[2] = __Pyx_ArgRef_FASTCALL(__pyx_args, 2);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[2])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[3] = __Pyx_ArgRef_FASTCALL(__pyx_args, 3);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[3])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[4] = __Pyx_ArgRef_FASTCALL(__pyx_args, 4);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[4])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[5] = __Pyx_ArgRef_FASTCALL(__pyx_args, 5);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[5])) __PYX_ERR(0, 508, __pyx_L3_error)
       values[6] = __Pyx_ArgRef_FASTCALL(__pyx_args, 6);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 521, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[6])) __PYX_ERR(0, 508, __pyx_L3_error)
     }
-    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 521, __pyx_L3_error)
-    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 521, __pyx_L3_error)
+    __pyx_v_s_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_1.memview)) __PYX_ERR(0, 508, __pyx_L3_error)
+    __pyx_v_s_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[1], PyBUF_WRITABLE); if (unlikely(!__pyx_v_s_2.memview)) __PYX_ERR(0, 508, __pyx_L3_error)
     __pyx_v_opt_links = ((PyObject*)values[2]);
-    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 523, __pyx_L3_error)
-    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 523, __pyx_L3_error)
-    __pyx_v_i = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 524, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyLong_As_int(values[6]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 524, __pyx_L3_error)
+    __pyx_v_d_mat = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[3], PyBUF_WRITABLE); if (unlikely(!__pyx_v_d_mat.memview)) __PYX_ERR(0, 510, __pyx_L3_error)
+    __pyx_v_b_map = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_int(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_b_map.memview)) __PYX_ERR(0, 510, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyLong_As_int(values[5]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 511, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyLong_As_int(values[6]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 511, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("frechet_links_backtracking", 1, 7, 7, __pyx_nargs); __PYX_ERR(0, 521, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("frechet_links_backtracking", 1, 7, 7, __pyx_nargs); __PYX_ERR(0, 508, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -26141,7 +25887,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_opt_links), (&PyList_Type), 1, "opt_links", 1))) __PYX_ERR(0, 522, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_opt_links), (&PyList_Type), 1, "opt_links", 1))) __PYX_ERR(0, 509, __pyx_L1_error)
   __pyx_r = __pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_18frechet_links_backtracking(__pyx_self, __pyx_v_s_1, __pyx_v_s_2, __pyx_v_opt_links, __pyx_v_d_mat, __pyx_v_b_map, __pyx_v_i, __pyx_v_j);
 
   /* function exit code */
@@ -26193,7 +25939,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("frechet_links_backtracking", 0);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":526
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":513
  *                                int i, int j):
  * 
  *     i_n = b_map[i, j, 0]             # <<<<<<<<<<<<<<
@@ -26218,11 +25964,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_3 >= __pyx_v_b_map.shape[2])) __pyx_t_4 = 2;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 526, __pyx_L1_error)
+    __PYX_ERR(0, 513, __pyx_L1_error)
   }
   __pyx_v_i_n = (*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_1 * __pyx_v_b_map.strides[0]) ) + __pyx_t_2 * __pyx_v_b_map.strides[1]) ) + __pyx_t_3 * __pyx_v_b_map.strides[2]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":527
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":514
  * 
  *     i_n = b_map[i, j, 0]
  *     j_n = b_map[i, j, 1]             # <<<<<<<<<<<<<<
@@ -26247,11 +25993,11 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
   } else if (unlikely(__pyx_t_1 >= __pyx_v_b_map.shape[2])) __pyx_t_4 = 2;
   if (unlikely(__pyx_t_4 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_4);
-    __PYX_ERR(0, 527, __pyx_L1_error)
+    __PYX_ERR(0, 514, __pyx_L1_error)
   }
   __pyx_v_j_n = (*((int *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_b_map.data + __pyx_t_3 * __pyx_v_b_map.strides[0]) ) + __pyx_t_2 * __pyx_v_b_map.strides[1]) ) + __pyx_t_1 * __pyx_v_b_map.strides[2]) )));
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":528
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":515
  *     i_n = b_map[i, j, 0]
  *     j_n = b_map[i, j, 1]
  *     opt_links.insert(0, [s_1[:,i_n],             # <<<<<<<<<<<<<<
@@ -26260,7 +26006,7 @@ static PyObject *__pyx_pf_14vision_toolkit_8scanpath_10similarity_23c_comparison
 */
   if (unlikely(__pyx_v_opt_links == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "insert");
-    __PYX_ERR(0, 528, __pyx_L1_error)
+    __PYX_ERR(0, 515, __pyx_L1_error)
   }
   __pyx_t_5.data = __pyx_v_s_1.data;
   __pyx_t_5.memview = __pyx_v_s_1.memview;
@@ -26278,17 +26024,17 @@ __pyx_t_5.strides[0] = __pyx_v_s_1.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 528, __pyx_L1_error)
+            __PYX_ERR(0, 515, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 528, __pyx_L1_error)
+__pyx_t_6 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL; __pyx_t_5.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":529
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":516
  *     j_n = b_map[i, j, 1]
  *     opt_links.insert(0, [s_1[:,i_n],
  *                    s_2[:,j_n],             # <<<<<<<<<<<<<<
@@ -26311,58 +26057,58 @@ __pyx_t_5.strides[0] = __pyx_v_s_2.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 529, __pyx_L1_error)
+            __PYX_ERR(0, 516, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_7 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 529, __pyx_L1_error)
+__pyx_t_7 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 516, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL; __pyx_t_5.data = NULL;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":530
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":517
  *     opt_links.insert(0, [s_1[:,i_n],
  *                    s_2[:,j_n],
  *                    [i_n, j_n]])             # <<<<<<<<<<<<<<
  * 
  *     if i_n == 0 and j_n == 0:
 */
-  __pyx_t_8 = __Pyx_PyLong_From_int(__pyx_v_i_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyLong_From_int(__pyx_v_i_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 517, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = __Pyx_PyLong_From_int(__pyx_v_j_n); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyLong_From_int(__pyx_v_j_n); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 517, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = PyList_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 530, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 517, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_8) != (0)) __PYX_ERR(0, 530, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_8) != (0)) __PYX_ERR(0, 517, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_9);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 1, __pyx_t_9) != (0)) __PYX_ERR(0, 530, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 1, __pyx_t_9) != (0)) __PYX_ERR(0, 517, __pyx_L1_error);
   __pyx_t_8 = 0;
   __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":528
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":515
  *     i_n = b_map[i, j, 0]
  *     j_n = b_map[i, j, 1]
  *     opt_links.insert(0, [s_1[:,i_n],             # <<<<<<<<<<<<<<
  *                    s_2[:,j_n],
  *                    [i_n, j_n]])
 */
-  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 528, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_6) != (0)) __PYX_ERR(0, 515, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_7);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 528, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_7) != (0)) __PYX_ERR(0, 515, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_10);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 2, __pyx_t_10) != (0)) __PYX_ERR(0, 528, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_9, 2, __pyx_t_10) != (0)) __PYX_ERR(0, 515, __pyx_L1_error);
   __pyx_t_6 = 0;
   __pyx_t_7 = 0;
   __pyx_t_10 = 0;
-  __pyx_t_11 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_9); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 528, __pyx_L1_error)
+  __pyx_t_11 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_9); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":532
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":519
  *                    [i_n, j_n]])
  * 
  *     if i_n == 0 and j_n == 0:             # <<<<<<<<<<<<<<
@@ -26380,7 +26126,7 @@ __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_12) {
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":533
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":520
  * 
  *     if i_n == 0 and j_n == 0:
  *         opt_links.insert(0, [s_1[:,0],             # <<<<<<<<<<<<<<
@@ -26389,7 +26135,7 @@ __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __p
 */
     if (unlikely(__pyx_v_opt_links == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "insert");
-      __PYX_ERR(0, 533, __pyx_L1_error)
+      __PYX_ERR(0, 520, __pyx_L1_error)
     }
     __pyx_t_5.data = __pyx_v_s_1.data;
     __pyx_t_5.memview = __pyx_v_s_1.memview;
@@ -26407,17 +26153,17 @@ __pyx_t_5.strides[0] = __pyx_v_s_1.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 533, __pyx_L1_error)
+            __PYX_ERR(0, 520, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_9 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 533, __pyx_L1_error)
+__pyx_t_9 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 520, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __PYX_XCLEAR_MEMVIEW(&__pyx_t_5, 1);
     __pyx_t_5.memview = NULL; __pyx_t_5.data = NULL;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":534
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":521
  *     if i_n == 0 and j_n == 0:
  *         opt_links.insert(0, [s_1[:,0],
  *                        s_2[:,0],             # <<<<<<<<<<<<<<
@@ -26440,54 +26186,54 @@ __pyx_t_5.strides[0] = __pyx_v_s_2.strides[0];
         if (unlikely(!__Pyx_is_valid_index(__pyx_tmp_idx, __pyx_tmp_shape))) {
             PyErr_SetString(PyExc_IndexError,
                             "Index out of bounds (axis 1)");
-            __PYX_ERR(0, 534, __pyx_L1_error)
+            __PYX_ERR(0, 521, __pyx_L1_error)
         }
         __pyx_t_5.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
-__pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 534, __pyx_L1_error)
+__pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 521, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __PYX_XCLEAR_MEMVIEW(&__pyx_t_5, 1);
     __pyx_t_5.memview = NULL; __pyx_t_5.data = NULL;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":535
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":522
  *         opt_links.insert(0, [s_1[:,0],
  *                        s_2[:,0],
  *                        [0, 0]])             # <<<<<<<<<<<<<<
  * 
  *         return np.asarray(opt_links)
 */
-    __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 535, __pyx_L1_error)
+    __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 522, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
     __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 535, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 522, __pyx_L1_error);
     __Pyx_INCREF(__pyx_mstate_global->__pyx_int_0);
     __Pyx_GIVEREF(__pyx_mstate_global->__pyx_int_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 535, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_mstate_global->__pyx_int_0) != (0)) __PYX_ERR(0, 522, __pyx_L1_error);
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":533
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":520
  * 
  *     if i_n == 0 and j_n == 0:
  *         opt_links.insert(0, [s_1[:,0],             # <<<<<<<<<<<<<<
  *                        s_2[:,0],
  *                        [0, 0]])
 */
-    __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 520, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_9);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_9) != (0)) __PYX_ERR(0, 533, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_9) != (0)) __PYX_ERR(0, 520, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_10);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_10) != (0)) __PYX_ERR(0, 533, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_10) != (0)) __PYX_ERR(0, 520, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_7);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_7) != (0)) __PYX_ERR(0, 533, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_7) != (0)) __PYX_ERR(0, 520, __pyx_L1_error);
     __pyx_t_9 = 0;
     __pyx_t_10 = 0;
     __pyx_t_7 = 0;
-    __pyx_t_11 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 533, __pyx_L1_error)
+    __pyx_t_11 = PyList_Insert(__pyx_v_opt_links, 0, __pyx_t_6); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 520, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":537
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":524
  *                        [0, 0]])
  * 
  *         return np.asarray(opt_links)             # <<<<<<<<<<<<<<
@@ -26496,9 +26242,9 @@ __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __
 */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_7 = NULL;
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 537, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 524, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 537, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_mstate_global->__pyx_n_u_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 524, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __pyx_t_14 = 1;
@@ -26518,14 +26264,14 @@ __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __
       __pyx_t_6 = __Pyx_PyObject_FastCall((PyObject*)__pyx_t_9, __pyx_callargs+__pyx_t_14, (2-__pyx_t_14) | (__pyx_t_14*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 537, __pyx_L1_error)
+      if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 524, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
     }
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":532
+    /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":519
  *                    [i_n, j_n]])
  * 
  *     if i_n == 0 and j_n == 0:             # <<<<<<<<<<<<<<
@@ -26534,7 +26280,7 @@ __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __
 */
   }
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":539
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":526
  *         return np.asarray(opt_links)
  * 
  *     return frechet_links_backtracking(s_1, s_2, opt_links,             # <<<<<<<<<<<<<<
@@ -26543,35 +26289,35 @@ __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __
 */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_9 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 526, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_s_1, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 526, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_8 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 539, __pyx_L1_error)
+  __pyx_t_8 = __pyx_memoryview_fromslice(__pyx_v_s_2, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 526, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":540
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":527
  * 
  *     return frechet_links_backtracking(s_1, s_2, opt_links,
  *                                   d_mat, b_map,             # <<<<<<<<<<<<<<
  *                                   i_n, j_n)
  * 
 */
-  __pyx_t_15 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_15 = __pyx_memoryview_fromslice(__pyx_v_d_mat, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 527, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_16 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 540, __pyx_L1_error)
+  __pyx_t_16 = __pyx_memoryview_fromslice(__pyx_v_b_map, 3, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 527, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":541
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":528
  *     return frechet_links_backtracking(s_1, s_2, opt_links,
  *                                   d_mat, b_map,
  *                                   i_n, j_n)             # <<<<<<<<<<<<<<
  * 
  * 
 */
-  __pyx_t_17 = __Pyx_PyLong_From_int(__pyx_v_i_n); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 541, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyLong_From_int(__pyx_v_i_n); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_18 = __Pyx_PyLong_From_int(__pyx_v_j_n); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 541, __pyx_L1_error)
+  __pyx_t_18 = __Pyx_PyLong_From_int(__pyx_v_j_n); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 528, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __pyx_t_14 = 1;
   #if CYTHON_UNPACK_METHODS
@@ -26596,14 +26342,14 @@ __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 539, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 526, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
   }
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":521
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":508
  * 
  * 
  * def frechet_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
@@ -28495,160 +28241,160 @@ __Pyx_RefNannySetupContext("PyInit_c_comparison_algorithms", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_DTW, __pyx_t_4) < (0)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":73
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":69
  * 
  * 
  * def discrete_frechet(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
  *                      double[:,:] dist_mat):
  * 
 */
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_3discrete_frechet, 0, __pyx_mstate_global->__pyx_n_u_discrete_frechet, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_3discrete_frechet, 0, __pyx_mstate_global->__pyx_n_u_discrete_frechet, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_4);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_discrete_frechet, __pyx_t_4) < (0)) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_discrete_frechet, __pyx_t_4) < (0)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":153
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":149
  * 
  * def levenshtein (list s_1, list s_2,
  *                  double del_c = 1.0, double ins_c = 1.0, double sub_c = 1.0) :             # <<<<<<<<<<<<<<
  * 
  *     tmp_1, tmp_2 = int_convert(s_1, s_2)
 */
-  __pyx_t_4 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_9 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_9 = PyFloat_FromDouble(((double)1.0)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":152
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":148
  * 
  * 
  * def levenshtein (list s_1, list s_2,             # <<<<<<<<<<<<<<
  *                  double del_c = 1.0, double ins_c = 1.0, double sub_c = 1.0) :
  * 
 */
-  __pyx_t_10 = PyTuple_Pack(3, __pyx_t_4, __pyx_t_5, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_Pack(3, __pyx_t_4, __pyx_t_5, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_5levenshtein, 0, __pyx_mstate_global->__pyx_n_u_levenshtein, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_5levenshtein, 0, __pyx_mstate_global->__pyx_n_u_levenshtein, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_9, __pyx_t_10);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_levenshtein, __pyx_t_9) < (0)) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_levenshtein, __pyx_t_9) < (0)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":238
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":234
  * 
  * 
  * def generalized_edit (list s_1, list s_2,             # <<<<<<<<<<<<<<
  *                       double del_c, double ins_c,
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_7generalized_edit, 0, __pyx_mstate_global->__pyx_n_u_generalized_edit, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[3])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_7generalized_edit, 0, __pyx_mstate_global->__pyx_n_u_generalized_edit, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[3])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_generalized_edit, __pyx_t_9) < (0)) __PYX_ERR(0, 238, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_generalized_edit, __pyx_t_9) < (0)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":323
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":319
  * 
  * 
  * def needleman_wunsch (list s_1, list s_2,             # <<<<<<<<<<<<<<
  *                       double gap_c, double conc_b,
  *                       dict dict_chr_idx, double[:,:] dist_mat) :
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_9needleman_wunsch, 0, __pyx_mstate_global->__pyx_n_u_needleman_wunsch, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[4])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_9needleman_wunsch, 0, __pyx_mstate_global->__pyx_n_u_needleman_wunsch, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[4])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_needleman_wunsch, __pyx_t_9) < (0)) __PYX_ERR(0, 323, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_needleman_wunsch, __pyx_t_9) < (0)) __PYX_ERR(0, 319, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":428
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":424
  * 
  * 
  * def int_convert(list s_1, list s_2):             # <<<<<<<<<<<<<<
  * 
  *     dict_str_int = dict()
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_11int_convert, 0, __pyx_mstate_global->__pyx_n_u_int_convert, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[5])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 428, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_11int_convert, 0, __pyx_mstate_global->__pyx_n_u_int_convert, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[5])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_int_convert, __pyx_t_9) < (0)) __PYX_ERR(0, 428, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_int_convert, __pyx_t_9) < (0)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":447
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":443
  * 
  * 
- * def int_convert_from_dict(list s_1, list s_2,             # <<<<<<<<<<<<<<
- *                           dict dict_chr_idx):
- * 
+ * def int_convert_from_dict(list s_1, list s_2, dict dict_chr_idx):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convertit 2 squences de symboles (ex: ["AA","AB",...]) en tableaux d'int,
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict, 0, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[6])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_13int_convert_from_dict, 0, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[6])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict, __pyx_t_9) < (0)) __PYX_ERR(0, 447, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_int_convert_from_dict, __pyx_t_9) < (0)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":474
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":466
  * 
  * 
  * def character_generic_backtracking(list s_1, list s_2,             # <<<<<<<<<<<<<<
  *                                    double[:,:] d_mat, int[:,:,:] b_map,
  *                                    int n_1, int n_2):
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_15character_generic_backtracking, 0, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[7])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 474, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_15character_generic_backtracking, 0, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[7])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 474, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_character_generic_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 466, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":498
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":490
  * 
  * 
  * def dtw_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
  *                            list opt_links,
  *                            double[:,:] d_mat, int[:,:,:] b_map,
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_17dtw_links_backtracking, 0, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[8])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 498, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_17dtw_links_backtracking, 0, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[8])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 498, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_dtw_links_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 490, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":521
+  /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":508
  * 
  * 
  * def frechet_links_backtracking(double[:,:] s_1, double[:,:] s_2,             # <<<<<<<<<<<<<<
  *                                list opt_links,
  *                                double[:,:] d_mat, int[:,:,:] b_map,
 */
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_19frechet_links_backtracking, 0, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[9])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_14vision_toolkit_8scanpath_10similarity_23c_comparison_algorithms_23c_comparison_algorithms_19frechet_links_backtracking, 0, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking, NULL, __pyx_mstate_global->__pyx_n_u_vision_toolkit_scanpath_similari, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[9])); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_9);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 521, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_frechet_links_backtracking, __pyx_t_9) < (0)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
   /* "vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx":1
@@ -28700,7 +28446,7 @@ __Pyx_RefNannySetupContext("PyInit_c_comparison_algorithms", 0);
 
 static int __Pyx_InitCachedBuiltins(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 427, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 101, __pyx_L1_error)
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_Ellipsis); if (!__pyx_builtin_Ellipsis) __PYX_ERR(1, 409, __pyx_L1_error)
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_id); if (!__pyx_builtin_id) __PYX_ERR(1, 619, __pyx_L1_error)
@@ -28708,6 +28454,8 @@ static int __Pyx_InitCachedBuiltins(__pyx_mstatetype *__pyx_mstate) {
   /* Cached unbound methods */
   __pyx_mstate->__pyx_umethod_PyDict_Type_items.type = (PyObject*)&PyDict_Type;
   __pyx_mstate->__pyx_umethod_PyDict_Type_items.method_name = &__pyx_mstate->__pyx_n_u_items;
+  __pyx_mstate->__pyx_umethod_PyDict_Type_keys.type = (PyObject*)&PyDict_Type;
+  __pyx_mstate->__pyx_umethod_PyDict_Type_keys.method_name = &__pyx_mstate->__pyx_n_u_keys;
   __pyx_mstate->__pyx_umethod_PyDict_Type_pop.type = (PyObject*)&PyDict_Type;
   __pyx_mstate->__pyx_umethod_PyDict_Type_pop.method_name = &__pyx_mstate->__pyx_n_u_pop;
   __pyx_mstate->__pyx_umethod_PyDict_Type_values.type = (PyObject*)&PyDict_Type;
@@ -28798,25 +28546,25 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
-    const struct { const unsigned int length: 10; } index[] = {{2},{68},{35},{54},{37},{60},{24},{52},{26},{34},{29},{33},{45},{22},{15},{179},{37},{30},{32},{1},{1},{1},{1},{1},{8},{5},{6},{15},{23},{25},{7},{6},{2},{6},{35},{9},{30},{50},{8},{90},{20},{32},{22},{30},{37},{5},{3},{8},{20},{8},{15},{2},{3},{15},{5},{7},{18},{5},{4},{1},{6},{30},{9},{17},{18},{6},{5},{5},{5},{8},{12},{12},{16},{8},{6},{22},{5},{15},{6},{9},{5},{5},{6},{7},{26},{8},{5},{16},{12},{1},{2},{3},{3},{2},{10},{5},{3},{5},{5},{11},{21},{4},{13},{5},{8},{1},{2},{3},{3},{3},{4},{3},{11},{8},{7},{4},{10},{3},{3},{6},{5},{4},{8},{4},{16},{7},{2},{5},{4},{3},{3},{9},{9},{4},{3},{14},{11},{10},{19},{14},{12},{10},{17},{13},{8},{3},{5},{3},{5},{5},{5},{12},{10},{12},{19},{5},{4},{5},{4},{4},{4},{6},{5},{8},{3},{5},{5},{6},{6},{3},{6},{82},{3},{3},{3},{4},{1},{5},{477},{610},{586},{633},{636},{144},{160},{174},{138},{180},{1}};
-    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (2693 bytes) */
-const char* const cstring = "BZh91AY&SY\026k~|\000\003/\177\377\377\377\377\377\177\377\377\377\277\347\377\224\277\377\377\360@@@@@@@@@@@@@\000@\000`\013_=\000\342(\004\022\220\212B[2\247[\233\260\001S\034\204\242\223Q\240\001\240\321\232\232=\023&\324d\000\321\240\006@\000\000\000\000\000\0004\032hF\204M\000S5\032\233\023L\210\310\014\214\232\0004\003F\200\000\000\320i\223F\232bhA\200\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\022\"\222M\000\000\001\243A\206\211\264\330\222\000\014\232\000\001\240\006@\320\r\032\r4hA\200\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\022(\321\000\246\0014\rLM5O\320S\365&\324i\35244\000\000\000\310i\220\017S\324\000h\362\215=J\253\307p\306\320\330\332G\342\027\371\021\357#\375%\376\305\347\377\236\212\252\225r\363\310\261\216\306\325JAFQ\220\246@\304\324\321TW\320T(\220PAcH\322M\215\2660Lbm46\306\r\241\215\203Ccm\200\306\306\301\2466\350D]\230\005l%?|\364\200\254#b$\246\213\221{\033@1\242\025\223\t-\001B\361L\334\036\223r'Q\240\330+\325\311\210\035\024\024B\303\022\010!\007%\211\026\014L`\320\230\r\334\211\242(\210\321\235[Q*\227\211PH\277A\2344k+0\255J\2516\004\211\023\236\250!\205\371\010\300'\031\n\004\273\210W\334%T\025\026\026\010\316\333Hi\210/\013\216\225\230\300\272\355s\005Q\031A\230\232J\025\251\242M\214\2636\004wFg3\220.\010\025\241\326\302\252\205\200\2460;)$l:\366\204\300\270b+iz\204\316@\345u;\003\264?P\335\246\354\236\255\303\335\377).\233GEz\327\317\262\364\276\201qL\222:L'\345UE\202\365\226\225\357N\340\254\357\330\242\3428\220\364\177\337\023\331zd\366\347)=\301W\372\307p|JW\26769\004\207w+X9lx\254\034W#w\242G\273X\275n\241V\200\3701Vd\021K)\031\247e\270\341]oxo\354\016s\330\361%\352$\275C\326\357\226#\264U\2503\326\232E\222\370PARU\222\227`Z\246\024\240\2471M\"\205n\210\002\340\265\035\275\340\270*\222\252\005\215\351\037:\010\365o\357x\275\314\271\036Aw\327$.\3579\214\024\027\300\351 \215g\367\250\273{\214w7(\322\016\274s=\356V\t~\001'H\215\036\376\216A\366\005F\324#b\341I\034\250:9z(\024(\225\032\033\234\334""\324\302E}\246\250\"\002\202\306\320\366L\370\027\240-\025\266\245g\267\354\330X\221C\332S\230Z\026\205\003\256\025UB\247\304\222\321C\243\371\302'\262\217oQ\332\377G\223X\277'\273;o\014\311-IjH\332v\321Hh\2440(\304\345\n\0319BR\354\320\021\010\204Us\007\007\366\351\313\276uf\307\020\304\021\210\030\243\370\367\260\251U\341\367\266\365aZ\206\010\303NUA6\212\225d\362\362\327\203v\311\331\263_\004uO\3158* \3103\254\375\325\235Q\024\240\270\342bi\2568T\010\033\202$\265\304\"\202\217/\306\306\245DT\n\205\241\346\2025p\330@\033=W52\337\361U\004i\003\225x\337\260\344\345~\236\252\244f\223\004,\223;\231\271\276_\005YW\267\033m\334\260p9\227c\271\301\277\036\343\332\270\227#\000\255\220\031z=\313\355\025\241\024\001\203[\251a1<W\341\226b\320=\013\2279b$V\315L\362\265\\\364\037-\356\300\022.\243\265\345\020\202\006j\345\246\r\2671\211&H:#~J\350M\214\253\201M*\205r\216\256\0323^\007x\030\260\323\351\365\3460\003_*\227U\000V\003\303\260m\251\302\014\240c\025\323\032\027O\033U(\005\034\324k\270p\260\006\310\247\020\224\254G\021\346/vU\207B:F\221\322\272\316\3054)I\016d\272\321\341\361EI2\262\223\036\375\332\273\213O\314(OA\321\326\024\025\031\001G\234W\254\203:\346\337\253\232\355\263\202\361|\220v\270\221\244gM9\353\240\005\271\353},\256\nR\000\202\344\007\367\256\013=\371\007\277\3437\023Y\354\231\224\030$b\206<\\\206\363T\241\302#\205\034\233\203\224\321r\032>F\016D\234\346bH\207\257\247.j\356,N*9\227\006ckP#X\205B\204s\340:2\270a\264@z\305s\004\314\006d\033x\367\277\354\003\036\005\331]\227'\222\311\256o>\024q`\236:\314I\3344*\310\223\251\367@z*b)\313 \022$\265e\245\223^\305\237\"\352\254\215\254\006 \326\257mCI\344\266\220t\2261\332\005\031\016<\227\346\227\014h\200\215\":\036\002\220q\254\2653c\021:'\022\361\237(\252\351\212\343\214\214z\264M\272\352\345\003\007\211\265\234\307\235\365\257\001\316$s\2079\260=}\3366q\243hf\317\263\200\327\342\331Mtf\200\316\216\350Q\021\224\270\346\247\211\302\027\035\275p\260\304.|\001)&\330\3209_G\276\374\357\177\223\224!\220g\232,\260""\377\255\261\272\332/I\356\215WB\010\006Y\2223\346w\004\201i\r\370\303'|\231\3416V\234\323s`\202ln\267\210\3001Qa\004\364\231\004\37226N+\206\210\277\224\250\250\360\214\231.\307\336W\017>1\343\232\264d&\215\223\262\355|eCn\001\245\356\272A\246\354\003\005T\256\t\r\2709\347\240\300JH\267\014\024dK\250D\202\303\024\317\252\000(\032\201 \243jxD\324*\004\326\372p$\320\325`Z\212H*\333\014\316\226\347+\202\203\211z\2063\270wl2\353\270J$\346\020\r\372\244*\201\000\341\266\260\014\314\020\212IJ\243 \254c\320\244\202A\021i\202\260\005\032\250\222`\030\272>c\303\304\0351\331\2401av\356\003\203@h7>*\006$`0\270\216\031c \300&\251O\236L&,\214\357}\326o\036\034!;KI\031\222\221JX\233\033\027\203V\215\345\373\t}G\n\361\243gF'\002\024=/T#p\205uu\333\214\265\244\353\246\373\322\211\343kA]\213%\360a \262\010\234bBe\215VL\2150\215N\231\246\033\333\301p\316I\255\310\327\244\3426\3576\010\325\251:\327+\360\023\304>\004\004\210\224^e)\224D\224\233l\225$\226\265\244\r\"\324f9\264\310\3342\351K\016GYR\260\233e\025s\216\014\234\032.\256\320\2431~\232\350\273k\235Ij\033\360\326\032\362'\017y\221\253+\256d\240)\265\2410\335\255\214\001\232\234\330\306\023efv\005\010k\330\333\234\2044\224\\c\024\205\265\357[\320\033\322\336\205\322T\257\023\341k\220a\034\332\310\203\201\313Y\266Iu9\263\026\266\251@\225^K+\251\313\222\013\2533\020\252\241\310$\"\275[x\325\003\337\314\264\307\256\245FmD\203\221\031,\372\014\257\265\360=\0358\317\020$d\237\022\270\210\027\201\345e\352\262\257V\031\311\341\004\245\356\256NC\223\2148\2759\324\257\016\007\033|\007\235\221\302[N\215\302\213@Ex\343\253\024\177\016}\224\206\262\324z\364z\204@*\322\230\252\200\322\272F\032 \245\r\027\177^K$^\202\234zq\3061*\356\356\027\336P\310m\036\034fr\203\013\354\317\014\034\027l(\364\235\201\020!wq\300Iy\233\300Q'R\2032S\222\266\351^\251\327\340S\324G\241zR\356+\264\317H\366#\036d34\201{\2112\223B\372\311\342\302>\001\340\031P>\250n\376&V\320\210\330c\037\206m\201\236AP%\363\275\201\231?\253\305`\027\325\374\022,D\204\3202\213\243""\260\363\001\334\362\222\0063\234(I\013\320\217q{ch\354\304\tR\331\234\232\031:F\020w\350\035\202D\024\002V\240\350UWL}!\021\022\317\020\177C\002\024\222(_f6(\3754\257\360E\202}e|\232\262\003\n\010V\000\260\027\026d\311\206h3\272F\241b5\210\240P\036Q\242\014\270Z+<\\\360be S\001\371\021AR\r\000)Lh]\020\214\346\264\023\342]\000\356\205tR\"\264&\212\306G\256\262I$b\346[\014O\344\003\254\316\232\333lT\205\306C\033\373\246\224\005\020\0208\206\305c0\245\327\346\030L\005\331\2429(\240b\2061A\025\027.\214y\010\244*\003\031\025\013\025&\236\227Z\t1\210\010\023\0067\020\025\241\224\225\216\222\252W^HQ]\204\340\224L9\225\003E\300z\\\345l\254\254\256\017\261\n\202\202\202f\332Uc\225\020\014T\205V\312Z3\365\201\223QD\214pVM\306\225\240-R\362\020\362(\201P\035B\366\325\241\311\014\350T\211&\210)\207\213}\217Il\305\006\371\245\254Mj\203\035\302jC\026Q18f\031\363\206\324\014\341\340\026p\233\204,edU#Lb8#\204\310\350FA\233\"\315S\345\034Q\204\010\303\014EH\270\204`\203vb9hc\277\014\004\306\030L3W\007\2462,\245{\300\351\231p\034%\0107I1\005Q[\n\360\202\245h\361\260\320\177t\n\324\266\236?E._O\202\346#\362\263\0246\036\205\336EC\216I\222\024\367\326\022\025=\344]\225\314\300jr\254\235H-\224\256\3137\332\346\242\036C\327\263#=\326\370\003*!\353\n\251\223\025\n e\212\t\003\226\r\237\214\032\270!\331e\303-(\356j\002*Jh\241:\310\272,\204\347J\225(\235IC(2U\221aU5(\213$\004\212\005f9\016\301\310\221\022\"ld\340@\201'\t&\210d\222\020\305\336n\3622baT@\230\2072`\263\006E&\n\203'\207#t\021\023\212R\202J@!\204\351\020\322\211E$\245d\241Pc\034\014\202\244\207\"\007\020\020\317\376.\344\212p\241 ,\326\374\370";
-    PyObject *data = __Pyx_DecompressString(cstring, 2693, 2);
+    const struct { const unsigned int length: 10; } index[] = {{2},{68},{35},{54},{37},{60},{24},{52},{26},{34},{29},{33},{45},{22},{15},{179},{37},{30},{32},{1},{1},{1},{1},{1},{8},{5},{6},{15},{23},{25},{7},{6},{2},{6},{35},{9},{30},{50},{8},{90},{20},{32},{22},{30},{37},{5},{3},{8},{20},{8},{15},{2},{3},{15},{5},{7},{18},{5},{4},{1},{6},{2},{30},{9},{17},{18},{6},{5},{5},{5},{8},{12},{12},{16},{8},{6},{22},{5},{15},{6},{9},{5},{5},{6},{7},{26},{8},{5},{16},{12},{1},{2},{3},{3},{2},{10},{5},{3},{5},{5},{11},{21},{4},{13},{5},{8},{1},{2},{3},{3},{1},{4},{3},{11},{8},{7},{4},{10},{3},{3},{6},{4},{8},{4},{16},{7},{2},{5},{4},{3},{3},{9},{9},{4},{3},{14},{11},{10},{19},{14},{12},{10},{17},{13},{8},{3},{5},{3},{5},{5},{5},{12},{10},{12},{19},{5},{4},{5},{4},{4},{4},{6},{5},{8},{3},{5},{5},{6},{6},{1},{6},{82},{3},{3},{3},{4},{1},{5},{430},{610},{586},{633},{636},{128},{144},{138},{142},{180},{1}};
+    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (2741 bytes) */
+const char* const cstring = "BZh91AY&SY\340\345\202\324\000\003\025\177\377\377\377\377\377\177\377\377\377\277\353\377\264\277\377\377\360@@@@@@@@@@@@@\000@\000`\013]\365\034:-%[l\024m\213`Q\263\n\312\347U!Z\214\001$\205=&\202hm!\2041=M\242z\024\236S\324\320\323\312= \014\206\200\000i\240\032=OPh=@\332\202P@\020\231\004\324\364OA4\236\244\3656\246@h\364\324\320\032h\000\301\000\000\006\201\352\030L\321\250A\200\002`\000&\000\000\000\000\000\000\000\000\000\000\000\000\t\022*h\200\000\000\000<Q\232=4(\000\320\032\r\001\223@\032\006\2154h\036\206\240\020`\000\230\000\t\200\000\000\000\000\000\000\000\000\000\000\000\002D!\022\233D\231\251\351=!\241\202i\247\251\241\265?I\000\r\000\000\006C@\000\r\000\321\240\323O~\233\323\r\354\340P\3222E\371H\272\215\004\264CH\375^\250\252\025\034iA~\307\206\325\355E\231fQ%\014MJ.\213\365nY\001`\013\177\307\3656\333HlcCi\241\215\214\033Cll\032\033\033l\00666\r1\267j+=\370\221 L\377\247XH\271\264\r@d\263ci&\327\n\330\240\205\300.o\205;a\3262\t\270\320m\013B\3151\003\262\245d-rd\221vWH\270\304\306\r\t\200\253D\035\010\240\371\350\224\210\211CR\"D\020\266\206hk\327\264rR$\214\252\003\014\357(\020T\275\361\020\300/\031b\023\222\"t\240\212J\310$\300\230\230PC5UD\025\024@\270P\3533\271k\026\333\000I\210e\014\315\320DH\245\205A\225E)\023C\022=\321M\014H\010\342P;\024\"\221\004\341\200{\"\341\222\340\360$\030E\264\344\305\007\177\300t\234\343\372_\3747F\207\253\357R>\243\317\323o\026\022\367!L(62US\3579/\237V,7\211\251_$\2563\302\037\362\215\212\342\213\351\374>w\334\2053\373\362\214aq\233\333\325r\030\262\267\277'\\\310\237\006\217b\n\372\261\261\002\271\277\222q_\202\263\301\257Eg\231\014\235Y\335\t\306q\206\247\2350\274\266\257\020\342\241e\304r\347K\254\222\320\270\363\025QTQ\2101+\322$s\264\300tGE\311\335\271\222\224Z\302\231\024\210\261W3\265\205\230d\215\3168h.\222\272\005b\272\016\314\010u\253OOv\315\346\262\022\366\334,{\245\210T,Hz\350\222\353T\350\224\257\275\215\260\341\225\365\010:v\216\3656\225\233B\215Y$\233\334\232\206\355\022\233pD\301\262\2220 \305""\203\025\202\326J\315\262e\312\225\005\372-e7A`\270\265\263\016\201\277\313!,\221\226Ic\245\320\301\204\214`\301\321Y^\342\270\\.\034\232Pa\\.n\301\255\034]\020C\356Tm\211\315\r\336\353\314/\213\347}Z\310\264\221m-t\023\032j'\014\252S\002\314N\2252\"R\216W\\\212\244R.\2730\327\374\370\272{\203\217\261\255\254\215`E\200,#\237~\274b\251\375\366'\257\030\205tW\327\263\024\017dF,>\317\335\035M\255\317-\333r\207u\375\227\201\226\"\006I\230fu\246\t\021 '+\310\025\0259`D(n\212\205\263(\260\247#\353\347i\317\t\030A\2030\373t\330\265\266k\005\200\324\271\302\320P\255\340\222\025\232\266\270\030\027\023r\263\231\326&\236)=\365\036&z\213b\267\343rQWf\367\347\322\376;\020\017\227}W\200\270j\352\205\253\213f\340\317\230\261\372\236<-:\321J\003\217o\347bD\261\303-$Zg\323\273lWR*\326zl\215\035|/\245\340\340\252Zp{\252\"\212\032\353\2451~\251\032\222J\242\355\237dZ\010\253e\215rT\334\310\255\241\375\362\333\257\000\362\013;\033\275/\024\262\016^\375/T\006p\370\366\037\214\246\206\201\250\256\351\355m\336W%(\024\202\324\345\271\277!l\214\270\221\215\210p=\222\3139(u!\326\250\214\204\344\341L\022\034\017\200\352\021\2261\031\210\271\3146\346\325\275\325\257\314T\037\254uv\004D\212\220\010\256id\3143N<\3738\327\245rn\217@^=\271\3566&\355\225\332\rxW\ns\335\342*V\201E\202\204=\\\006\227c\007\303\362N\003\246\223s(\027D0AE\301XU\316DN\320\235\244\355\360\016&\225AP\360\335Xew0\030\247\263\306\323\304\276\331\204\352\343\2230\3306\232\241N\206Bi\236\006\nS\024I\270\301\td\227v\330\255\226\305\213W\007U\241\355C\257:\364\031\263=_\214#\265&\031\031\267\335\0220\200\363f\212\252\357\207XB\214\230\252|e\005R-WjY9\270Z\031\266\372\305m`\304{W\336a\343\010\265\242A#\250\367EGE\325\236\032\343\3336\314G\212\236\0371\224]M\036G}D\345D\343\201\263B\255\272u\325<\324]\232:\256\311\361\002\353\201\310\2479\322\324a0\211\030Q\204\270\035\215\256&/#`-j\334\324&\3175I\2521\254\032\250\336\013\"\264\307\016T\353\034 \314\346ris4\206o`\"\006\333c@\343E\237E\264^\217\233\304 \244\014\335\t\314\361\252""\250\253+O\004\227Y\276\363Bb\307ZOf\270@U\013D\362\347\226}\t\262i\312\324\371\213w\311\007QVV\020\270`\220\231\001\365\230\203\36717<%}!n$\204\212\336\030\250\335\345\354J\213\236*\2231aQP\332\362\256\316\004\203u\202\313\276\254\032V\341vd\256)7\352<\013\341p\214Q\256d\331\245\372\274\242\316Lj\272\246\335\365\005A\354$\325\037|&\211\274\250I\262\247\226\222E\253L\265\031TV~\016\360K|\346\200\250qQ\2266<u6eb3\217\236\264A\312\320\261\020\030\036\277\0260;\2741Cmf\245\031\343cj\033\033\031\213HV\230Q\352\211\027\007X$5\257\034H&\033\265\006\n\025\345\310\313@\320\345^h\206\004.(T\206\366\301\202\340\351\030\375Q\301\304\304\315zk>\221o\274\036\205\0065\"1\030\315\025EQ<\315\232t\226\355&\0257\340m\341\267\030\004\330\2050rcy\207A\320v95\245\253\031nX\260\252\256;\310\353\324\32198\031\301\017\317I\006eM\323\032\324T\304E\020\340'[&\230v\335\250\273\t\204\326\332:\376\t\3038]\241\264#ge;\337N\215\360\236\260r\250 \250\255\006\230\222\310\205\r\266E\241\023\364\234\211\261\003b&\3433\243c\034\242\226f\303\212\311\243(#\363#6\323\275\247{u\353\320Q\335a\3526\353\364x)\035\347\304\233\330\346\315;}\216\217X\336\356\224\0259\366\246]\332\331f\032\351\347\317P\234\032K\332(\243\340\353o\002(\361b\353<b[o9\316\200s\241\316\202u\222%\301w\252s\n\020\343\264\204\014\225\266\234\214\211\330\256\253;[\2223#XE\255\276\313\273\2627\331\335\343\021\020S\033\024Vs\310y\242\265\265h\221\354\334\270\315\2440s!\212g\241\215\250\271.\235\314\037\000\030\305\027\202T\204\004\357\2563\262I\245\335\276c\353\300s\267\313\367\313\367\313\341{\253Y:\270Zhl\322t\261\r\242\255\305\216|\326\014\323p?*\333\311^\013#z,]\272]E\321]Z\345\033x^\235\270N\254\352f\232\255\225e\032\007\240\2276\314q\206$\226\335V-\023!U\016\376\016q\005\013e\323\005\027Sw\006=(8\304Z}X\212_/ UQ\225\221mU\245\325\250\260\345\371\235\307}\275\326M\364+#\036\332\212yo7c\003\313\206f@\262\344|\036RhQ\205\365\213\031\246U\270\030~\373f\3678\312\333Dl\271W^\354~tLKk\221\271\220\314m\035\371P\027g#\006F\002$&\201\225\024r8""\233\203\002\374_\250\220c8\305\341\013\2521\257\210\347\235.J\310\223\316\363\353+D\326d\203\356|ETb\360\215\025\332\"Cn\"\362+!g\210*\225\240\231\024/\311\215\212:\215\007/p[\2359P\326\340\021\000\310T\005\006\362\210\343\217F\027\201\306r\260\325\205\002\200\3634G\246\025\345tX\243\023(\002\210?t\211\243\313\324\203\250\00756\221\250#\246\327Q>\376\340;\212\346\350\215\344&\032\206G\321\252d\223z\005\3155\177p\017Q\035\363m\213\232\032\231\014oI4\241M\262\002\0241g\344\253E\242\230\014\002\360\344NcE\307&1J\233w\344\005\n\310]e\304R*\022i\377{Q&\325\310\010\025\310DJ\003\350\206[.\016\321n\322\307\221\n._'\004\221)B\201\215\256@8\341+%\222\320\316\221l\2312d\234\261\021h\247\024\244\200b\262SAe\243\355\260\036V\242\246\026\364\363\232\241\207\223\272\226\356\363\347\241\325@\250:\2077\215\336\300\344(\245\023%8,\305\364O\023\211\214Pa\203\037C\013\007V\240\305p\232\220X\303&NP}&\203\362s2p\306\226\340)\320\315;ih\014\306\226\322\0131\376\350FtA\250+\265\240\252\262\020q\210\212\345UW\034\212\303\256\343\234\2067X+\2460\256\312i\360\367\326n\333\016\322\226L\271s\035\347\203\326C\343;\034\0030\324d\014\205\014v\215\363-\326\016\346<`\306?K\035\314)\215\275\332\340\326V\331\177\262\022p\236\037\023\340\300\036>\317\246\335\\7xy9\002\355'!\345gf\\\2353hf\246\341\222K[\3260\234\366U9\215\236iN9\376\023\336G)\315\226\307\003\034\030s\256\320\366\302\224\216Eb\310\031ub\007\032\033=\340kIO,\363\3172\356\315X*\344J,M\340\316\261I\332\256\\\262w\"\314\260\342\361\202\352TUb\000\202\301y\034\017\003\202\n\263/.\3301\002\230\305\345]2[\247\023z\246\361\023/\014\305;I\021\202-P\2569\035\255\212g,f/\214`\250`\314\213\345\214M\252*\320\243\021J\303\035\020Qr\007\005\016\251S_\370\273\222)\302\204\207\007,\026\240";
+    PyObject *data = __Pyx_DecompressString(cstring, 2741, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (2570 bytes) */
-const char* const cstring = "x\332\315WKs\333F\022\016m*Q,e#Z\362#\211\235\002\355\310\212\327\teJV\036\033\257S\224\2548\256\332M\"\313v\252\266\266jj\010\014%X \000b\000I\314\311G\036q\304\021G\034y\344QG\037}\304\221?a\177\302~=\000_1\345uR\373\252\242\006\363\350\231\356\376\372\353\236\321\237\264\232ei\206\331\024\2664\035[j\256'ta\230\366\336hR[6\264f }\255.4\3236\304\26104n\033\232\355\370\232\264L\210o\006\215\206\360\264CS\034i\206#\244Z\022\307\256#\205&}\3174\204\334\342\266\346\330V[\323=\301}\241q\255\236m\362\367\271\257\231R\323\035\3337\367\002'\220P\2425E\323\361\332\025\354\242\243\270\224\346\236\255\371\216\206\315\306\347\352\234L\202T\346B\371\301G\236\351\363\272%r\201\314\250\206\3474_\267W\271\245\035\231\376\276\346\267]\241\255\344\363\276\307m\251\334\030m\311\304\260\303\004T\376\030v\367\307\00133\0202\241\355\246\353\2675\271\317q\264\037\2700\256\341x\232\336\366\367\035\273\302=\217\267\037*\003\234\300\327\234\206Vw\002\333\220\332\247\374\030\247,\0337\037\276\252+\003?p]\307\363\205\361\320>\344\226\211(9\206\370\214\200\2070\202\264\242\257h\320\263\002e\344\310\312g\332\036v\r\2043s\200\265Rs\367\257\312\301\247\344 L\370\301\001\224*4[\312J\362\307\020\226Y\027\036@\006\204\024V(Q\361\263\265\237\266\177\372\374\316Ww\024-<\361\014\352%\254\253\353\026\"\007:\220O\201i\371PF\360\312\212\366\260\241\265\235@\263\005\314DX]\310\215o\360\367\205\255I\341SG[Q\261\340>\374f\330\016n\256\344\270\232\207\202v\177\307-)*?N\200\007\223s\202q]\027r\200\346\256/\\\255\311\333\n?\360\371\027\3419#\240\237\330\21298\022l<\024\036\210\341\213&\215\235:9U\271\267r\363[n\030\314&x\310Y\r\010\335>\326\035\313\"s\020\230\n\257\353w\307\270LB\231\261\367~==\240\320=\303\224\244W(\355{\272\366)\205iO\261\207<\240d\024\307\276\260}\225\032\243\2744e\266\305 +\245\371\213\320\356\376Y\273\375\n\267l\007\241k\360\300\3625\306<a\004\272`L3\002\345\250\355\330\237#\224\207&\267\260\252\233\266\351c1s\367\236\364\364\325CS*\340\035\307:0\375U\251s\333\345\376\376\2524\233\246\305""\221l\355U\235\351N\323E_B\220[{\016f\367\233\362\264\371\212\333>\276\233\225\005c\002\237W\347\210\276C\230&\326\207\263\3010f\334\262\034]\325\026\362Z3\270\317+SV3\336\323\031yi\252\324v\267\036>\274\377\370\347m\3132]iJ\306~j\037\343\357>\030\316~\000\364\217DcW\264\002a\353\202\022\2442\312\025\306\020\357\301\321,c\234R\317e\376i\333\272\351Tt\307Cr\233\266\220u\326\344n\235K\241\353\314\200\002}\237{\2342\211\355\t\033\301\326Y\235\353\007\310W\375\000\201GH(%\030\033t\366\204O\321\246!Nc&\"\003QA{@/l\326\301\177\337\200\022\037\371\312t\246\224\344\255\276\3571\3238V}8\217\335>\270\207\302\t\333\033@s_\320\330W\233\235\200\230\345\0371\3509\220\023F\031\224\304\252a\000+\343\n\260A\361\021v\320T\025Bx\236\3435,\276'\301F\034\227\227\240\\\311\2243\031k\0040\237\355q\227\351\n\t\024\251_\204\301\210\335\214\334\226>A\314L\223\231h\231m\032\3704\251\000\342K\345\323\264\033\246-\211\303\376\372\032\032\226'\361X\227\321E\240\260\300\244N\326\017\003\223\345P\236H\317\236\261g\014?\373@\264\361\223\026\223\2268D\332\355\373\002\220\003 \325\212&]\010Tu1p\214\300\302\327fU\233\255\331J\211\315\260\331\346M\232\316Z$/\325<K4\271\315\216\002[\352\373\230%\036\331.\260s\333\366\021\223\016\263\000\252\343\372H\032\334{\324Q\200\271\200\312u\\\306\220@\210\245\320\017d\320\314F98\324UqQ\275\300vM\375\000Fm\333\003\271Cu7\022\235Z\001\2672\243FEa\330\313\312\307\330\2048\246\356\036\310!<\311\252\3701]\2625\374\350+\331mj\252\214\241f\347\256\242\227W\035\325\317\r\034\353\017t\250|$\3201\355aM\270\322w\\\242'\376\002\334$A\235h\354c\035-n\322\246\313\252\324\254\301? \022\270\310t\201;\r\277@\310\311zU\031\324\253\312\250^UN\253K\247\314\0371\343\210\231\210\313Q\203\311c\2721\344\363\302?\336~kf)\\\017y(\243rZ\\\034u\257F\217\242\303\370Q,\223r\262\236\350\335R\367\223n\243\267\331\343\375\342\273\235R\347z\347Ix-\254\245jp\255\363\035\r\372\305+\321f\324\2107c#\271\226l%~w\255\273\333+\244\313\267\222\265d'-\236\017\313\252\351\027/\204\030\242\351\027\227\350""\214\213!\0375\375w\317\245\263\3638\361FT\210\026\243\373\361\231\270\234\316/\204o\207\"\252F[\221\037\257\305;\351\302R\370}T\213v\261z=\336M\316$\345\376\302\305\260\036\235\211\226\243V|\0262\273\311Y\245v\341rt6Z\213F\235W\005\013\351\302bx'\364\242R\272\364!\234_\272\002=^\\\242Nm\\\274\030o\305^RzU\2746\334\323_\200_\241\021\335\210qj\326\375$\022qub@\260\317u\200\306;\317\217:\274#\3032\200\327\341m\rv.^\034u\227\302\255\260\005\263\327#\036\265\372\305\205\227\0137b\036\007\311v\267\224\256T\022\236\256\334J6\272\305\256\002\221\360\331\206\005\305\271\3167!\177\223\340\006\311w\335\033\2753\275r?\217\343vx9*E\327\242\261X\n(\030\305p1\254\252&\217\322\203pCE\251\226\316\227\302R\270\034\036\003\245\231x'g@+\325>M\n\311\005\030\232\257K\340(\3432\360\030\233hM?\355z\370\267\3744=YJ\036\rN[L\206\353Oh\363\370@\035\335\377}L\253\215\263\2545`\330c\n\351\305|\326\213\027\007\014\230\306\252\221P\355_1\212D\357+\372\355\274\t\233n\306\325x\233\324\376\007\030\365Gd\370Fw\246\273\223\336Z\353\226\323[\253\211\354\226\273\353]\243w\275\267C\371>\260\226R\355qr>\251\216\0306\373\326\314|\347\313\360\346\313\217nw\013\335\013]\236V\327\372\305\313Q!\245\206\214*\307\363I-\331\031q\2615`bk\024'Z\375\370\264\202\203\305ssY\240\226\225\351U\n\325yD|\007\206\255Gud\332\253\253\250G\341\323l\265?\031vRv\3655\205j\2344\003\272\017mx\020~\201\004\271\216\302S@4_Oj\320\351\235\3600\332\211tb\304 \320\224\200K\037\250C\236\304\313qk|@\276WGL\242\372\264\216|\227\260\362\373n\255\373\264W\355m\237\224N\256\237\354\234\360\364\356\346I\371d\343E\341\305\342\213\332\213\234\210\344\374\2403y\316\006\325\310i\254l\001\276qVn+cw\247\213\327\206{2f\212\350KT\347\274\273A\271:1P\374B\231J\002T\250\325/@\217\325;]\324\226Ka\0006>\211\313\377OLZS\267I\271\177\032\227\362u\262\364M\3513\2544\377#\"-\016\n*\324\020\005T\361D\031G8\263\333\257\212r\226\301T\357\026\372S\247g{\205\336\305^\353d\006\244\323_\224^\224\323\257\277\235\030\236J\2747f\322o\344\351\357&^:\205xii\371\345\362""\327=uk~\025~\203\252\030\304\265\021\361\372\003\212\215q\355\352k\370\365Zj\244c\324\030#\354\024NR\364?9\265\272e\367\335\364\3526\242Z?/v\223|{\034\237\237\244\327\353\371\266\004?[\377~\276U\263\315\313\321Q\314\373y7\300\r\227\213\377j\002N\\\370h\032c'\230\221\221iBU\220l\342\351\261t)\364\325]}\371\343\210\247\2275\265X\243\316P|\206^\201P6U\2740\334\323\037Y=ndibpZ\321\233\362@;G\227\366r\247\025\236%n\245\305s\343\203\367:?\243\356\354*@\351A\242n\361\022\335\340\333\021\316x\347\271\337Y\357\324\303bx\237x\221\316\226\302Kc\340W\323K\037\"8;\351%\225\225\375\331\367;\236z\334\021\365_\316-\343U\225\275\354\256\335\204\375\327V\342\326o\263'\243\315\007WF]\245nP\242\336\300\276\253Z\366\371\030{J\277\266\257\034\227@\253\000O\275q\373Pz/S\006\316v\316\"Y\277\306Q\177W\217\313\331\245\360\001B\3664{\007\275\327\331\3544\360\332\233}\267s\005%\001\240\341\215dd\307%\273\270]J\351\354\037`\031Rg\376ME\351\334\363a)\205\352\031\340\360\227\370mP`v!\234W\257*\310\354\205\217\302\243\210Sl\277\014W\242\322\363\002]s\255th\353\003\305\310VRT$\373\357XL7j9\303\255\024\026R\025\223\215li\016\257\375-@\276\030n*Za\223\010\253x\034R\232O\016\346:w\324\203\262\n\265\363\357w\374\254\016\242@.|\020]\302\365\225U\371BRBZ\336Q\217\307*\036+x\021O[Fu\271\020\376\254HP\210/f\305\200r\274\257\324\004\364_\344\\\247\372\343?\001\214r9\207";
-    PyObject *data = __Pyx_DecompressString(cstring, 2570, 1);
+    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (2632 bytes) */
+const char* const cstring = "x\332\315WKs\333\326\025\016m*V,\245\021%Zv\236\003Z\221\025\327\te\352\221G\343:C\311\262\343\3514\211,\333\231v:s\007\004.)X @\342\002\222\230\225\227\\b\211%\226Xb\311\245\226Zz\211%\177B~B\277s\001\212dL)n\2463\355\214\014\336\3679\347;\337\371\356\365_\224\252i*\272\321\344\2260lK(-\207k\\7\254\306pPY\326\225\246'\\\245\306\025\303\322\3711\327\025\325\322\025\313v\025a\032X\276\345\325\353\334Q\016\r~\244\3506\027r\212\037\267l\301\025\341:\206\316\305\266j)\266ev\024\315\341\252\313\025U\251\245\233\334}\325U\014\241h\266\345\032\r\317\366\004\214(M\336\264\235N\031\273\350(U\010\243a)\256\255`\263\376\205<']A&\263E\331\301G\216\341\2525\223g\013R\247\352\216\335\274h\257\014K92\334}\305\355\264\270\262\222\215\273\216j\t\031\306pK\272\014;\014@\345\216`\367`\0240#\005!]\264\323l\271\035E\354\2538\332\365Zp\256n;\212\326q\367m\253\254:\216\332y,\035\260=W\261\353J\315\366,](\237\251\3078eY\277\375\370u[)\370^\253e;.\327\037[\207\252i K\266\316?'\340\261\030IZ\321V\024\330Y\2011\nd\345s\245\201]\203\305\251;\300Z\232\271\367w\031\340s\n\020.\374`\003J\231\232m\351%\305\243s\323\250q\007 \003BJ+\214\310\374Y\312O;?}\261\361\365\206\244\205\303_\300\274\200w5\315D\346@\007\212\3113L\027\306\010^QV\036\327\225\216\355)\026\207\233Hk\013\353F7\270\373\334R\004w\251\241\254\310\\\250.\342f\330\016n\256d\270\032\207\234v?TM\301\313?\216\201\007\2273\202\251\232\306\305\000\315=\227\267\224\246\332\221\370\201\317\277p\307\036\002\375\314\222\314\301\221`\343!w@\014\2277\251o\327(\250\362\375\225\333\337\251\272\316,\202\207\202U\200\320\335c\3156Mr\007\211)\2535\355\336\010\227iQ\352\354\375\337\016\017(t_7\004\331\345\322zCS>\24345${(\002*F~\354r\313\225\2451\254KC\244[t\362R\030\277p\345\336_\225\273\257q\313\262\221\272\272\352\231\256\302\230\303uO\343\214)\272'\003\265l\353\013\244\362\320PM\314j\206e\270\230L\303\275/\034m\365\320\020\022x\3336\017\014wUh\252\325R\335\375Ua4\rSE\261uV5\246\331\315\026\332\002\013U\263act\277)\316\033/\267:\307\367RY\320\307""\360y}\214\350{\006\323\330\374\331\250w\2263\3254mMj\013E\255\350\252\253\226'\314\246\274\24732i*W\367\266\037?~\360\364\347\035\3234Z\302\020\214\375\3249\306\277\007`8\373\001\320?\341\365=\336\366\270\245q*\220\362\260V\030C\276\007G\263\224q\322\274*\262\237\216\245\031vY\263\035\024\267aqQcM\265US\005\3274\246\303\200\266\257\355\253\216J\265\304\032\334B\2725VS\265\003T\254v\200\324#)T\024\214\r\032\r\356R\276\251\213\363\230\201\334`)\247= \0306k\250\000W\207\031\027\025\3134&\315d_m\337a\206~,\333\010\037\273]\260\017\322\t\357\353\300s\237S\337\225\233m\217\270\345\0361\3309\020cN\351T\306\362\303\000W\312\026\240\003\371\341\226\327\224\032\301\035\307v\352\246\332\020\340#\216\313D(32\341L\306\352\036\334g\r\265\3054\211\004d\352\027\2563\3427\243\260\205K 3\303`\006\276\3142t\3744I\002\361K\002jXu\303\022\304bw}\r\037\226\225\361H\223\321U \261\300\240F\336\237\245&\255\242\254\224^\274`/\030\376\254\203\003\336\021&\023&?D\331\355\273\034\200\003\036\371\345M\272\020Hu\321\261u\317\304\257\305*\026[\263\244\tKm\322H\372E\335\222\334\231\274\251Z\354\310\263\204\266\217Q\242\220\325\002h\255\216u\304\204\315L\240i\267\\\324\013\256<jH\244Z\300\250e\267\030C\355 \211\\;\020^3\355e\250PS&D\266<\253eh\007\360g\307\032\254;\224\327\"\361\250\355\251f\352\324P\017\316Z\251r\214\014\360cj6\300\n\356\010V\301\037\323\004[\303\037\375\nv\227>\025\306 \327Y\250he\202#\333\231\203#\355\201\rY\212\2046\206\035\314\361\226p\355\026\361\022\377<\\\"^\215\370\353b\036_\\\242\315\026\253\320g\r\361\001\021\257\205\"\347\207\270\317<.\306\205\252<\020\252\362P\250\312\347\t\3229\343GL?b\006\262rTg\342\230\256\n\3612\367\353\333oM\025\375u_\365EPJ\362\013\303\346\307\301\223\3400|\022\212\250\024\255GZ\\\210?\215\353\275\255\236\332\317\277\323-t\227\272\317\374\233~5\221\235\233\335\207\324\351\347?\n\266\202z\270\025\352\321\315h;r\343\265x\257\227K\226\357Dk\321n\222\237\367K\362\323\317_\363\321\305\247\237/\322\031\213\276:\374\364\337\271\232L\317\342\304[A.X""\010\036\204\227\302R2;\347\277\355\363\240\022l\007n\270\026\356&sE\377\373\240\032\354av)\334\213.E\245\376\334\242_\013.\005\313A;\274\2145{\321eiv\356Fp9X\013\206\215\327\027\346\222\271\005\177\303w\202BR\374\000\301\027?\202\035',P\243:\272<\037n\207NTx}y\365lO\177\016q\371zp+\304\251i\363\323\200\207\225\261\016\301>\323\005\032s\257\346n\205j\350E;q!Y)Gj\262r'\332\214\363\261D\205\002\336\301\221\371\231\356\267\276\372&\331\362\242\207\361\255\336\245^\251\237%f\307\277\021\024\202\233\301Hr8\014\014\223\262\340W\344'\203\375\221\277)a\257&\263\005\277\340/\373\307\010{*\334\315R\332N\224\317\242\\t\r\216f\363\002\300\210\260\204\000G\006\332\223O[\362\377\231\235\246E\305\350\311\340\264\205\350l\376\031m\036\355\310\243\373\177\214:\325Q\332\264\007\224yJ9Z\314F\235pa\220\322I4\031.\252\376\036Eh\351\003\311\247\3357\241\307\355\260\022\356\220\331\337\245\310\225\227G]\265+\374\022\262\255QT\360qaq\330,\372\333~\033.\257\007*p'F\375\031%\273\031O\305\273\311\235\265\270\224\334Y\215D\\\212\327c\275\267\324\333\245\002\036xK\265\3634\232\217*C\206M\27755\333\375\312\277\375\352\303\273q.\276\026\253Ie\255\237\277\021\344\022\372\220S\245p6\252F\273C.\266\007Ll\017\363D\263\237\234\247 \230\274:\223&jY\272^\241T\315#\343\273pl=\250\241t^\237\205\300\370\317\323\331\376x\332\311\330\307\027(\317(i\006t?\363\341\221\377%\nd\tJ\222C6/&5\350t\305?\014v\003\215\0301H4\025`\361}y\310\263p9l\217v(\366\312\220I$8\353\250w\001/\277\217\253\361\363^\245\267sR8Y:\331=Q\223{['\245\223\315\323\334\351\302i\3654#\"\005?h\214\237\263I\2427\211\225m\3007\312\312\035\351\354\336\344\345\325\263=)3y\360\025\3446knR\255\216u$\277 S\221\007\205Z\375\022\364X\335\210\241-\327}\017l|\026\226\376\237\230\264&\257\207R\377<.e\363\344\351\233\322\347Li\376GDZ\030\010*\314\020\005\244xB\306\221\316\364:\253@\316R\230jq\256?qx\272\227\353-\366\332'S \235vZ8-%\337|7\326=\227xo\314\244\377\220\247\177\230x\311\004\342%\205\345W\313\337\364\344\255\371\265\377-T\321\013\253C\342\365""\007\024\033\341\332\307\027\360\353Bj$#\324\030!\354\004NR\366?=W\335\322\373n\262\272\r\251\326\317\304n\234oO\303\371qz]\314\267\"\342l\377\367\371VI7/\007G\241\332\317\232\036n\270l\371o\006\020\304\265\017'1v\214\031)\231\306Ly\321\026\236\036\305\353\276+\357\352\033\237\004jrC\221\223Uj\234-\237\242g\035\214M\\\236;\333\323\037z=\352da\254s\236\350Mx\240-\27655\017\334?\247\033\\&\016\227\263\023\024\201\336T\370\017\234\000\262\315v\267\272u\350\317\256o\"Q\033\241\033}\031/\306\207\275'=P\362\202\311~\376\335\356n\327\014J\301\006\036\022E\3047\025\375\213\n\231\254\177\345\257\004\005\330\277J\217\206\345n\333\277L\334N\362WG;\357v\177\306\321{2\241\364 \222\257\210\002\275 v\002\304p\345\245\333]\357\326\374\274\377\200x\231L\027\374\353#\311\257$\327?\0009v\223\353R\025\372\323\357u\035\371\270\244\322{5\263\214W]\372\262\274y\033\370\335\\\t\333/st1 \252\351\356e\224\3427\301#\231\303v\224\227i\231.\372\217\220\226\347\351[\347\3354\362d\372\235\356G\010\037\216\341\035\244\203\211\036\010\263\207\033\244\220L\377\t\336\345\316\020\374\375\245t.\335A\245\024\231\351\227Nw\001{u\350?\336L\311h\004W07\337]\353>\365\347\3755\324\364X\360y\322h\010\300R\364\024\332P\2127\34264\264\220>\247(\001\2032!TG;\022\231RX\220\276\375->\3525N\236\235\226\322\313\261\340\347\022\211\371f\352\350\014^\353\333ph\301\337\222iA\010\\\362\207\312t\2743\323\335\220\017\302\n@\230}\257\353\246:\006\201\233{?\270\216\353'U\351\\T@Ym\310\307_\005\217\r\274h'MC\035\256\371?\3138s\341bZ\314T\243}i\306\243\377\326\315t+?\376\033\346\020\023\240";
+    PyObject *data = __Pyx_DecompressString(cstring, 2632, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #else /* compression: none (6098 bytes) */
-const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensionsDimension %d is not directEmpty shape tuple for cython.arrayIndex out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis <MemoryView of Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis Step may not be zero (axis %d)Unable to convert item to object.>')?add_note and  at 0xcollections.abc<contiguous and direct><contiguous and indirect>disableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object>src/vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx<strided and direct><strided and direct or indirect><strided and indirect>unable to allocate array data.unable to allocate shape and strides.ASCIIDTWEllipsis__Pyx_PyDict_NextRefSequenceView.MemoryView__abcallocate_bufferarrayasarrayasyncio.coroutinesb_mapbasecc_dictcharacter_generic_backtracking__class____class_getitem__cline_in_tracebackconc_bcountd_matdel_c__dict__dict_chr_idxdict_str_intdiscrete_frechetdist_matdoubledtw_links_backtrackingdtypedtype_is_objectencodeenumerateerrorflagsformatfortranfrechet_links_backtracking__func__gap_cgeneralized_edit__getstate__ii_i__i_nid__import__indexinfins_cint32int_convertint_convert_from_dictintc_is_coroutineitemsitemsizejj_j__j_nkeykeysl_slevenshtein__main__memviewmode__module__n_1n_2n_dictn_keyname__name__ndimneedleman_wunsch__new__npnumpynw_so_lobjopt_alignopt_linkspackpop__pyx_checksum__pyx_state__p""yx_type__pyx_unpickle_Enum__pyx_vtable____qualname____reduce____reduce_cython____reduce_ex__registers_1s_1_cs_2s_2_cs_s_0s_s_1__set_name__setdefault__setstate____setstate_cython__shapesizestartstepstopstr_structsub_c__test__tmptmp_1tmp_2unpackupdatevalvaluesvision_toolkit.scanpath.similarity.c_comparison_algorithms.c_comparison_algorithmsw_dw_iw_swf_sxzeros\200\001\360\006\000\005\024\2203\220a\220s\230!\330\004\023\2203\220a\220s\230!\330\004\035\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\340\004\t\210\021\210#\210U\220\"\220A\330\004\t\210\021\210\"\210F\220\"\220A\340\004\034\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\330\004\022\220!\330\004\022\220!\340\004\025\220Q\330\004\025\220Q\340\004\024\220A\330\004\026\220a\330\004\026\220a\330\004\026\220a\340\t\n\330\010\014\210F\220&\230\001\230\023\230D\240\002\240!\330\014\020\220\006\220e\2301\230C\230t\2402\240Q\330\020\024\220H\230A\230S\240\002\240#\240S\250\002\250!\340\020\026\220b\230\002\230%\230q\240\003\2402\240S\250\003\2502\250Q\330\020\030\230\003\2302\230Q\330\020\030\230\003\2302\230Q\340\020\026\220b\230\002\230%\230q\240\003\2402\240S\250\001\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230r\240\021\330\024\034\230A\340\020\026\220b\230\002\230%\230q\240\004\240C\240r\250\021\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230r\240\021\340\020\025\220Q\220d\230&\240\001\330\020\025\220Q\220d\230$\230e\2401\330\020\025\220Q\220d\230$\230e\2401\360\006\000\005\013\210!\330\004\007\200w\210a\210s\220!\2203\220c\230\023\230A\230Q\330\023\026\220c\230\023\230A\230Q\330\023\024\220C\220q\230\003\2303\230a\230q\340\004\020\320\020&\240a\240u\250E\260\021\330'.\250a\330'+\2505\260\004\260A\330\004\026\220e\2301\230E\240\021\340\004\013\210;\220a\200\001\360\006\000\005\024\2203\220a\220s\230!\330\004\023\2203\220a\220s\230!\330\004\035\230R\230v\240R\240u\250F\260&\270\002\270!\340\004\t\210\021\210\"\210E""\220\030\230\021\230\"\230A\340\004\034\230B\230f\240B\240e\2505\260\001\330%+\2502\250Q\330\004\023\2201\330\004\023\2201\340\t\n\330\010\014\210G\2205\230\001\230\023\230A\330\014\021\220\021\220%\220x\230q\240\005\240Q\240d\250\"\250C\250q\330 (\250\001\250\025\250a\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\t\n\330\010\014\210G\2205\230\001\230\023\230A\330\014\021\220\021\220#\220Z\230q\240\005\240Q\240c\250\024\250R\250q\330 (\250\001\250\023\250A\330\014\021\220\021\220#\220U\230%\230q\330\014\021\220\021\220#\220U\230%\230s\240!\2401\340\004\022\220!\330\004\022\220!\340\004\025\220Q\330\004\025\220Q\340\004\024\220A\330\004\026\220a\330\004\026\220a\330\004\026\220a\340\t\n\330\010\014\210F\220&\230\001\230\023\230A\330\014\020\220\006\220e\2301\230C\230q\330\020\024\220H\230A\230T\240\021\340\020\026\220e\2301\230C\230r\240\023\240C\240r\250\021\330\020\030\230\003\2302\230Q\330\020\030\230\003\2302\230Q\340\020\026\220e\2301\230C\230r\240\023\240A\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230r\240\021\330\024\034\230A\340\020\026\220e\2301\230D\240\003\2402\240Q\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230r\240\021\340\020\025\220Q\220d\230)\2401\240E\250\021\330\020\025\220Q\220d\230$\230e\2401\330\020\025\220Q\220d\230$\230e\2401\360\006\000\005\013\210!\330\004\007\200w\210a\210s\220!\2203\220c\230\023\230A\230Q\330\023\026\220c\230\023\230A\230Q\330\023\024\220C\220q\230\003\2303\230a\230q\340\004\020\320\020*\250!\2505\260\005\260Q\330+2\260!\330+/\250s\260!\2603\260d\270#\270Q\270a\340\004\026\220e\2301\230D\240\002\240#\240T\250\022\2501\340\004\013\210;\220a\200\001\360\010\000\005\014\2107\220)\320\0330\260\001\260\025\260a\33012\340\004\030\230\001\330\004\030\230\001\360\006\000\005!\240\014\250A\250Q\360\006\000\005\024\2203\220a\220q\330\004\023\2203\220a\220q\340\004\022\220!\330\004\022\220!\360\006\000\005\036\230R\230v\240R""\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220#\220Q\220e\2303\230b\240\001\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220\"\220A\220V\2303\230b\240\001\340\004\026\220a\330\004\026\220a\330\004\026\220a\360\006\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\340\004\025\220Q\330\004\025\220Q\340\004\023\2201\330\004\023\2201\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230S\240\001\240\021\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\023\240A\240Q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\026\220e\2301\230C\230q\240\003\2403\240a\240s\250\"\250H\260A\260V\2701\270E\300\021\300#\300Q\300a\330<B\300!\3005\310\001\310\023\310A\310Q\330\020\030\230\003\2301\230A\330\020\030\230\003\2301\230A\340\020\026\220e\2301\230C\230q\240\003\2405\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230q\240\001\330\024\034\230A\340\020\026\220e\2301\230E\240\023\240A\240S\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230q\240\001\340\020\025\220Q\220e\2307\240!\330\020\025\220Q\220e\2305\240\005\240Q\330\020\025\220Q\220e\2305\240\005\240Q\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\340\004\027\220u\230A\230U\240!\340\004\013\210;\220a\200\001\360\010\000\005\014\2107\220)\320\0330\260\001\260\025\260a\33012\340\004\030\230\001\330\004\030\230\001\360\006\000\005!\240\014\250A\250Q\360\006\000\005\024\2203\220a\220q\330\004\023\2203\220a\220q\340\004\022\220!\330\004\022\220!\360\006\000\005\036\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220#\220Q\220e\2302\230S\240\002\240!\340\010\014\210F\220%\220q""\230\003\2301\230A\330\014\022\220\"\220A\220V\2302\230S\240\002\240!\360\010\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\340\004\025\220Q\330\004\025\220Q\340\004\026\220a\330\004\026\220a\340\004\023\2201\330\004\023\2201\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230S\240\001\240\021\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\023\240A\240Q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\023\2205\230\001\230\023\230A\230S\240\003\2405\250\001\250\023\250A\250Q\330\024\032\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\001\340\024\032\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\010\270\001\270\026\270q\300\005\300Q\300c\310\021\310!\3309?\270q\300\005\300Q\300c\310\021\310!\330\020\030\230\003\2301\230A\330\020\030\230\003\2301\230A\340\020\026\220e\2301\230E\240\023\240A\240S\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230q\240\001\340\020\026\220e\2301\230C\230q\240\003\2405\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230q\240\001\330\024\034\230A\340\020\025\220Q\220e\2307\240!\330\020\025\220Q\220e\2305\240\005\240Q\330\020\025\220Q\220e\2305\240\005\240Q\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\330\004\027\220u\230A\230U\240!\340\004\013\210;\220a\200\001\330\021%\320%9\270\021\340\004\013\2108\220;\230a\230u\240A\340\004\030\230\001\330\004\030\230\001\340\004\023\2203\220a\220q\330\004\023\2203\220a\220q\340\004\035\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\330\004\025\220Q\330\004\025\220Q\340\004\022\220!\330\004\022\220!\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\021\220\021\220$\220e\2303\230b\240""\001\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\021\220\021\220#\220V\2303\230b\240\001\340\004\026\220a\330\004\026\220a\330\004\026\220a\340\004\023\2201\330\004\023\2201\340\004\026\220a\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230T\240\022\2401\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\024\240R\240q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\023\2205\230\001\230\023\230A\230S\240\003\2405\250\001\250\023\250A\250Q\330\024\032\230%\230q\240\003\2401\240C\240s\250!\2501\330\024\031\230\021\230%\230w\240a\340\024\031\230\021\230%\230u\240E\250\023\250A\250Q\330\024\031\230\021\230%\230u\240E\250\023\250A\250Q\360\006\000\025\033\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\001\330\024\034\230C\230q\240\001\330\024\034\230C\230q\240\001\340\024\032\230%\230q\240\003\2401\240C\240u\250B\250a\330\024\027\220t\2302\230Q\330\030\036\230a\330\030 \240\003\2401\240A\330\030 \240\001\340\024\032\230%\230q\240\005\240S\250\001\250\023\250B\250a\330\024\027\220t\2302\230Q\330\030\036\230a\330\030 \240\001\330\030 \240\003\2401\240A\340\024\031\230\021\230%\230w\240a\330\024\031\230\021\230%\230u\240E\250\021\330\024\031\230\021\230%\230u\240E\250\021\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\340\004\026\220e\2301\230E\240\021\340\004\013\210;\220a\200\001\360\n\000\005\013\210%\210q\220\003\2203\220a\330\004\n\210%\210q\220\003\2203\220a\330\004\r\210W\220A\220S\230\001\230\023\230C\230q\330\023\026\220c\230\021\330\023\024\220E\230\021\340\004\007\200t\2103\210b\220\004\220D\230\003\2301\330\010\021\220\027\230\001\230\023\230A\230S\240\003\2401\330\027\032\230#\230Q\330\027\030\230\003\2301\340\010\017\210r\220\030\230\021\230!\340\004\013\320\013%\240Q\240e\2505\260\001\330\")\250\021\330\"'\240q\200\001\360\n\000\005\013\210%\210q\220\003\2203\220a\330\004\n""\210%\210q\220\003\2203\220a\330\004\r\210W\220A\220S\230\001\230\023\230C\230s\240!\2401\330\031\034\230C\230s\240!\2401\330\031\032\230#\230Q\230c\240\023\240A\240Q\340\004\007\200t\2103\210b\220\004\220D\230\003\2301\330\010\021\220\027\230\001\230\023\230A\230S\240\003\2401\330\035 \240\003\2401\330\035\036\230c\240\021\340\010\017\210r\220\030\230\021\230!\340\004\013\320\013!\240\021\240%\240u\250A\330\")\250\021\330\"'\240q\200\001\360\010\000\005\030\220q\340\004\010\210\003\2108\2209\230A\230\\\250\025\250a\330\010\024\220G\2302\230V\2401\360\006\000\005\r\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\340\004\014\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\360\006\000\005\022\220\021\330\004\010\210\005\210W\220L\240\006\240a\330\010\020\220\014\230A\230Q\330\010\016\210g\220R\220w\230a\340\004\013\2107\220'\230\021\200\001\340\004\027\220q\330\004\010\210\003\2108\2209\230G\2401\240C\240q\250\004\250B\250a\330\010\024\220G\2302\230V\2401\360\006\000\005\r\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\340\004\014\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\360\006\000\005\014\2107\220!\200\001\360\010\000\005\021\220\001\330\004\007\200t\2105\220\001\360\006\000\005\013\210\"\210C\210r\220\023\220B\220c\230\021\330\010\016\210e\2201\220C\220s\230!\330\010\016\210e\2201\220C\220s\230!\330\010\013\2104\210s\220!\2201\220A\330\014\017\210t\2203\220a\220q\230\001\330\020\031\230\027\240\001\240\023\240A\240S\250\001\250\021\250!\2504\250s\260!\2601\260A\260Q\340\020\031\230\027\240\001\240\023\240A\240S\250\001\250\021\250!\2504\250q\340\014\025\220W\230A\230S\240\001\240\026\240s\250!\2501\250A\250Q\340\010\013\2104\210u\220A\340\004\013\2101O";
+    #else /* compression: none (5980 bytes) */
+const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensionsDimension %d is not directEmpty shape tuple for cython.arrayIndex out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis <MemoryView of Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis Step may not be zero (axis %d)Unable to convert item to object.>')?add_note and  at 0xcollections.abc<contiguous and direct><contiguous and indirect>disableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object>src/vision_toolkit/scanpath/similarity/c_comparison_algorithms/c_comparison_algorithms.pyx<strided and direct><strided and direct or indirect><strided and indirect>unable to allocate array data.unable to allocate shape and strides.ASCIIDTWEllipsis__Pyx_PyDict_NextRefSequenceView.MemoryView__abcallocate_bufferarrayasarrayasyncio.coroutinesb_mapbasecc_dictchcharacter_generic_backtracking__class____class_getitem__cline_in_tracebackconc_bcountd_matdel_c__dict__dict_chr_idxdict_str_intdiscrete_frechetdist_matdoubledtw_links_backtrackingdtypedtype_is_objectencodeenumerateerrorflagsformatfortranfrechet_links_backtracking__func__gap_cgeneralized_edit__getstate__ii_i__i_nid__import__indexinfins_cint32int_convertint_convert_from_dictintc_is_coroutineitemsitemsizejj_j__j_nkkeysl_slevenshtein__main__memviewmode__module__n_1n_2n_dictname__name__ndimneedleman_wunsch__new__npnumpynw_so_lobjopt_alignopt_linkspackpop__pyx_checksum__pyx_state__pyx_ty""pe__pyx_unpickle_Enum__pyx_vtable____qualname____reduce____reduce_cython____reduce_ex__registers_1s_1_cs_2s_2_cs_s_0s_s_1__set_name__setdefault__setstate____setstate_cython__shapesizestartstepstopstr_structsub_c__test__tmptmp_1tmp_2unpackupdatevvaluesvision_toolkit.scanpath.similarity.c_comparison_algorithms.c_comparison_algorithmsw_dw_iw_swf_sxzeros\200\001\360\006\000\005\024\2203\220a\220s\230!\330\004\023\2203\220a\220s\230!\330\004\035\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\340\004\t\210\021\210#\210U\220\"\220A\330\004\t\210\021\210\"\210F\220\"\220A\340\004\034\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\330\004\022\220!\330\004\022\220!\340\004\025\220Q\330\004\025\220Q\340\004\024\220A\330\004\026\220a\330\004\026\220a\330\004\026\220a\340\t\n\330\010\014\210F\220&\230\001\230\023\230D\240\002\240!\330\014\020\220\006\220e\2301\230C\230t\2402\240Q\330\020\024\220H\230A\230S\240\002\240#\240S\250\002\250!\340\020\026\220b\230\002\230%\230q\240\003\2402\240S\250\003\2502\250Q\330\020\030\230\003\2302\230Q\330\020\030\230\003\2302\230Q\340\020\026\220b\230\002\230%\230q\240\003\2402\240S\250\001\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230r\240\021\330\024\034\230A\340\020\026\220b\230\002\230%\230q\240\004\240C\240r\250\021\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230r\240\021\340\020\025\220Q\220d\230&\240\001\330\020\025\220Q\220d\230$\230e\2401\330\020\025\220Q\220d\230$\230e\2401\360\006\000\005\013\210!\330\004\020\320\020&\240a\240u\250E\260\021\330'.\250a\330'+\2505\260\004\260A\330\004\026\220e\2301\230E\240\021\340\004\013\210;\220a\200\001\360\006\000\005\024\2203\220a\220s\230!\330\004\023\2203\220a\220s\230!\330\004\035\230R\230v\240R\240u\250F\260&\270\002\270!\340\004\t\210\021\210\"\210E\220\030\230\021\230\"\230A\340\004\034\230B\230f\240B\240e\2505\260\001\330%+\2502\250Q\330\004\023\2201\330\004\023\2201\340\t\n\330\010\014\210G""\2205\230\001\230\023\230A\330\014\021\220\021\220%\220x\230q\240\005\240Q\240d\250\"\250C\250q\330 (\250\001\250\025\250a\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\t\n\330\010\014\210G\2205\230\001\230\023\230A\330\014\021\220\021\220#\220Z\230q\240\005\240Q\240c\250\024\250R\250q\330 (\250\001\250\023\250A\330\014\021\220\021\220#\220U\230%\230q\330\014\021\220\021\220#\220U\230%\230s\240!\2401\340\004\022\220!\330\004\022\220!\340\004\025\220Q\330\004\025\220Q\340\004\024\220A\330\004\026\220a\330\004\026\220a\330\004\026\220a\340\t\n\330\010\014\210F\220&\230\001\230\023\230A\330\014\020\220\006\220e\2301\230C\230q\330\020\024\220H\230A\230T\240\021\340\020\026\220e\2301\230C\230r\240\023\240C\240r\250\021\330\020\030\230\003\2302\230Q\330\020\030\230\003\2302\230Q\340\020\026\220e\2301\230C\230r\240\023\240A\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230r\240\021\330\024\034\230A\340\020\026\220e\2301\230D\240\003\2402\240Q\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230r\240\021\340\020\025\220Q\220d\230)\2401\240E\250\021\330\020\025\220Q\220d\230$\230e\2401\330\020\025\220Q\220d\230$\230e\2401\360\006\000\005\013\210!\330\004\007\200w\210a\210s\220!\2203\220c\230\023\230A\230Q\330\023\026\220c\230\023\230A\230Q\330\023\024\220C\220q\230\003\2303\230a\230q\340\004\020\320\020*\250!\2505\260\005\260Q\330+2\260!\330+/\250s\260!\2603\260d\270#\270Q\270a\340\004\026\220e\2301\230D\240\002\240#\240T\250\022\2501\340\004\013\210;\220a\200\001\360\010\000\005\014\2107\220)\320\0330\260\001\260\025\260a\33012\340\004\030\230\001\330\004\030\230\001\360\006\000\005!\240\014\250A\250Q\360\006\000\005\024\2203\220a\220q\330\004\023\2203\220a\220q\340\004\022\220!\330\004\022\220!\360\006\000\005\036\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220#\220Q\220e\2303\230b""\240\001\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220\"\220A\220V\2303\230b\240\001\340\004\026\220a\330\004\026\220a\330\004\026\220a\360\006\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\340\004\025\220Q\330\004\025\220Q\340\004\023\2201\330\004\023\2201\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230S\240\001\240\021\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\023\240A\240Q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\026\220e\2301\230C\230q\240\003\2403\240a\240s\250\"\250H\260A\260V\2701\270E\300\021\300#\300Q\300a\330<B\300!\3005\310\001\310\023\310A\310Q\330\020\030\230\003\2301\230A\330\020\030\230\003\2301\230A\340\020\026\220e\2301\230C\230q\240\003\2405\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230q\240\001\330\024\034\230A\340\020\026\220e\2301\230E\240\023\240A\240S\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230q\240\001\340\020\025\220Q\220e\2307\240!\330\020\025\220Q\220e\2305\240\005\240Q\330\020\025\220Q\220e\2305\240\005\240Q\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\340\004\027\220u\230A\230U\240!\340\004\013\210;\220a\200\001\360\010\000\005\014\2107\220)\320\0330\260\001\260\025\260a\33012\340\004\030\230\001\330\004\030\230\001\360\006\000\005!\240\014\250A\250Q\360\006\000\005\024\2203\220a\220q\330\004\023\2203\220a\220q\340\004\022\220!\330\004\022\220!\360\006\000\005\036\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220#\220Q\220e\2302\230S\240\002\240!\340\010\014\210F\220%\220q\230\003\2301\230A\330\014\022\220\"\220A\220V\2302\230S\240\002\240!\360\010\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+""\2502\250Q\340\004\025\220Q\330\004\025\220Q\340\004\026\220a\330\004\026\220a\340\004\023\2201\330\004\023\2201\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230S\240\001\240\021\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\023\240A\240Q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\023\2205\230\001\230\023\230A\230S\240\003\2405\250\001\250\023\250A\250Q\330\024\032\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\001\340\024\032\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\010\270\001\270\026\270q\300\005\300Q\300c\310\021\310!\3309?\270q\300\005\300Q\300c\310\021\310!\330\020\030\230\003\2301\230A\330\020\030\230\003\2301\230A\340\020\026\220e\2301\230E\240\023\240A\240S\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230A\330\024\034\230C\230q\240\001\340\020\026\220e\2301\230C\230q\240\003\2405\250\002\250!\330\020\023\2204\220r\230\021\330\024\032\230!\330\024\034\230C\230q\240\001\330\024\034\230A\340\020\025\220Q\220e\2307\240!\330\020\025\220Q\220e\2305\240\005\240Q\330\020\025\220Q\220e\2305\240\005\240Q\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\330\004\027\220u\230A\230U\240!\340\004\013\210;\220a\200\001\330\021%\320%9\270\021\340\004\013\2108\220;\230a\230u\240A\340\004\030\230\001\330\004\030\230\001\340\004\023\2203\220a\220q\330\004\023\2203\220a\220q\340\004\035\230R\230v\240R\240s\250!\2503\250c\260\021\260$\260f\270B\270a\360\006\000\005\035\230B\230f\240B\240d\250\"\250C\250t\2602\260S\270\001\330%+\2502\250Q\330\004\025\220Q\330\004\025\220Q\340\004\022\220!\330\004\022\220!\360\006\000\n\013\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\021\220\021\220$\220e\2303\230b\240\001\330\010\014\210F\220%\220q\230\003\2301\230A\330\014\021\220\021\220#\220V\2303\230b\240\001\340\004\026\220a\330\004\026\220a\330\004\026\220a""\340\004\023\2201\330\004\023\2201\340\004\026\220a\360\006\000\n\013\330\010\014\210G\2206\230\021\230#\230T\240\022\2401\330\014\021\220\021\220%\220s\230%\230s\240!\2401\330\014\021\220\021\220%\220s\230%\230q\340\014\020\220\007\220v\230Q\230c\240\024\240R\240q\330\020\023\2204\220s\230!\330\024\031\230\021\230#\230U\240%\240q\330\024\031\230\021\230#\230U\240%\240s\250!\2501\340\020\023\2205\230\001\230\023\230A\230S\240\003\2405\250\001\250\023\250A\250Q\330\024\032\230%\230q\240\003\2401\240C\240s\250!\2501\330\024\031\230\021\230%\230w\240a\340\024\031\230\021\230%\230u\240E\250\023\250A\250Q\330\024\031\230\021\230%\230u\240E\250\023\250A\250Q\360\006\000\025\033\230%\230q\240\003\2401\240C\240s\250!\2503\250b\260\001\330\024\034\230C\230q\240\001\330\024\034\230C\230q\240\001\340\024\032\230%\230q\240\003\2401\240C\240u\250B\250a\330\024\027\220t\2302\230Q\330\030\036\230a\330\030 \240\003\2401\240A\330\030 \240\001\340\024\032\230%\230q\240\005\240S\250\001\250\023\250B\250a\330\024\027\220t\2302\230Q\330\030\036\230a\330\030 \240\001\330\030 \240\003\2401\240A\340\024\031\230\021\230%\230w\240a\330\024\031\230\021\230%\230u\240E\250\021\330\024\031\230\021\230%\230u\240E\250\021\340\004\020\320\020.\250a\250u\260A\330/6\260a\330/4\260A\340\004\026\220e\2301\230E\240\021\340\004\013\210;\220a\200\001\360\026\000\005\022\220\021\220,\230e\2401\340\004\023\2201\220C\220r\230\024\230S\240\005\240Y\250a\250q\340\004\014\210B\210f\220A\220Q\220l\240!\2404\240t\2506\260\026\260v\270R\270q\330\004\014\210B\210f\220A\220Q\220l\240!\2404\240t\2506\260\026\260v\270R\270q\340\004\r\210Q\210l\230!\2304\230r\240\024\240S\250\005\250\\\270\026\270q\340\004\013\2107\220'\230\021\200\001\360\n\000\005\013\210%\210q\220\003\2203\220a\330\004\n\210%\210q\220\003\2203\220a\330\004\r\210W\220A\220S\230\001\230\023\230C\230q\330\023\026\220c\230\021\330\023\024\220E\230\021\340\004\007\200t\2103\210b\220\004\220D\230\003\2301\330\010\021\220\027\230\001\230\023\230A\230S\240""\003\2401\330\027\032\230#\230Q\330\027\030\230\003\2301\340\010\017\210r\220\030\230\021\230!\340\004\013\320\013%\240Q\240e\2505\260\001\330\")\250\021\330\"'\240q\200\001\340\004\027\220q\330\004\010\210\003\2108\2209\230G\2401\240C\240q\250\004\250B\250a\330\010\024\220G\2302\230V\2401\360\006\000\005\r\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\340\004\014\210B\210f\220A\330\010\t\210\034\220Q\220c\230\021\230$\230d\240%\240u\250A\250S\260\001\260\021\330\010\016\210b\220\001\360\006\000\005\014\2107\220!\200\001\360\n\000\005\010\200r\210\023\210B\210d\220\"\220C\220q\330\010\017\210r\220\030\230\021\230!\340\004\007\200r\210\022\2102\210T\220\022\2202\220Q\330\010\021\220\027\230\001\230\023\230A\230S\240\004\240A\240Q\240d\250#\250T\260\021\260!\2604\260q\270\001\270\021\270#\270Q\270a\270q\340\004\023\2205\230\001\230\023\230C\230q\330\004\023\2205\230\001\230\023\230C\230q\340\004\013\320\013!\240\021\240%\240u\250K\260w\270g\300U\310!\200\001\360\010\000\005\021\220\001\330\004\007\200t\2105\220\001\360\006\000\005\013\210\"\210C\210r\220\023\220B\220c\230\021\330\010\016\210e\2201\220C\220s\230!\330\010\016\210e\2201\220C\220s\230!\330\010\013\2104\210s\220!\2201\220A\330\014\017\210t\2203\220a\220q\230\001\330\020\031\230\027\240\001\240\023\240A\240S\250\001\250\021\250!\2504\250s\260!\2601\260A\260Q\340\020\031\230\027\240\001\240\023\240A\240S\250\001\250\021\250!\2504\250q\340\014\025\220W\230A\230S\240\001\240\026\240s\250!\2501\250A\250Q\340\010\013\2104\210u\220A\340\004\013\2101O";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
@@ -28908,7 +28656,7 @@ typedef struct {
     unsigned int num_kwonly_args : 1;
     unsigned int nlocals : 5;
     unsigned int flags : 10;
-    unsigned int first_line : 10;
+    unsigned int first_line : 9;
 } __Pyx_PyCode_New_function_description;
 /* NewCodeObj.proto */
 static PyObject* __Pyx_PyCode_New(
@@ -28930,47 +28678,47 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
     __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_DTW, __pyx_mstate->__pyx_kp_b_iso88591_3as_3as_RvRs_3c_fBa_U_A_F_A_BfB, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {3, 0, 0, 20, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 73};
+    const __Pyx_PyCode_New_function_description descr = {3, 0, 0, 20, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 69};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_dist_mat, __pyx_mstate->__pyx_n_u_n_1, __pyx_mstate->__pyx_n_u_n_2, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_i_3, __pyx_mstate->__pyx_n_u_j_3, __pyx_mstate->__pyx_n_u_i_2, __pyx_mstate->__pyx_n_u_j_2, __pyx_mstate->__pyx_n_u_s_s_0, __pyx_mstate->__pyx_n_u_s_s_1, __pyx_mstate->__pyx_n_u_c, __pyx_mstate->__pyx_n_u_w_s, __pyx_mstate->__pyx_n_u_w_d, __pyx_mstate->__pyx_n_u_w_i, __pyx_mstate->__pyx_n_u_o_l, __pyx_mstate->__pyx_n_u_opt_links, __pyx_mstate->__pyx_n_u_l_s};
     __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_discrete_frechet, __pyx_mstate->__pyx_kp_b_iso88591_3as_3as_RvRuF_E_A_BfBe5_2Q_1_1, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {5, 0, 0, 25, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 152};
+    const __Pyx_PyCode_New_function_description descr = {5, 0, 0, 25, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 148};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_del_c, __pyx_mstate->__pyx_n_u_ins_c, __pyx_mstate->__pyx_n_u_sub_c, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_s_1_c, __pyx_mstate->__pyx_n_u_s_2_c, __pyx_mstate->__pyx_n_u_n_1, __pyx_mstate->__pyx_n_u_n_2, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_s_s_0, __pyx_mstate->__pyx_n_u_s_s_1, __pyx_mstate->__pyx_n_u_i_2, __pyx_mstate->__pyx_n_u_j_2, __pyx_mstate->__pyx_n_u_w_s, __pyx_mstate->__pyx_n_u_w_d, __pyx_mstate->__pyx_n_u_w_i, __pyx_mstate->__pyx_n_u_i_3, __pyx_mstate->__pyx_n_u_j_3, __pyx_mstate->__pyx_n_u_tmp, __pyx_mstate->__pyx_n_u_opt_align, __pyx_mstate->__pyx_n_u_l_s};
     __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_levenshtein, __pyx_mstate->__pyx_kp_b_iso88591_9_8_auA_3aq_3aq_RvRs_3c_fBa_BfB, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 27, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 238};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 27, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 234};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_del_c, __pyx_mstate->__pyx_n_u_ins_c, __pyx_mstate->__pyx_n_u_dict_chr_idx, __pyx_mstate->__pyx_n_u_dist_mat, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_n_dict, __pyx_mstate->__pyx_n_u_s_1_c, __pyx_mstate->__pyx_n_u_s_2_c, __pyx_mstate->__pyx_n_u_c_dict, __pyx_mstate->__pyx_n_u_n_1, __pyx_mstate->__pyx_n_u_n_2, __pyx_mstate->__pyx_n_u_i_2, __pyx_mstate->__pyx_n_u_j_2, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_w_s, __pyx_mstate->__pyx_n_u_w_d, __pyx_mstate->__pyx_n_u_w_i, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_s_s_0, __pyx_mstate->__pyx_n_u_s_s_1, __pyx_mstate->__pyx_n_u_i_3, __pyx_mstate->__pyx_n_u_j_3, __pyx_mstate->__pyx_n_u_opt_align, __pyx_mstate->__pyx_n_u_wf_s};
     __pyx_mstate_global->__pyx_codeobj_tab[3] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_generalized_edit, __pyx_mstate->__pyx_kp_b_iso88591_7_0_a12_AQ_3aq_3aq_RvRs_3c_fBa, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[3])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 26, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 323};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 26, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 319};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_gap_c, __pyx_mstate->__pyx_n_u_conc_b, __pyx_mstate->__pyx_n_u_dict_chr_idx, __pyx_mstate->__pyx_n_u_dist_mat, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_n_dict, __pyx_mstate->__pyx_n_u_s_1_c, __pyx_mstate->__pyx_n_u_s_2_c, __pyx_mstate->__pyx_n_u_c_dict, __pyx_mstate->__pyx_n_u_n_1, __pyx_mstate->__pyx_n_u_n_2, __pyx_mstate->__pyx_n_u_i_2, __pyx_mstate->__pyx_n_u_j_2, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_s_s_0, __pyx_mstate->__pyx_n_u_s_s_1, __pyx_mstate->__pyx_n_u_w_s, __pyx_mstate->__pyx_n_u_w_d, __pyx_mstate->__pyx_n_u_i_3, __pyx_mstate->__pyx_n_u_j_3, __pyx_mstate->__pyx_n_u_opt_align, __pyx_mstate->__pyx_n_u_nw_s};
     __pyx_mstate_global->__pyx_codeobj_tab[4] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_needleman_wunsch, __pyx_mstate->__pyx_kp_b_iso88591_7_0_a12_AQ_3aq_3aq_RvRs_3c_fBa_2, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[4])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {2, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 428};
+    const __Pyx_PyCode_New_function_description descr = {2, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 424};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_dict_str_int, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_str, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_j};
     __pyx_mstate_global->__pyx_codeobj_tab[5] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_int_convert, __pyx_mstate->__pyx_kp_b_iso88591_q_89G1Cq_Ba_G2V1_BfA_Qc_d_uAS_b, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[5])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {3, 0, 0, 14, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 447};
-    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_dict_chr_idx, __pyx_mstate->__pyx_n_u_dict_str_int, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_str, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_n_dict, __pyx_mstate->__pyx_n_u_key, __pyx_mstate->__pyx_n_u_val, __pyx_mstate->__pyx_n_u_n_key, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_j};
-    __pyx_mstate_global->__pyx_codeobj_tab[6] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_int_convert_from_dict, __pyx_mstate->__pyx_kp_b_iso88591_q_89A_a_G2V1_BfA_Qc_d_uAS_b_BfA, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[6])) goto bad;
+    const __Pyx_PyCode_New_function_description descr = {3, 0, 0, 14, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 443};
+    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_dict_chr_idx, __pyx_mstate->__pyx_n_u_keys, __pyx_mstate->__pyx_n_u_dict_str_int, __pyx_mstate->__pyx_n_u_tmp_1, __pyx_mstate->__pyx_n_u_tmp_2, __pyx_mstate->__pyx_n_u_n_dict, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_k, __pyx_mstate->__pyx_n_u_ch, __pyx_mstate->__pyx_n_u_ch, __pyx_mstate->__pyx_n_u_k, __pyx_mstate->__pyx_n_u_v};
+    __pyx_mstate_global->__pyx_codeobj_tab[6] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_int_convert_from_dict, __pyx_mstate->__pyx_kp_b_iso88591_e1_1Cr_S_Yaq_BfAQl_4t6_vRq_BfAQ, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[6])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 11, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 474};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 11, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 466};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_n_1, __pyx_mstate->__pyx_n_u_n_2, __pyx_mstate->__pyx_n_u_opt_align, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_j, __pyx_mstate->__pyx_n_u_i_n, __pyx_mstate->__pyx_n_u_j_n};
     __pyx_mstate_global->__pyx_codeobj_tab[7] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_character_generic_backtracking, __pyx_mstate->__pyx_kp_b_iso88591_t5_Cr_Bc_e1Cs_e1Cs_4s_1A_t3aq_A, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[7])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {7, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 498};
+    const __Pyx_PyCode_New_function_description descr = {7, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 490};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_opt_links, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_j, __pyx_mstate->__pyx_n_u_i_n, __pyx_mstate->__pyx_n_u_j_n};
-    __pyx_mstate_global->__pyx_codeobj_tab[8] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_dtw_links_backtracking, __pyx_mstate->__pyx_kp_b_iso88591_q_3a_q_3a_WAS_Cs_1_Cs_1_Qc_AQ_t, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[8])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[8] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_dtw_links_backtracking, __pyx_mstate->__pyx_kp_b_iso88591_r_Bd_Cq_r_r_2T_2Q_AS_AQd_T_4q_Q, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[8])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {7, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 521};
+    const __Pyx_PyCode_New_function_description descr = {7, 0, 0, 9, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 508};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_s_1, __pyx_mstate->__pyx_n_u_s_2, __pyx_mstate->__pyx_n_u_opt_links, __pyx_mstate->__pyx_n_u_d_mat, __pyx_mstate->__pyx_n_u_b_map, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_j, __pyx_mstate->__pyx_n_u_i_n, __pyx_mstate->__pyx_n_u_j_n};
     __pyx_mstate_global->__pyx_codeobj_tab[9] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_vision_toolkit_scanpath_simi, __pyx_mstate->__pyx_n_u_frechet_links_backtracking, __pyx_mstate->__pyx_kp_b_iso88591_q_3a_q_3a_WAS_Cq_c_E_t3b_D_1_AS, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[9])) goto bad;
   }
@@ -32378,6 +32126,11 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 }
 #endif
 
+/* py_dict_keys */
+static CYTHON_INLINE PyObject* __Pyx_PyDict_Keys(PyObject* d) {
+    return __Pyx_CallUnboundCMethod0(&__pyx_mstate_global->__pyx_umethod_PyDict_Type_keys, d);
+}
+
 /* PyLongCompare */
 static CYTHON_INLINE int __Pyx_PyLong_BoolNeObjC(PyObject *op1, PyObject *op2, long intval, long inplace) {
     CYTHON_MAYBE_UNUSED_VAR(intval);
@@ -32537,67 +32290,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyLong_SubtractObjC(PyObject *op1, PyObject
     return __Pyx_Fallback___Pyx_PyLong_SubtractObjC(op1, op2, inplace);
 }
 #endif
-
-/* PyLongCompare */
-static CYTHON_INLINE int __Pyx_PyLong_BoolEqObjC(PyObject *op1, PyObject *op2, long intval, long inplace) {
-    CYTHON_MAYBE_UNUSED_VAR(intval);
-    CYTHON_UNUSED_VAR(inplace);
-    if (op1 == op2) {
-        return 1;
-    }
-    #if CYTHON_USE_PYLONG_INTERNALS
-    if (likely(PyLong_CheckExact(op1))) {
-        int unequal;
-        unsigned long uintval;
-        Py_ssize_t size = __Pyx_PyLong_DigitCount(op1);
-        const digit* digits = __Pyx_PyLong_Digits(op1);
-        if (intval == 0) {
-            return (__Pyx_PyLong_IsZero(op1) == 1);
-        } else if (intval < 0) {
-            if (__Pyx_PyLong_IsNonNeg(op1))
-                return 0;
-            intval = -intval;
-        } else {
-            if (__Pyx_PyLong_IsNeg(op1))
-                return 0;
-        }
-        uintval = (unsigned long) intval;
-#if PyLong_SHIFT * 4 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 4)) {
-            unequal = (size != 5) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[4] != ((uintval >> (4 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 3 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 3)) {
-            unequal = (size != 4) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 2 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 2)) {
-            unequal = (size != 3) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-#if PyLong_SHIFT * 1 < SIZEOF_LONG*8
-        if (uintval >> (PyLong_SHIFT * 1)) {
-            unequal = (size != 2) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
-                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
-        } else
-#endif
-            unequal = (size != 1) || (((unsigned long) digits[0]) != (uintval & (unsigned long) PyLong_MASK));
-        return (unequal == 0);
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = __Pyx_PyFloat_AS_DOUBLE(op1);
-        return ((double)a == (double)b);
-    }
-    return __Pyx_PyObject_IsTrueAndDecref(
-        PyObject_RichCompare(op1, op2, Py_EQ));
-}
 
 /* AllocateExtensionType */
 static PyObject *__Pyx_AllocateExtensionType(PyTypeObject *t, int is_final) {

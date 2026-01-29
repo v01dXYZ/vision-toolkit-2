@@ -34,7 +34,7 @@ class SubsMatch(CharacterBased):
         self.h_2 = NGram(self.s_2, n_w)
 
         dist_ = self.compute_distance()
-        self.sim_ = 1 - dist_
+        self.sim_ = float(np.clip(1.0 - dist_, 0.0, 1.0))
 
         if config["display_results"]:
             print(
@@ -57,26 +57,18 @@ class SubsMatch(CharacterBased):
             print("\n")
 
     def compute_distance(self):
-        """
-
-
-        Returns
-        -------
-        TYPE
-            DESCRIPTION.
-
-        """
-
+        
         t1 = self.h_1.table
         t2 = self.h_2.table
-
-        keys = set(list(t1.keys()) + list(t2.keys()))
-        dist = 0
-
-        for key in keys:
-            dist += abs(t1.get(key, 0.0) - t2.get(key, 0.0))
-
-        return dist / 2
+    
+        # Aucune information exploitable
+        if not t1 or not t2:
+            return 1.0
+    
+        keys = set(t1) | set(t2)
+        dist = sum(abs(t1.get(k, 0.0) - t2.get(k, 0.0)) for k in keys)
+    
+        return 0.5 * dist
 
 
 class SubsMatchSimilarity:

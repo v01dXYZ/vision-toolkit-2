@@ -6,7 +6,7 @@ from scipy.spatial.distance import cdist
 
 
 class DistanceBased:
-    def __init__(self, input, dist_to=False):
+    def __init__(self, input):
         """
 
 

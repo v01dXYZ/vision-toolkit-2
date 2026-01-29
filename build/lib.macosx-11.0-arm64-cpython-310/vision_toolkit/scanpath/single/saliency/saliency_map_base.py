@@ -10,18 +10,14 @@ from vision_toolkit.segmentation.processing.binary_segmentation import BinarySeg
 
 
 class SaliencyMap:
-    """
-    map_type:
-      - "saliency_map": fixation-count density (each fixation = +1)
-      - "absolute_duration_saliency_map": dwell-time density (each fixation = +duration)
-      - "relative_duration_saliency_map": per-scanpath normalized dwell-time, then average (Bojko 2009)
-    """
-
-    def __init__(self, input, map_type="saliency_map", comp_saliency_map=True, **kwargs):
+    
+    def __init__(self, input, comp_saliency_map=True, **kwargs):
         
         verbose = kwargs.get("verbose", True)
         display_results = kwargs.get("display_results", True)
         display_path = kwargs.get("display_path", None)
+        
+        map_type = kwargs.get("saliency_map_type", 'saliency_map')
 
         std = kwargs.get("scanpath_saliency_gaussian_std", 3)
         k_l = kwargs.get("scanpath_saliency_kernel_length", 50)
@@ -169,11 +165,13 @@ class SaliencyMap:
                     (0 <= ys) & (ys < self.p_n_y) &
                     w_mask
                 )
-                coords = zip(xs[mask], ys[mask], w[mask])
-                for x, y, weight in coords:
-                    f_m[y, x] += weight
- 
-        s_m = signal.convolve2d(f_m, kern, mode="same", boundary="symm")
+                np.add.at(f_m, (ys[mask], xs[mask]), w[mask])
+        
+        tot = f_m.sum()
+        if tot > 0:
+            f_m /= tot
+            
+        s_m = signal.convolve2d(f_m, kern, mode="same", boundary="fill", fillvalue=0)
  
         total = s_m.sum()
         if total > 0:
@@ -183,17 +181,26 @@ class SaliencyMap:
 
 
 def scanpath_saliency_map(input, **kwargs):
-    sm = SaliencyMap(input, map_type="saliency_map", **kwargs)
+    
+    kwargs.update({'saliency_map_type': 'saliency_map'})
+    sm = SaliencyMap(input, **kwargs)
+    
     return {"saliency_map": sm.saliency_map}
 
 
 def scanpath_absolute_duration_saliency_map(input, **kwargs):
-    sm = SaliencyMap(input, map_type="absolute_duration_saliency_map", **kwargs)
+    
+    kwargs.update({'saliency_map_type': 'absolute_duration_saliency_map'})
+    sm = SaliencyMap(input, **kwargs)
+    
     return {"absolute_duration_saliency_map": sm.saliency_map}
 
 
 def scanpath_relative_duration_saliency_map(input, **kwargs):
-    sm = SaliencyMap(input, map_type="relative_duration_saliency_map", **kwargs)
+    
+    kwargs.update({'saliency_map_type': 'relative_duration_saliency_map'})
+    sm = SaliencyMap(input, **kwargs)
+    
     return {"relative_duration_saliency_map": sm.saliency_map}
 
 

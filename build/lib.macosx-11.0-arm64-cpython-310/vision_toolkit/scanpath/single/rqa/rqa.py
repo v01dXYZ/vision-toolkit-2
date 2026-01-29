@@ -78,10 +78,10 @@ class RQAAnalysis(RecurrenceBase):
         L = self.scanpath.config["scanpath_RQA_minimum_length"]
 
         # verticales dans r_u (OK)
-        self.v_set = self.find_lines(self.r_u, L, "vertical")
+        self.v_set = self.find_lines(self.r_u, L)
         
         # horizontales = verticales dans r_u.T, puis remap coords (i,j) -> (j,i)
-        h_set_T = self.find_lines(self.r_u.T, L, "vertical")
+        h_set_T = self.find_lines(self.r_u.T, L)
         self.h_set = [line[:, [1, 0]] for line in h_set_T]
 
         ## Compute the set of diagonal lines

@@ -23,7 +23,7 @@ class RecurrenceBase:
             self.n = input.shape[1]
 
 
-    def find_lines(self, r_m, m_l, direction):
+    def find_lines(self, r_m, m_l):
         
         l_set = []
      
@@ -41,15 +41,16 @@ class RecurrenceBase:
                     c_i = list(map(itemgetter(1), g))
                     l = len(c_i)
 
+                    
                     if l >= m_l:
                         ## Add vertical line as an array of (i,j) matrix coordinates
-                        if direction == "vertical":
-                            l_set.append(np.array([c_i, [c] * l]).T)
+                        l_set.append(np.array([c_i, [c] * l]).T)
 
         return l_set
     
 
     def find_diags(self, r_m, m_l, full=False):
+        
         d_set = []
         ## get indices where value is not zero
         t_a = np.argwhere(r_m != 0)
@@ -62,7 +63,7 @@ class RecurrenceBase:
 
         for c in u:
             l_ = list(np.where(t_a[1] == c)[0])
-            o_c = t_a[0][l_]
+            o_c = np.sort(t_a[0][l_])
 
             if len(o_c) >= m_l:
                 for k, g in groupby(enumerate(list(o_c)), lambda ix: ix[0] - ix[1]):

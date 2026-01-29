@@ -62,8 +62,12 @@ def spatial_temp_bin_d(s_1, s_2, temp_bin, x_nb_pixels, y_nb_pixels, x_size, y_s
 
     elem_sizes = np.array([[x_size / x_nb_pixels], [y_size / y_nb_pixels]])
 
-    s_1_b = np.floor(s_1[0:2] / elem_sizes)
-    s_2_b = np.floor(s_2[0:2] / elem_sizes)
+    s_1_b = np.floor(
+        np.minimum(s_1[0:2], np.array([[x_size - 0.001], [y_size - 0.001]])) / elem_sizes
+        )
+    s_2_b = np.floor(
+        np.minimum(s_2[0:2], np.array([[x_size - 0.001], [y_size - 0.001]])) / elem_sizes
+        )
 
     ## We use the following convention: first letter for the row
     ## and second letter for the column

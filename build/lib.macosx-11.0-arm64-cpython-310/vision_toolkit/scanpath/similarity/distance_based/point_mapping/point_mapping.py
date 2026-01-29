@@ -6,7 +6,7 @@ import numpy as np
 
 from vision_toolkit.scanpath.scanpath_base import Scanpath
 from vision_toolkit.scanpath.similarity.distance_based.point_mapping.eye_analysis_distance import EyeAnalysisDistance
-from vision_toolkit.scanpath.similarity.distance_based.point_mapping.mannan_distance import MannanDistance
+from vision_toolkit.scanpath.similarity.distance_based.point_mapping.mannan_distance import MannanSimilarity
 from vision_toolkit.scanpath.similarity.distance_based.point_mapping.TDE_distance import TDEDistance
 from vision_toolkit.segmentation.processing.binary_segmentation import BinarySegmentation
 
@@ -57,8 +57,9 @@ class PointMappingDistance:
                 "Input must be a PointMappingDistance instance or a list of Scanpath, or a list of BinarySegmentation, or a list of csv"
             )
 
-        self.config = scanpaths[0].config
+        self.config = copy.deepcopy(scanpaths[0].config)
         self.config.update({"verbose": verbose})
+        
 
         if "nb_samples" in self.config.keys():
             del self.config["nb_samples"]
@@ -69,7 +70,7 @@ class PointMappingDistance:
         self.dict_methods = dict(
             {
                 "eye_analysis_distance": EyeAnalysisDistance,
-                "mannan_distance": MannanDistance,
+                "mannan_similarity": MannanSimilarity,
                 "TDE_distance": TDEDistance,
             }
         )
@@ -99,7 +100,7 @@ class PointMappingDistance:
 
     def pm_dist_mat(self, distance, config):
         """
-
+        
 
         Parameters
         ----------
@@ -114,23 +115,39 @@ class PointMappingDistance:
             DESCRIPTION.
 
         """
-
         scanpaths = self.scanpaths
         n_sp = self.n_sp
-
         dist_method = self.dict_methods[distance]
-        d_m = np.zeros((n_sp, n_sp))
-
+    
+        d_m = np.zeros((n_sp, n_sp), dtype=float)
+    
+        if distance == "TDE_distance":
+            # matrice complète (asymétrique) : i -> j
+            for i in range(n_sp):
+                for j in range(n_sp):
+                    if i == j:
+                        d_m[i, j] = 0.0
+                        continue
+                    try:
+                        e_a = dist_method([scanpaths[i], scanpaths[j]], config, id_1=str(i), id_2=str(j))
+                        d_m[i, j] = e_a.dist_
+                    except Exception:
+                        d_m[i, j] = np.nan
+            return d_m
+    
+        # distances symétriques  
         for j in range(1, n_sp):
             for i in range(j):
-                e_a = dist_method(
-                    [scanpaths[i], scanpaths[j]], config, id_1=str(i), id_2=str(j)
-                )
-                d_m[i, j] = e_a.dist_
-
+                try:
+                    e_a = dist_method([scanpaths[i], scanpaths[j]], config, id_1=str(i), id_2=str(j))
+                    d_m[i, j] = e_a.sim_ if distance == "mannan_similarity" else e_a.dist_
+                except Exception:
+                    d_m[i, j] = np.nan
+    
         d_m += d_m.T
-
+        
         return d_m
+    
 
     def eye_analysis_distance(self, display_results=True):
         """
@@ -158,7 +175,7 @@ class PointMappingDistance:
 
         return results
 
-    def mannan_distance(self, mannan_nb_random_scanpaths=1000, display_results=True):
+    def mannan_similarity(self, mannan_nb_random_scanpaths=1000, display_results=True):
         """
 
 
@@ -180,14 +197,14 @@ class PointMappingDistance:
 
         config = copy.deepcopy(self.config)
         config.update(
-            {"mannan_distance_nb_random_scanpaths": mannan_nb_random_scanpaths}
+            {"mannan_similarity_nb_random_scanpaths": mannan_nb_random_scanpaths}
         )
 
-        d_m = self.pm_dist_mat("mannan_distance", config)
+        d_m = self.pm_dist_mat("mannan_similarity", config)
 
-        results = dict({"mannan_distance_matrix": d_m})
+        results = dict({"mannan_similarity_matrix": d_m})
         self.verbose(
-            dict({"mannan_distance_nb_random_scanpaths": mannan_nb_random_scanpaths})
+            dict({"mannan_similarity_nb_random_scanpaths": mannan_nb_random_scanpaths})
         )
 
         return results
@@ -257,16 +274,16 @@ def scanpath_eye_analysis_distance(input, **kwargs):
     return results
 
 
-def scanpath_mannan_distance(input, **kwargs):
-    mannan_nb_random_scanpaths = kwargs.get("mannan_distance_nb_random_scanpaths", 1000)
+def scanpath_mannan_similarity(input, **kwargs):
+    mannan_nb_random_scanpaths = kwargs.get("mannan_similarity_nb_random_scanpaths", 1000)
     display_results = kwargs.get("display_results", True)
 
     if isinstance(input, PointMappingDistance):
-        results = input.mannan_distance(mannan_nb_random_scanpaths, display_results)
+        results = input.mannan_similarity(mannan_nb_random_scanpaths, display_results)
 
     else:
         pm_distance = PointMappingDistance(input, **kwargs)
-        results = pm_distance.mannan_distance(
+        results = pm_distance.mannan_similarity(
             mannan_nb_random_scanpaths, display_results
         )
 

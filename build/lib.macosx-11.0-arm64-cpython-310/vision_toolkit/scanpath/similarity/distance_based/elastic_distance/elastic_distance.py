@@ -56,7 +56,7 @@ class ElasticDistance:
                 "Input must be a ElasticDistance instance or a list of Scanpath, or a list of BinarySegmentation, or a list of csv"
             )
 
-        self.config = scanpaths[0].config
+        self.config = copy.deepcopy(scanpaths[0].config)
         self.config.update({"verbose": verbose})
 
         if "nb_samples" in self.config.keys():
@@ -118,10 +118,13 @@ class ElasticDistance:
 
         for j in range(1, n_sp):
             for i in range(j):
-                e_a = dist_method(
-                    [scanpaths[i], scanpaths[j]], config, id_1=str(i), id_2=str(j)
-                )
-                d_m[i, j] = e_a.dist_
+                try:
+                    e_a = dist_method(
+                        [scanpaths[i], scanpaths[j]], config, id_1=str(i), id_2=str(j)
+                    )
+                    d_m[i, j] = e_a.dist_
+                except Exception:
+                    d_m[i, j] = np.nan
 
         d_m += d_m.T
 

@@ -49,6 +49,10 @@ class MultiMatch:
         ## the durations are merged at the beginning of the saccade vector
         self.s_1_s = self.simplification(self.s_1)
         self.s_2_s = self.simplification(self.s_2)
+        
+        if self.s_1_s.shape[1] < 2 or self.s_2_s.shape[1] < 2:
+            self.results = {k: np.nan for k in ["shape","position","angle","length","duration"]}
+            return
 
         ## Compute simplified saccade vectors from simplified scanpaths
         self.v_s_1 = self.s_1_s[0:2, 1:] - self.s_1_s[0:2, :-1]
@@ -89,6 +93,7 @@ class MultiMatch:
 
             self.comp_vis_pairs(id_1, id_2)
 
+
     def simplification(self, s_):
         """
 
@@ -109,18 +114,20 @@ class MultiMatch:
         i = 0
 
         while process:
-            s_n_ = self.amplitude_simplification(s_)
-            s_n_ = self.direction_simplification(s_n_)
-
+            s_n_ = self.direction_simplification(s_)
+            s_n_ = self.amplitude_simplification(s_n_)
+        
             if len(s_n_[0]) == len(s_[0]):
                 process = False
-
+        
+            i += 1
             if i >= self.m_i:
                 process = False
-
+        
             s_ = copy.deepcopy(s_n_)
 
         return s_
+
 
     def amplitude_simplification(self, s_):
         """
@@ -168,6 +175,7 @@ class MultiMatch:
         n_s_ = self.merging(i_c, s_)
 
         return n_s_
+
 
     def direction_simplification(self, s_):
         """
@@ -323,7 +331,8 @@ class MultiMatch:
         v_diff = np.linalg.norm(a_v1 - a_v2, axis=0)
         v_diff /= 2 * self.vf_diag
 
-        return np.mean(v_diff)
+        return np.clip(1.0 - np.mean(v_diff), 0.0, 1.0)
+
 
     def position_diff(self):
         """
@@ -341,7 +350,8 @@ class MultiMatch:
         p_diff = np.linalg.norm(a_s1[0:2] - a_s2[0:2], axis=0)
         p_diff /= self.vf_diag
 
-        return np.mean(p_diff)
+        return np.clip(1.0 - np.mean(p_diff), 0.0, 1.0)
+    
 
     def angle_diff(self):
         """
@@ -359,7 +369,8 @@ class MultiMatch:
         ag_diff = np.array([aad(a_v1[:, i], a_v2[:, i]) for i in range(len(a_v1[0]))])
         ag_diff /= 180
 
-        return np.mean(ag_diff)
+        return np.clip(1.0 - np.mean(ag_diff), 0.0, 1.0)
+    
 
     def length_diff(self):
         """
@@ -377,7 +388,8 @@ class MultiMatch:
         le_diff = np.abs(np.linalg.norm(a_v1, axis=0) - np.linalg.norm(a_v2, axis=0))
         le_diff /= self.vf_diag
 
-        return np.mean(le_diff)
+        return np.clip(1.0 - np.mean(le_diff), 0.0, 1.0)
+    
 
     def duration_diff(self):
         """
@@ -395,13 +407,14 @@ class MultiMatch:
         a_s1, a_s2 = self.aligned_s1s, self.aligned_s2s
 
         norm_ = np.max((a_s1[2].reshape(1, n_a), a_s2[2].reshape(1, n_a)), axis=0)[0]
-
-        du_diff = np.abs(a_s1[2] - a_s2[2])
-        du_diff /= norm_
-
-        return np.mean(du_diff)
+        norm_ = np.maximum(norm_, 1e-12)
+        du_diff = np.abs(a_s1[2] - a_s2[2]) / norm_
+        
+        return np.clip(1.0 - np.mean(du_diff), 0.0, 1.0)
+            
 
     def comp_vis_pairs(self, id_1, id_2):
+        
         a_s1 = self.aligned_s1s[0:2]
         a_s2 = self.aligned_s2s[0:2]
 
@@ -481,9 +494,7 @@ class MultiMatchAlignment:
             np.array([scanpath.config["size_plan_y"] for scanpath in scanpaths])
         )
 
-        vf_diag = np.linalg.norm(
-            np.array([self.config["size_plan_x"], self.config["size_plan_y"]])
-        )
+        vf_diag = np.linalg.norm(np.array([x_size_max, y_size_max]))
 
         self.config.update(
             {

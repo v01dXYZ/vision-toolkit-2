@@ -3,64 +3,49 @@
 import numpy as np
 
 from vision_toolkit.scanpath.similarity.distance_based.distance_based_base import DistanceBased
-
+ 
 
 class TDEDistance(DistanceBased):
     def __init__(self, input, config, id_1, id_2):
-        super().__init__(input, dist_to=False)
+        super().__init__(input)
 
-        self.method = config["TDE_distance_method"]
-        k = config["TDE_distance_subsequence_length"]
-        scaling = config["TDE_distance_scaling"]
+        method = config.get("TDE_distance_method", "mean_minimal")  # "mean_minimal" or "hausdorff"
+        k = int(config.get("TDE_distance_subsequence_length", 5))
+        scaling = bool(config.get("TDE_distance_scaling", True))
+
+        if k < 1 or k > min(self.n_1, self.n_2):
+            self.dist_ = np.nan
+            return
+
+        s1 = self.s_1[0:2].astype(float)
+        s2 = self.s_2[0:2].astype(float)
 
         if scaling:
-            l = max(
-                np.max(self.s_1[0]),
-                np.max(self.s_1[1]),
-                np.max(self.s_2[0]),
-                np.max(self.s_2[1]),
-            )
+            # normalisation simple (optionnelle) : mettre dans [0,1] approx via max coord
+            L = max(np.max(s1), np.max(s2))
+            if L > 0:
+                s1 = s1 / L
+                s2 = s2 / L
 
-            s_1_n = self.s_1[0:2] / l
-            s_2_n = self.s_2[0:2] / l
+        # construit les sous-séquences de longueur k
+        u1 = np.array([s1[:, i:i+k] for i in range(self.n_1 - k + 1)])  # shape: (N1-k+1, 2, k)
+        u2 = np.array([s2[:, j:j+k] for j in range(self.n_2 - k + 1)])  # shape: (N2-k+1, 2, k)
 
-            n = min(self.n_1, self.n_2)
-            tde = np.zeros(n)
+        self.dist_ = float(self._tde_k(u1, u2, k, method))
 
-            for _k in range(1, n + 1):
-                u_1_cal = np.array(
-                    [list(s_1_n[:, i : i + _k]) for i in range(self.n_1 - _k + 1)]
-                )
-                u_2_cal = np.array(
-                    [list(s_2_n[:, i : i + _k]) for i in range(self.n_2 - _k + 1)]
-                )
-                tde[_k - 1] = self.TDE(_k, u_1_cal, u_2_cal)
+    @staticmethod
+    def _tde_k(u1, u2, k, method):
+    
+        d = np.empty(u1.shape[0], dtype=float)
 
-            self.dist_ = np.exp(-np.sum(tde) / n)
+        for i in range(u1.shape[0]):
+            # distances à toutes les fenêtres de u2
+            diffs = u2 - u1[i]                     # (N2-k+1, 2, k)
+            norms = np.linalg.norm(diffs, axis=(1, 2))  # (N2-k+1,)
+            d[i] = np.min(norms) / float(k)        # normalisation /k  
 
-        else:
-            u_1_cal = np.array(
-                [list(self.s_1[0:2, i : i + k]) for i in range(self.n_1 - k + 1)]
-            )
-            u_2_cal = np.array(
-                [list(self.s_2[0:2, i : i + k]) for i in range(self.n_2 - k + 1)]
-            )
-
-            self.dist_ = self.TDE(k, u_1_cal, u_2_cal)
-
-    def TDE(self, k, u_1_cal, u_2_cal):
-        d = np.zeros(self.n_1 - k + 1)
-
-        n_1 = self.n_1
-        n_2 = self.n_2
-
-        for i in range(n_1 - k + 1):
-            w_v = [np.linalg.norm(u_1_cal[i] - u_2_cal[j]) for j in range(n_2 - k + 1)]
-
-            d[i] = min(w_v)
-
-        if self.method == "mean_minimal":
-            return np.sum(d) / self.n_1
-
-        elif self.method == "hausdorff":
+        if method == "hausdorff":
             return np.max(d)
+        
+        else:   
+            return np.mean(d)

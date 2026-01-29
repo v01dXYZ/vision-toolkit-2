@@ -32,7 +32,7 @@ class CRQAAnalysis(RecurrenceBase):
             print("Processing CRQA Analysis...\n")
 
         
-        assert isinstance(input, list), "Input must be a list of two .csv, BinarySegmentation, or Scanpath"
+        assert isinstance(input, list) and len(input) == 2, "Input must be a list of two .csv, BinarySegmentation, or Scanpath"
         
         if isinstance(input[0], str):
             self.scanpath_1 = Scanpath.generate(input[0], **kwargs)
@@ -81,13 +81,11 @@ class CRQAAnalysis(RecurrenceBase):
          
         # Compute the set of vertical lines
         self.v_set = self.find_lines(self.r_m, 
-                                     self.scanpath_1.config["scanpath_CRQA_minimum_length"],
-                                     'vertical')
+                                     self.scanpath_1.config["scanpath_CRQA_minimum_length"])
         
         # Compute the set of horizontal lines
         self.h_set = self.find_lines(self.r_m.T, 
-                                     self.scanpath_1.config["scanpath_CRQA_minimum_length"],
-                                     'horizontal')
+                                     self.scanpath_1.config["scanpath_CRQA_minimum_length"])
     
        
         # Compute the set of diagonal lines
@@ -152,7 +150,11 @@ class CRQAAnalysis(RecurrenceBase):
         for l_ in set_:    
             s_l += len(l_)
             
-        lam = 100 * s_l/np.sum(self.r_m)
+        den = np.sum(self.r_m)
+        if den == 0:
+            return {"CRQA_laminarity": 0.0}
+        
+        lam = 100 * s_l/den
             
         if self.scanpath_1.config["display_results"]:
             plot_CRQA_laminarity(self.r_m, set_, self.scanpath_1.config['display_path'])
@@ -179,7 +181,10 @@ class CRQAAnalysis(RecurrenceBase):
         for l_ in set_:    
             s_d += len(l_)
             
-        det = (100 * s_d)/np.sum(self.r_m)
+        den = np.sum(self.r_m)
+        if den == 0:
+            return {"CRQA_determinism": 0.0}
+        det = (100 * s_d)/den
             
         if self.scanpath_1.config["display_results"]:
             plot_CRQA_determinism(self.r_m, self.d_set, self.scanpath_1.config['display_path'])

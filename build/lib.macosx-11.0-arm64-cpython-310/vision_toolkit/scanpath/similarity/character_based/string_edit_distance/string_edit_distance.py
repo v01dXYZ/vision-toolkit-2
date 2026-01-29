@@ -58,7 +58,7 @@ class ScanpathStringEditDistance:
                 "Input must be a StringEditDistance instance or a list of Scanpath, or a list of BinarySegmentation, or a list of csv"
             )
 
-        self.config = scanpaths[0].config
+        self.config = copy.deepcopy(scanpaths[0].config)
         self.config.update({"verbose": verbose})
 
         ## Keep max x and y sizes for gaze visual field
