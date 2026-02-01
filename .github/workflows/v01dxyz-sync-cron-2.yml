@@ -1,0 +1,10 @@
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+    - cron: '*/5 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 5
